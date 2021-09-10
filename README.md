@@ -1,2 +1,1 @@
-# Authenticate-me
-
+# Welcome to Kickr!
