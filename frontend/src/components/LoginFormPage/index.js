@@ -1,4 +1,3 @@
-// frontend/src/components/LoginFormPage/index.js
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +11,7 @@ function LoginFormPage() {
 
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    
+
     if (sessionUser) return <Redirect to="/" />;
 
     const handleSubmit = (e) => {

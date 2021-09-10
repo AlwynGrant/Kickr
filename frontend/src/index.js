@@ -13,7 +13,6 @@ import configureStore from './store';
 
 const store = configureStore();
 
-//Set up to only show in development, NEVER expose to production
 if (process.env.NODE_ENV !== 'production') {
   restoreCSRF();
 
