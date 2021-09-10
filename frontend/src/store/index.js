@@ -2,12 +2,10 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import sessionReducer from './session';
 
-//Root Reducer
 const rootReducer = combineReducers({
    session: sessionReducer
 });
 
-// Change depending on if in production or development
 let enhancer;
 
 if (process.env.NODE_ENV === 'production') {
@@ -19,7 +17,6 @@ if (process.env.NODE_ENV === 'production') {
     enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 }
 
-// Will use this function to attach Redux store to React app
 const configureStore = (preloadedState) => {
     return createStore(rootReducer, preloadedState, enhancer);
 };

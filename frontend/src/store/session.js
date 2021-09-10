@@ -7,6 +7,7 @@ const REMOVE_USER = 'session/removeUser';
 const setUser = (user) => { return { type: SET_USER, payload: user } };
 const removeUser = () => { return { type: REMOVE_USER } };
 
+
 export const signup = (user) => async (dispatch) => {
     const { username, email, password } = user;
     const response = await csrfFetch("/api/users", {
@@ -22,6 +23,7 @@ export const signup = (user) => async (dispatch) => {
     return response;
 };
 
+
 export const login = (user) => async (dispatch) => {
     const { credential, password } = user;
     const response = await csrfFetch('/api/session', {
@@ -36,13 +38,15 @@ export const login = (user) => async (dispatch) => {
     return response;
 };
 
-// export const logout = () => async (dispatch) => {
-//     const response = await csrfFetch('/api/session', {
-//         method: 'POST'
-//     })
-//     dispatch(removeUser());
-//     return response;
-// }
+
+export const logout = () => async (dispatch) => {
+    const response = await csrfFetch('/api/session', {
+        method: 'DELETE'
+    })
+    dispatch(removeUser());
+    return response;
+}
+
 
 export const restoreUser = () => async dispatch => {
     const response = await csrfFetch('/api/session');
@@ -50,6 +54,8 @@ export const restoreUser = () => async dispatch => {
     dispatch(setUser(data.user));
     return response;
 };
+
+
 
 
 const sessionReducer = (state = { user: null }, action) => {
@@ -67,5 +73,6 @@ const sessionReducer = (state = { user: null }, action) => {
             return state;
     }
 };
+
 
 export default sessionReducer;
