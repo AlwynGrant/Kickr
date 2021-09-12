@@ -5,9 +5,9 @@ import { Redirect } from 'react-router-dom';
 import './LoginForm.css';
 
 function LoginFormPage() {
-    const [credential, setCredential] = useState('');
-    const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState([]);
+    const [credential, setCredential] = useState('')
+    const [password, setPassword] = useState('')
+    const [errors, setErrors] = useState([])
 
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
