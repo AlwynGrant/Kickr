@@ -29,10 +29,10 @@ function Navigation({ isLoaded }) {
     return (
             <div className='global-navbar'>
                 <div className='link-home'>
-                    <NavLink exact to="/" className='link home'>Home</NavLink>
+                    <NavLink exact to="/" className='link home'>Kickr</NavLink>
                 </div>
                 <div className='search-bar'>
-                    <input value='search...'></input>
+                    <input value='search...' className='search-input'></input>
                 </div>
                 {isLoaded && sessionLinks}
             </div>

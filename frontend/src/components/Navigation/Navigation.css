@@ -7,26 +7,55 @@
 .link-login {
     align-self: center;
     padding: 3px;
+    margin: 5px;
+}
+
+.login {
+    color: white
 }
 
 .link-signup {
     align-self: center;
     padding: 3px;
+    border: 2px solid white;
+    border-radius: 3px;
+    background: white;
 }
 
+.signup {
+    color: black
+}
+
+.link-signup:hover {
+    box-shadow: 1px 1px;
+}
+
+.signup:hover {
+    color: grey;
+}
 .link-home {
     align-self: center;
-    padding: 3px;
+    padding: 5px;
 }
 
 .home {
     text-decoration: none;
+    color: black;
 }
 
 .search-bar {
     align-self: center;
     padding: 10px;
     flex-grow: 2;
+}
+
+.search-input {
+    width: 100%;
+    border: none;
+    border: 1px solid black;
+    border-radius: 8px;
+    color: grey;
+    background-color: whitesmoke;
 }
 
 .login {
