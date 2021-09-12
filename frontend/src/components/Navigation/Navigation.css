@@ -1,0 +1,38 @@
+.global-navbar {
+    display: flex;
+    background: grey;
+    height: 60px;
+}
+
+.link-login {
+    align-self: center;
+    padding: 3px;
+}
+
+.link-signup {
+    align-self: center;
+    padding: 3px;
+}
+
+.link-home {
+    align-self: center;
+    padding: 3px;
+}
+
+.home {
+    text-decoration: none;
+}
+
+.search-bar {
+    align-self: center;
+    padding: 10px;
+    flex-grow: 2;
+}
+
+.login {
+    text-decoration: none;
+}
+
+.signup {
+    text-decoration: none;
+}
