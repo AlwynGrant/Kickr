@@ -1,0 +1,119 @@
+html {
+    /* background-image: url(login-image/soccer-example-image.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+.root {
+    height: 100%;
+    width: 100%;
+}
+
+.signup-form-body {
+    display: flex;
+    height: 90vh;
+    width: 90vw;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.signup-form {
+    display: flex;
+    border: 1px solid rgb(246, 246, 246);
+    border-radius: 6px;
+    background-color: rgb(251, 251, 251);
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.3);
+    width: 350px;
+    height: 500px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signup-form-heading {
+    margin: 20px 0px 20px 0px;
+    font-weight: 700;
+}
+
+.email {
+    background-color: whitesmoke;
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 4px;
+    margin: 5px 0px 5px 0px;
+    width: 225px;
+    height: 30px;
+}
+
+.email:hover {
+    background-color: white;
+}
+
+.username {
+    background-color: whitesmoke;
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 4px;
+    margin: 5px 0px 5px 0px;
+    width: 225px;
+    height: 30px;
+}
+
+.username:hover {
+    background-color: white;
+}
+
+.password {
+    background-color: whitesmoke;
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 4px;
+    margin: 5px 0px 5px 0px;
+    width: 225px;
+    height: 30px;
+}
+
+.password:hover {
+    background-color: white;
+}
+
+.confirm-password {
+    background-color: whitesmoke;
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 4px;
+    margin: 5px 0px 5px 0px;
+    width: 225px;
+    height: 30px;
+}
+
+.confirm-password:hover {
+    background-color: white;
+}
+
+.submit-signup {
+    margin: 20px 0px 20px 0px;
+    width: 225px;
+    height: 30px;
+    border: 1px solid #128fdc;
+    border-radius: 4px;
+    background-color: #128fdc;
+    color: white;
+}
+
+.submit-signup:hover {
+    border: 1px solid #26a4f3;
+    background-color: #26a4f3;
+}
+
+.login-redirect {
+    text-decoration: none;
+    color: #006dac;
+    font-size: small;
+}
+
+.singup-footer {
+    font-size: small;
+}

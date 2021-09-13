@@ -42,7 +42,7 @@ function LoginFormPage() {
                 </label>
                 <button className='submit-login' type="submit">Log In</button>
                 <label className='login-footer'>
-                    Already a Kicker? <NavLink className='signup-redirect'to='/signup'>Log in here.</NavLink>
+                    Not a Kicker? <NavLink className='signup-redirect'to='/signup'>Sign up here.</NavLink>
                 </label>
             </form>
         </div>
