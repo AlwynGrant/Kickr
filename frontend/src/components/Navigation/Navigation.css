@@ -1,6 +1,6 @@
 .global-navbar {
     display: flex;
-    background: grey;
+    background-color: rgba(0,0,0,0.5);
     height: 60px;
 }
 
@@ -40,7 +40,7 @@
 
 .home {
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 .search-bar {

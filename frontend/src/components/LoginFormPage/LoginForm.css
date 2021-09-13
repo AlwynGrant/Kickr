@@ -26,10 +26,68 @@ body {
 
 .login-form {
     display: flex;
-    border: 1px solid black;
-    background-color: white;
+    border: 1px solid rgb(246, 246, 246);
+    border-radius: 6px;
+    background-color: rgb(251, 251, 251);
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.3);
     width: 350px;
-    height: 300px;
+    height: 350px;
     flex-direction: column;
     align-items: center;
+}
+
+.login-form-heading {
+    margin: 20px 0px 20px 0px;
+    font-weight: 700;
+}
+
+.username {
+    background-color: whitesmoke;
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 4px;
+    margin: 5px 0px 5px 0px;
+    width: 225px;
+    height: 30px;
+}
+
+.username:hover {
+    background-color: white;
+}
+
+.password {
+    background-color: whitesmoke;
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 4px;
+    margin: 5px 0px 5px 0px;
+    width: 225px;
+    height: 30px;
+}
+
+.password:hover {
+    background-color: white;
+}
+
+.submit-login {
+    margin: 20px 0px 20px 0px;
+    width: 225px;
+    height: 30px;
+    border: 1px solid #128fdc;
+    border-radius: 4px;
+    background-color: #128fdc;
+    color: white;
+}
+
+.submit-login:hover {
+    border: 1px solid #26a4f3;
+    background-color: #26a4f3;
+}
+
+.signup-redirect {
+    text-decoration: none;
+    color: #006dac;
+    font-size: small;
+}
+
+.login-footer {
+    font-size: small;
 }
