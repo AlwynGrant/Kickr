@@ -28,7 +28,7 @@ router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
             const err = new Error('Login failed');
             err.status = 401;
             err.title = 'Login failed';
-            err.errors = ['The provided credentials were invalid.'];
+            err.errors = ['The username or password is invalid.'];
             return next(err);
         }
 
@@ -39,6 +39,7 @@ router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
         });
     }),
 );
+
 //Logout
 router.delete('/', (_req, res) => {
         res.clearCookie('token');
@@ -56,5 +57,14 @@ router.get('/', restoreUser, (req, res) => {
         } else return res.json({});
     }
 );
+
+// Demo user
+router.post('/login/demo', asyncHandler(async (req, res) => {
+    const demoData = await User.findByPk(1);
+    const user = await User.login({ username: demoData.username, password: demoData.hashedPassword });
+    await setTokenCookie(res, user);
+
+    return res.json({ user });
+}))
 
 module.exports = router;
