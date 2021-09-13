@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
   User.associate = function (models) {
-    // associations
+    // association
   };
 
   User.prototype.toSafeObject = function () {
