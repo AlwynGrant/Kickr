@@ -37,20 +37,48 @@ function SignupFormPage() {
                     { errors.map((error, idx) => <li key={idx}>{error}</li>) }
                 </ul>
                 <label className='email-input'>
-                    Email<br></br>
-                    <input className='email' type="text" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+                    <br></br>
+                    <input
+                        className='email'
+                        type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder='Email'
+                        required
+                    />
                 </label>
                 <label className='username-input'>
-                    Username<br></br>
-                    <input className='username' type="text" value={username} onChange={(e) => setUsername(e.target.value)} required/>
+                    <br></br>
+                    <input
+                        className='username'
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder='Username'
+                        required
+                    />
                 </label>
                 <label className='password-input'>
-                    Password<br></br>
-                    <input className='password' type="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                    <br></br>
+                    <input
+                        className='password'
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder='Password'
+                        required
+                    />
                 </label>
                 <label className='confirm-password-input'>
-                    Confirm Password<br></br>
-                    <input className='confirm-password' type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/>
+                    <br></br>
+                    <input
+                        className='confirm-password'
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder='Confirm Password'
+                        required
+                    />
                 </label>
                 <button className='submit-signup' type="submit">Sign Up</button>
                 <label className='singup-footer'>

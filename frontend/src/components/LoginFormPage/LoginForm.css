@@ -82,6 +82,21 @@ body {
     background-color: #26a4f3;
 }
 
+.submit-demo {
+    margin: 20px 0px 20px 0px;
+    width: 225px;
+    height: 30px;
+    border: 1px solid #128fdc;
+    border-radius: 4px;
+    background-color: #128fdc;
+    color: white;
+}
+
+.submit-demo:hover {
+    border: 1px solid #26a4f3;
+    background-color: #26a4f3;
+}
+
 .signup-redirect {
     text-decoration: none;
     color: #006dac;
