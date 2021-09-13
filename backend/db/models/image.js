@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     imageUrl: {
       allowNull: false,
-      Type: DataTypes.STRING
+      Type: DataTypes.STRING(255)
     },
     description: {
       allowNull: false,
-      Type: DataTypes.STRING
+      Type: DataTypes.TEXT
     }
   }, {});
   Image.associate = function(models) {
