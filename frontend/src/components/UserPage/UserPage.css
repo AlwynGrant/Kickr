@@ -1,0 +1,12 @@
+/* html {
+    background-image: none;
+} */
+
+.user-container {
+    display: flex;
+    border: 2px solid white;
+    background-color: white;
+    width: 200px;
+    height: 100px;
+    align-self: center;
+}

@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import '../../reset.css'
 import './LandingPage.css'
 
@@ -7,7 +7,7 @@ import './LandingPage.css'
 function LandingPage() {
     const sessionUser = useSelector(state => state.session.user);
 
-    // if (sessionUser) return <Redirect to="/user" />;
+    if (sessionUser) return <Redirect to="/user" />;
 
     return (
     <>
