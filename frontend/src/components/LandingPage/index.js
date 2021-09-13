@@ -1,15 +1,10 @@
-import React, { useState } from 'react';
-import * as sessionActions from '../../store/session';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { NavLink, Link, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import '../../reset.css'
 import './LandingPage.css'
 
 
 function LandingPage() {
-    const history = useHistory();
-    const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
 
     // if (sessionUser) return <Redirect to="/user" />;
