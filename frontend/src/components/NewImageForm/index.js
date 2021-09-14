@@ -19,7 +19,7 @@ function NewImageForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newImage = { url, description }
+        const newImage = { imageUrl: url, description }
         console.log(newImage)
         await dispatch(newImageActions.createImage(newImage));
     }
