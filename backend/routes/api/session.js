@@ -58,13 +58,10 @@ router.get('/', restoreUser, (req, res) => {
     }
 );
 
-// Demo user
-router.post('/login/demo', asyncHandler(async (req, res) => {
-    const demoData = await User.findByPk(1);
-    const user = await User.login({ username: demoData.username, password: demoData.hashedPassword });
-    await setTokenCookie(res, user);
-
-    return res.json({ user });
-}))
+// test route = WORKS
+// router.get('/test', asyncHandler(async (req, res) => {
+//     const users = await User.findByPk(1);
+//     return res.json(users);
+// }));
 
 module.exports = router;
