@@ -30,7 +30,6 @@ function LoginFormPage() {
     const handleSubmitDEMO = async (e) => {
         e.preventDefault();
         await dispatch(sessionActions.login({ credential: 'demodude', password: 'password' }));
-        history.push('/');
     }
 
     return (
@@ -63,7 +62,7 @@ function LoginFormPage() {
                     />
                 </label>
                 <button className='submit-login' type="submit">Log In</button>
-                <NavLink className='submit-demo'  to='/' onClick={handleSubmitDEMO}>Demo User</NavLink>
+                <NavLink className='submit-demo' to='/' onClick={handleSubmitDEMO}>Demo User</NavLink>
 
                 <label className='login-footer'>
                     Not a Kicker? <NavLink className='signup-redirect'to='/signup'>Sign up here.</NavLink>
