@@ -6,12 +6,12 @@ const EDIT_IMAGE = 'users/EDIT_IMAGE';
 const REMOVE_IMAGE = 'users/REMOVE_IMAGE';
 
 
-// Define Action Creators
+// Define Action Creator(s)
 const addImage = (image) => ({ type: ADD_IMAGE, payload: image});
 const editImage = (image) => ({ type: EDIT_IMAGE, payload: image });
 const removeImage = () => ({ type: REMOVE_IMAGE })
 
-// Define Thunks
+// Define Thunk(s)
 export const createImage = (image) => async (dispatch) => {
     const { imageUrl, description } = image;
     const response = await csrfFetch('/api/image', {
@@ -21,7 +21,7 @@ export const createImage = (image) => async (dispatch) => {
             description
         })
     });
-
+    
     if(response.ok) {
         const data = await response.json();
         dispatch(addImage(data));
@@ -44,7 +44,6 @@ const imageReducer = (state = initialState, action) => {
             return state;
     }
 }
-
 
 // Export the reducer
 export default imageReducer;

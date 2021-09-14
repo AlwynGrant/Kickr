@@ -7,6 +7,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import UserPage from "./components/UserPage";
+import NewImageForm from "./components/NewImageForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +34,9 @@ function App() {
           </Route>
           <Route path='/user'>
             <UserPage />
+          </Route>
+          <Route path='/image'>
+            <NewImageForm />
           </Route>
         </Switch>
       )}
