@@ -19,8 +19,7 @@ function NewImageForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newImage = { imageUrl: url, description }
-        console.log(newImage)
+        const newImage = { userId: sessionUser.id, description, imageUrl: url  }
         await dispatch(newImageActions.createImage(newImage));
     }
 

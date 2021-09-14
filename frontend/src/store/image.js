@@ -13,10 +13,11 @@ const removeImage = () => ({ type: REMOVE_IMAGE })
 
 // Define Thunk(s)
 export const createImage = (image) => async (dispatch) => {
-    const { imageUrl, description } = image;
+    const { userId, imageUrl, description } = image;
     const response = await csrfFetch('/api/image', {
         method: 'POST',
         body: JSON.stringify({
+            userId,
             imageUrl,
             description
         })
