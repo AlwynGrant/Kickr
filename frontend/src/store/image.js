@@ -21,7 +21,7 @@ export const createImage = (image) => async (dispatch) => {
             description
         })
     });
-    
+
     if(response.ok) {
         const data = await response.json();
         dispatch(addImage(data));
@@ -38,7 +38,7 @@ const imageReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_IMAGE:
             newState = Object.assign({}, state);
-            newState.newImage = action.image;
+            newState.newImage = action.payload;
             return newState;
         default:
             return state;
