@@ -16,12 +16,12 @@ const validateImage = [
 router.post("/", validateImage , asyncHandler(async (req, res) => {
 
     const { userId, imageUrl, description } = req.body;
-    const image = await Image.build({ imageUrl, description });
+    const image = await Image.build({ userId, imageUrl, description });
     const validationErrors = validationResult(req);
 
         if (validationErrors.isEmpty()) {
             await image.save();
-            return res.redirect('/user');
+            return res.json(image);
         } else {
             const errors = validationErrors.array().map((error) => error.msg);
             return res.json(errors)

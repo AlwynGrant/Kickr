@@ -11,7 +11,7 @@ function UserPage() {
 
     return (
             <div className='user-container'>
-                <NavLink to='/new-image'>Upload new Image</NavLink>
+                <NavLink to='/image'>Upload new Image</NavLink>
             </div>
     );
 }
