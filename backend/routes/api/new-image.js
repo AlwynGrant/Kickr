@@ -12,26 +12,18 @@ const validateImage = [
     handleValidationErrors
 ];
 
-router.post("/new", validateImage, asyncHandler(async (req, res) => {
-    //check if the user is logged in, if not-- redirect
-    // -- have this checked in frontend!
+// new image
+router.post("/", validateImage, asyncHandler(async (req, res) => {
 
-    //parse the request body
     const { imageUrl, description } = req.body;
-    //build a new image using the parsed data
     const image = await Image.build({ imageUrl, description });
-    //erect validations as a constant
     const validationErrors = validationResult(req);
-    //check if validations are empty
+
     if (validationErrors.isEmpty()) {
-        //if so, save the new image
         await image.save();
-        //redirect
         return res.redirect('/user');
     } else {
-        //if not, create an errors array
         const errors = validationErrors.array().map((error) => error.msg);
-        // send back errors
         return res.json(errors)
     }
 }))
