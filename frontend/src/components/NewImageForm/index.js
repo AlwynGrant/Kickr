@@ -11,16 +11,19 @@ function NewImageForm() {
     const [url, setUrl] = useState('')
     const [description, setDescription] = useState('')
 
+    const history = useHistory();
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    const images = useSelector(state => state.image);
+    // const images = useSelector(state => state.image);
 
     if (!sessionUser) return <Redirect to="/" />;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newImage = { userId: sessionUser.id, description, imageUrl: url  }
+        const newImage = { userId: sessionUser.id, description, imageUrl: url }
         await dispatch(newImageActions.createImage(newImage));
+
+        history.push('/user');
     }
 
     return (
