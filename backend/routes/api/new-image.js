@@ -8,11 +8,11 @@ const router = express.Router();
 const validateImage = [
     check('imageUrl')
         .exists({ checkFalsy: true })
-        .withMessage('Please provide a valid url.')
+        .withMessage('Please provide a valid url.'),
+    handleValidationErrors
 ];
 
-
-router.post("/", validateImage, asyncHandler(async (req, res) => {
+router.post("/new", validateImage, asyncHandler(async (req, res) => {
     //check if the user is logged in, if not-- redirect
     // -- have this checked in frontend!
 
