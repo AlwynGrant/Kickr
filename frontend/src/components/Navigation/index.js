@@ -32,7 +32,7 @@ function Navigation({ isLoaded }) {
                     <NavLink exact to="/" className='link home'>Kickr</NavLink>
                 </div>
                 <div className='search-bar'>
-                    <input value='search...' className='search-input'></input>
+                    {/* <input value='search...' className='search-input'></input> */}
                 </div>
                 {isLoaded && sessionLinks}
             </div>

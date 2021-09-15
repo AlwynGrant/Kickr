@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { NavLink, Redirect } from 'react-router-dom';
 import '../../reset.css'
 import './LoginForm.css';
@@ -11,7 +10,6 @@ function LoginFormPage() {
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState([])
 
-    const history = useHistory();
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
 
