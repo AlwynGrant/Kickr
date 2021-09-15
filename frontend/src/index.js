@@ -8,6 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import App from './App';
 import * as sessionActions from './store/session';
+import * as newImageActions from './store/image';
 
 import configureStore from './store';
 
@@ -19,6 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
   window.csrfFetch = csrfFetch;
   window.store = store;
   window.sessionActions = sessionActions;
+  window.newImageActions = newImageActions;
 }
 
 function Root() {

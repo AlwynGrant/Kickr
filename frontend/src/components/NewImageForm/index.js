@@ -22,8 +22,7 @@ function NewImageForm() {
         e.preventDefault();
         const newImage = { userId: sessionUser.id, description, imageUrl: url }
         await dispatch(newImageActions.createImage(newImage));
-
-        history.push('/user');
+        history.push(`/user/${sessionUser.id}`);
     }
 
     return (

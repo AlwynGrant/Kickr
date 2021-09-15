@@ -6,9 +6,11 @@
 }
 
 .landing-container {
+    background-color: black;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-self: center;
     align-items: center;
     text-align: center;
     height: 90vh;

@@ -1,17 +1,25 @@
 import { csrfFetch } from './csrf';
 
-// Define Action Types as Constants
+// --------------------------- Defined Action Types as Constants ---------------------
+
+// const GET_IMAGE = 'users/GET_IMAGE'
+const GET_IMAGES = 'users/GET_IMAGE'
 const ADD_IMAGE = 'users/ADD_IMAGE';
-const EDIT_IMAGE = 'users/EDIT_IMAGE';
-const REMOVE_IMAGE = 'users/REMOVE_IMAGE';
+// const EDIT_IMAGE = 'users/EDIT_IMAGE';
+// const REMOVE_IMAGE = 'users/REMOVE_IMAGE';
 
 
-// Define Action Creator(s)
-const addImage = (image) => ({ type: ADD_IMAGE, payload: image});
-const editImage = (image) => ({ type: EDIT_IMAGE, payload: image });
-const removeImage = () => ({ type: REMOVE_IMAGE })
+// --------------------------- Defined Action Creator(s) --------------------------
 
-// Define Thunk(s)
+// const getImage = (image) => ({ type: GET_IMAGE, payload: image });
+const getImages = (image) => ({ type: GET_IMAGES, image });
+const addImage = (image) => ({ type: ADD_IMAGE, image });
+// const editImage = (image) => ({ type: EDIT_IMAGE, payload: image });
+// const removeImage = () => ({ type: REMOVE_IMAGE })
+
+// ---------------------------  Defined Thunk(s) --------------------------------
+
+// create image
 export const createImage = (image) => async (dispatch) => {
     const { userId, imageUrl, description } = image;
     const response = await csrfFetch('/api/image', {
@@ -30,6 +38,19 @@ export const createImage = (image) => async (dispatch) => {
     };
 };
 
+// get image(s)
+export const listImages = (userId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/users/${userId}`, {
+        method: 'GET'
+    });
+
+    if (response.ok) {
+        const images = await response.json();
+        dispatch(getImages(images));
+    }
+}
+
+
 // Define an initial state
 const initialState = {};
 
@@ -39,7 +60,11 @@ const imageReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_IMAGE:
             newState = Object.assign({}, state);
-            newState.newImage = action.payload;
+            newState = action.image;
+            return newState;
+        case GET_IMAGES:
+            newState = Object.assign({}, state);
+            newState = action.image;
             return newState;
         default:
             return state;
