@@ -29,5 +29,23 @@ router.post("/", validateImage , asyncHandler(async (req, res) => {
         }
 }))
 
+// edit image content
+router.patch('/:id(\\d+)/edit', asyncHandler(async (req, res) => {
+    const { description } = req.body;
+    const imageId = parseInt(req.params.id, 10);
+    const image = await Image.findByPk(imageId);
+    await image.update({ description });
+    return res.json(image);
+}));
+
+// delete image
+router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
+    const imageId = parseInt(req.params.id, 10);
+    const image = await Image.findByPk(imageId);
+    // const { imageId } = image;
+    await image.destroy();
+    return res.json({ deleted: 'deleted!' })
+}));
+
 
 module.exports = router;
