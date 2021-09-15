@@ -11,8 +11,8 @@ const REMOVE_IMAGE = 'users/REMOVE_IMAGE';
 
 // --------------------------- Defined Action Creator(s) --------------------------
 
-const getImage = () => ({ type: GET_IMAGE });
-const getImages = () => ({ type: GET_IMAGES });
+const getImage = (image) => ({ type: GET_IMAGE, payload: image });
+const getImages = (image) => ({ type: GET_IMAGES, payload: image });
 const addImage = (image) => ({ type: ADD_IMAGE, payload: image});
 const editImage = (image) => ({ type: EDIT_IMAGE, payload: image });
 const removeImage = () => ({ type: REMOVE_IMAGE })
@@ -38,6 +38,20 @@ export const createImage = (image) => async (dispatch) => {
     };
 };
 
+// get image(s)
+export const listImages = (userId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/users/${userId}`, {
+        method: 'GET'
+    });
+
+    if (response.ok) {
+        const images = await response.json();
+        console.log(images)
+        dispatch(getImages(images));
+    }
+}
+
+
 // Define an initial state
 const initialState = {};
 
@@ -48,6 +62,10 @@ const imageReducer = (state = initialState, action) => {
         case ADD_IMAGE:
             newState = Object.assign({}, state);
             newState.newImage = action.payload;
+            return newState;
+        case GET_IMAGES:
+            newState = Object.assign({}, state);
+            newState.images = action.payload;
             return newState;
         default:
             return state;

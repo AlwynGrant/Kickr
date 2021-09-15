@@ -12,6 +12,11 @@ function UserPage() {
     return (
             <div className='user-container'>
                 <NavLink to='/image'>Upload new Image</NavLink>
+                <div>
+                    {
+                        // TODO: MAP OUT IMAGES ONCE THIS COMPONENT HAS ACCESS TO THEM
+                    }
+                </div>
             </div>
     );
 }

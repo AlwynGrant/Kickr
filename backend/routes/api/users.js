@@ -5,7 +5,7 @@ const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Image } = require('../../db/models');
 
 const validateSignup = [
     check('email')
@@ -44,9 +44,9 @@ router.post('/', validateSignup, asyncHandler(async (req, res) => {
 // get all images
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
-    const user = await User.findByPk(userId);
+    // const user = await User.findByPk(userId);
 
-    const images = await Images.findAll({
+    const images = await Image.findAll({
         where: { userId }
     })
     return res.json({ images })
