@@ -41,10 +41,10 @@ router.post('/', validateSignup, asyncHandler(async (req, res) => {
     }),
 );
 
-// test route
-router.get('/test', asyncHandler(async (req, res) => {
-    const users = await User.findAll();
-    return res.json(users);
-}));
+// // test route
+// router.get('/test', asyncHandler(async (req, res) => {
+//     const users = await User.findAll();
+//     return res.json(users);
+// }));
 
 module.exports = router;
