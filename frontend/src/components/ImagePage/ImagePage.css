@@ -1,0 +1,21 @@
+html {
+    height: 100vh;
+    width: 100vw;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+.root {
+    height: 100%;
+    width: 100%;
+}
+
+.image-container {
+    background-color: grey;
+    height: 50vh;
+    width: 100vw;
+
+}

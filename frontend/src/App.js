@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import UserPage from "./components/UserPage";
 import NewImageForm from "./components/NewImageForm";
+import ImagePage from "./components/ImagePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route path='/image'>
             <NewImageForm />
+          </Route>
+          <Route path='/user/image/:imageId'>
+            <ImagePage />
           </Route>
         </Switch>
       )}
