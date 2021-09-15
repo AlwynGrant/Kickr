@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { listImages } from '../../store/image';
 import '../../reset.css'
 import './UserPage.css'
+import '../../index.css'
 
 
 function UserPage() {
@@ -30,16 +31,22 @@ function UserPage() {
 
 
     return (
-        <div className='user-container' id='user-container'>
-            <NavLink className='create-newImage' to='/image'>Upload new Image</NavLink>
-        {
-            images?.map((image) => {
-                return <div key={image.id} className='image-box'>
-                    {image.id}
-                    {image.imageUrl}
-                    </div>
-            })
-        }
+        <div className='user-container'>
+            <div className='top-container'>
+
+            </div>
+            <div className='bottom-container'>
+                <NavLink className='create-newImage' to='/image'>Upload new Image</NavLink>
+            {
+                images?.map((image) => {
+                    return <div key={image.id} className='image-box'>
+                        {image.id}
+                        {image.imageUrl}
+                        </div>
+                })
+            }
+            </div>
+
         </div>
     );
 }
