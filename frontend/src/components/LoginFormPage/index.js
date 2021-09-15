@@ -15,7 +15,7 @@ function LoginFormPage() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
 
-    if (sessionUser) return <Redirect to="/" />;
+    if (sessionUser) return <Redirect to={`/user/${sessionUser.id}`} />;
 
     const handleSubmit = (e) => {
         e.preventDefault();

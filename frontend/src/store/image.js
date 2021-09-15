@@ -1,17 +1,25 @@
 import { csrfFetch } from './csrf';
 
-// Define Action Types as Constants
+// --------------------------- Defined Action Types as Constants ---------------------
+
+const GET_IMAGE = 'users/GET_IMAGE'
+const GET_IMAGES = 'users/GET_IMAGE'
 const ADD_IMAGE = 'users/ADD_IMAGE';
 const EDIT_IMAGE = 'users/EDIT_IMAGE';
 const REMOVE_IMAGE = 'users/REMOVE_IMAGE';
 
 
-// Define Action Creator(s)
+// --------------------------- Defined Action Creator(s) --------------------------
+
+const getImage = () => ({ type: GET_IMAGE });
+const getImages = () => ({ type: GET_IMAGES });
 const addImage = (image) => ({ type: ADD_IMAGE, payload: image});
 const editImage = (image) => ({ type: EDIT_IMAGE, payload: image });
 const removeImage = () => ({ type: REMOVE_IMAGE })
 
-// Define Thunk(s)
+// ---------------------------  Defined Thunk(s) --------------------------------
+
+// create image
 export const createImage = (image) => async (dispatch) => {
     const { userId, imageUrl, description } = image;
     const response = await csrfFetch('/api/image', {

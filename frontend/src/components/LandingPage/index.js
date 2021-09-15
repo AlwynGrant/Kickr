@@ -7,7 +7,7 @@ import './LandingPage.css'
 function LandingPage() {
     const sessionUser = useSelector(state => state.session.user);
 
-    if (sessionUser) return <Redirect to="/user" />;
+    if (sessionUser) return <Redirect to={`/user/${sessionUser.id}`} />;
 
     return (
     <>
