@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Redirect } from "react-router";
+import { useHistory } from "react-router";
 import * as sessionActions from '../../store/session';
 
 function ProfileButton({ user }) {
@@ -20,11 +20,10 @@ function ProfileButton({ user }) {
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
 
-    const logout = (e) => {
+    const logout = async (e) => {
         e.preventDefault();
-        dispatch(sessionActions.logout());
-        <Redirect to='/' />
-        // history.push('/')
+        await dispatch(sessionActions.logout());
+        history.push('/')
     };
 
     return (
