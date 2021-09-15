@@ -32,7 +32,7 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path='/user'>
+          <Route path='/user/:id'>
             <UserPage />
           </Route>
           <Route path='/image'>

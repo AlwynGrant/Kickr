@@ -12,6 +12,7 @@ const validateImage = [
     handleValidationErrors
 ];
 
+
 // new image
 router.post("/", validateImage , asyncHandler(async (req, res) => {
 

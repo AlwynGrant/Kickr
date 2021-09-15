@@ -41,10 +41,15 @@ router.post('/', validateSignup, asyncHandler(async (req, res) => {
     }),
 );
 
-// // test route
-// router.get('/test', asyncHandler(async (req, res) => {
-//     const users = await User.findAll();
-//     return res.json(users);
-// }));
+// get all images
+router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const user = await User.findByPk(userId);
+
+    const images = await Images.findAll({
+        where: { userId }
+    })
+    return res.json({ images })
+}));
 
 module.exports = router;
