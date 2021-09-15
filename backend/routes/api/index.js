@@ -13,7 +13,7 @@ router.use('/image', imageRouter);
 
 router.use('/session', sessionRouter);
 
-router.use('/users', usersRouter);
+router.use('/user', usersRouter);
 
 
 module.exports = router;

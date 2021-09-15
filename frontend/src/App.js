@@ -27,19 +27,19 @@ function App() {
           <Route exact path="/">
             <LandingPage />
           </Route>
-          <Route path="/login">
+          <Route exact path="/login">
             <LoginFormPage />
           </Route>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <SignupFormPage />
           </Route>
           <Route exact path='/user/:userId'>
             <UserPage />
           </Route>
-          <Route path='/image'>
+          <Route exact path='/image'>
             <NewImageForm />
           </Route>
-          <Route path='/user/image/:imageId'>
+          <Route exact path='/image/:imageId'>
             <ImagePage />
           </Route>
         </Switch>

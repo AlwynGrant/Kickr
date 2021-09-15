@@ -39,8 +39,8 @@ function UserPage() {
                 <NavLink className='create-newImage' to='/image'>Upload new Image</NavLink>
             {
                 images?.map((image) => {
-                return <NavLink className='image-box' to={`image/${image.id}`}>
-                          <img src={image.imageUrl} key={image.id} ></img>
+                return <NavLink className='image-box' to={`/image/${image.id}`}>
+                    <div src={image.imageUrl} key={image.id} >{image.imageUrl}</div>
                        </NavLink>
                 })
             }
