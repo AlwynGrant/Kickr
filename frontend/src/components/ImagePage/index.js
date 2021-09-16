@@ -3,7 +3,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
-import { createComment, listComments } from '../../store/comment';
+import { createComment, listComments, editCommentContent, deleteComment } from '../../store/comment';
 import '../../reset.css'
 import './ImagePage.css'
 import '../../index.css'
@@ -13,6 +13,8 @@ function ImagePage() {
     const sessionUser = useSelector(state => state.session.user);
     const image = useSelector(state => state.image.image);
     const comments = useSelector(state => state.comment.comments);
+    const commentId = document.querySelector('#')
+    console.log(comments[0].id)
 
     const [isLogged, setIsLogged] = useState(sessionUser);
     const [newComment, setNewComment] = useState('');
@@ -41,6 +43,11 @@ function ImagePage() {
         e.preventDefault();
         dispatch(deleteImage(imageId));
         history.push(`/user/${image?.userId}`)
+    }
+
+    const handleCommentDelete = (e) => {
+        e.preventDefault();
+        dispatch(deleteComment(imageId, /* */));
     }
 
     const handleBack = (e) => {
@@ -82,13 +89,13 @@ function ImagePage() {
             </form>
             {
                 comments?.map((comment) => {
-                    return <div className='comment-box' key={comment.id}>
+                    return <div className='comment-box' id={comment.id} key={comment.id}>
                         {comment.comment} <br></br>
                         {comment.updatedAt}
                         {/* TODO: INCLUDE COMMENTER USERNAME */}
                         {/* {comment.userId === sessionUser.id} */}
-                            <button>Edit</button>
-                            <button>Delete</button>
+                            <button >Edit</button>
+                            <button onClick={handleCommentDelete}>Delete</button>
                     </div>
                 })
             }
