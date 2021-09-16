@@ -88,7 +88,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 router.patch('/comment/:id(\\d+)/edit', asyncHandler(async (req, res) => {
     const { comment } = req.body;
     const commentId = parseInt(req.params.id, 10);
-    const oldComment = await Image.findByPk(imageId);
+    const oldComment = await Comment.findByPk(commentId);
     await oldComment.update({ comment });
     return res.json(comment);
 }));
@@ -96,7 +96,7 @@ router.patch('/comment/:id(\\d+)/edit', asyncHandler(async (req, res) => {
 // delete comment
 router.delete('/comment/:id(\\d+)/delete', asyncHandler(async (req, res) => {
     const commentId = parseInt(req.params.id, 10);
-    const comment = await Image.findByPk(imageId);
+    const comment = await Comment.findByPk(imageId);
     await comment.destroy();
     return res.json({ deleted: 'deleted!' });
 }));
