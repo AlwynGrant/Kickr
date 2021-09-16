@@ -19,6 +19,8 @@ function ImagePage() {
         dispatch(listImage(imageId));
     }, [dispatch, imageId]);
 
+
+
     useEffect(() => {
         if (isLogged === undefined) {
             const editImageDiv = document.querySelector('.edit-image');
@@ -29,12 +31,14 @@ function ImagePage() {
     }, [isLogged]);
 
 
+
+
     return (
     <>
         <div className='image-container'>
             <h1>{image?.imageUrl}</h1>
             <h2>{image?.description}</h2>
-            <button className='edit-image'>EDIT</button>
+            <NavLink to={`/image/${image?.id}/edit`} className='edit-image'>EDIT</NavLink>
             <button className='delete-image'>DELETE</button>
         </div>
         <div className='comment-container'>

@@ -9,6 +9,7 @@ import LandingPage from "./components/LandingPage";
 import UserPage from "./components/UserPage";
 import NewImageForm from "./components/NewImageForm";
 import ImagePage from "./components/ImagePage";
+import EditFormPage from "./components/EditFormPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,9 @@ function App() {
           </Route>
           <Route exact path='/image/:imageId'>
             <ImagePage />
+          </Route>
+          <Route exact path='/image/:imageId/edit'>
+            <EditFormPage />
           </Route>
         </Switch>
       )}
