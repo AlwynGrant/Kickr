@@ -4,7 +4,7 @@ import { csrfFetch } from './csrf';
 
 
 
-// const GET_COMMENT = 'users/GET_COMMENT'
+const GET_COMMENTS = 'users/GET_COMMENTS'
 const ADD_COMMENT = 'users/ADD_COMMENT';
 // const EDIT_COMMENT = 'users/EDIT_COMMENT';
 // const REMOVE_COMMENT = 'users/REMOVE_COMMENT';
@@ -13,7 +13,7 @@ const ADD_COMMENT = 'users/ADD_COMMENT';
 // --------------------------- Defined Action Creator(s) --------------------------
 
 
-// const getComments = (comment) => ({ type: GET_COMMENTS, comment });
+const getComments = (comment) => ({ type: GET_COMMENTS, comment });
 const addComment = (comment) => ({ type: ADD_COMMENT, comment });
 // const editComment = (comment) => ({ type: EDIT_COMMENT, comment });
 // const removeComment = () => ({ type: REMOVE_COMMENT });
@@ -42,17 +42,17 @@ export const createComment = (newComment) => async (dispatch) => {
 };
 
 
-// // get image(s)
-// export const listImages = (userId) => async (dispatch) => {
-//     const response = await csrfFetch(`/api/user/${userId}`, {
-//         method: 'GET'
-//     });
+// get comment(s)
+export const listComments = (imageId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/image/${imageId}`, {
+        method: 'GET'
+    });
 
-//     if (response.ok) {
-//         const images = await response.json();
-//         dispatch(getImages(images));
-//     }
-// }
+    if (response.ok) {
+        const comments = await response.json();
+        dispatch(getComments(comments));
+    }
+}
 
 // // edit image data
 // export const editDescription = (imageId, updatedState) => async (dispatch) => {
@@ -94,10 +94,10 @@ const commentReducer = (state = initialState, action) => {
             newState = Object.assign({}, state);
             newState = action.comment;
             return newState;
-        // case GET_COMMENTS:
-        //     newState = Object.assign({}, state);
-        //     newState = action.comment;
-        //     return newState;
+        case GET_COMMENTS:
+            newState = Object.assign({}, state);
+            newState = action.comment;
+            return newState;
         // case GET_COMMENT:
         //     newState = Object.assign({}, state);
         //     newState = action.comment;

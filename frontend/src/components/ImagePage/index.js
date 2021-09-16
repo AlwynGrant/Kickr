@@ -3,16 +3,17 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
-import commentReducer, { createComment } from '../../store/comment';
+import { createComment, listComments } from '../../store/comment';
 import '../../reset.css'
 import './ImagePage.css'
 import '../../index.css'
 
 
 function ImagePage() {
+    const handleCleanup = () => ''
     const sessionUser = useSelector(state => state.session.user);
     const image = useSelector(state => state.image.image);
-    const comments = useSelector(state => state.image.image);
+    const comments = useSelector(state => state.comment.comments);
 
     const [isLogged, setIsLogged] = useState(sessionUser);
     const [newComment, setNewComment] = useState('');
@@ -23,11 +24,8 @@ function ImagePage() {
 
     useEffect(() => {
         dispatch(listImage(imageId));
+        dispatch(listComments(imageId))
     }, [dispatch, imageId]);
-
-    useEffect(() => {
-
-    }, [])
 
     useEffect(() => {
         if (isLogged === undefined) {
@@ -83,6 +81,15 @@ function ImagePage() {
                 </textarea>
                 <button type='submit'>Comment</button>
             </form>
+            {
+                comments?.map((comment) => {
+                    return <div className='comment-box' key={comment.id}>
+                        {comment.comment} <br></br>
+                        {comment.updatedAt}
+                        {/* TODO: INCLUDE COMMENTER USERNAME */}
+                    </div>
+                })
+            }
         </div>
     </>
     );

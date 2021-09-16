@@ -19,3 +19,17 @@ body {
     width: 100vw;
 
 }
+
+.comment-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(243, 235, 235);
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 300px;
+    height: 100px;
+}

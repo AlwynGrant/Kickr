@@ -55,6 +55,7 @@ router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
 }));
 
 
+// =================================================================================
 
 
 // new comment
@@ -62,16 +63,25 @@ router.post("/:id(\\d+)/comment", validateComment, asyncHandler(async (req, res)
 
     const { userId, imageId, comment } = req.body;
     const newComment = await Comment.build({ userId, imageId, comment });
-    // const validationErrors = validationResult(req);
+    const validationErrors = validationResult(req);
 
-    await newComment.save();
-    return res.json(newComment);
-    // if (validationErrors.isEmpty()) {
-    // } else {
-    //     const errors = validationErrors.array().map((error) => error.msg);
-    //     return res.json(errors)
-    // }
+    if (validationErrors.isEmpty()) {
+        await newComment.save();
+        return res.json(newComment);
+    } else {
+        const errors = validationErrors.array().map((error) => error.msg);
+        return res.json(errors)
+    }
 }));
 
+// get all comments
+router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+    const imageId = parseInt(req.params.id, 10);
+
+    const comments = await Comment.findAll({
+        where: { imageId }
+    })
+    return res.json({ comments })
+}));
 
 module.exports = router;
