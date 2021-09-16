@@ -8,6 +8,8 @@ import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import UserPage from "./components/UserPage";
 import NewImageForm from "./components/NewImageForm";
+import ImagePage from "./components/ImagePage";
+import EditFormPage from "./components/EditFormPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,17 +28,23 @@ function App() {
           <Route exact path="/">
             <LandingPage />
           </Route>
-          <Route path="/login">
+          <Route exact path="/login">
             <LoginFormPage />
           </Route>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <SignupFormPage />
           </Route>
           <Route exact path='/user/:userId'>
             <UserPage />
           </Route>
-          <Route path='/image'>
+          <Route exact path='/image'>
             <NewImageForm />
+          </Route>
+          <Route exact path='/image/:imageId'>
+            <ImagePage />
+          </Route>
+          <Route exact path='/image/:imageId/edit'>
+            <EditFormPage />
           </Route>
         </Switch>
       )}

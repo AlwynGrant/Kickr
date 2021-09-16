@@ -52,4 +52,11 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     return res.json({ images })
 }));
 
+// get image
+router.get('/image/:id(\\d+)', asyncHandler(async (req, res) => {
+    const imageId = parseInt(req.params.id, 10);
+    const image = await Image.findByPk(imageId)
+    return res.json({ image })
+}));
+
 module.exports = router;
