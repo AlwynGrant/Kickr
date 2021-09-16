@@ -6,8 +6,8 @@ import { csrfFetch } from './csrf';
 
 const GET_COMMENTS = 'users/GET_COMMENTS'
 const ADD_COMMENT = 'users/ADD_COMMENT';
-// const EDIT_COMMENT = 'users/EDIT_COMMENT';
-// const REMOVE_COMMENT = 'users/REMOVE_COMMENT';
+const EDIT_COMMENT = 'users/EDIT_COMMENT';
+const REMOVE_COMMENT = 'users/REMOVE_COMMENT';
 
 
 // --------------------------- Defined Action Creator(s) --------------------------
@@ -15,8 +15,8 @@ const ADD_COMMENT = 'users/ADD_COMMENT';
 
 const getComments = (comment) => ({ type: GET_COMMENTS, comment });
 const addComment = (comment) => ({ type: ADD_COMMENT, comment });
-// const editComment = (comment) => ({ type: EDIT_COMMENT, comment });
-// const removeComment = () => ({ type: REMOVE_COMMENT });
+const editComment = (comment) => ({ type: EDIT_COMMENT, comment });
+const removeComment = () => ({ type: REMOVE_COMMENT });
 
 
 // ---------------------------  Defined Thunk(s) --------------------------------
@@ -54,32 +54,32 @@ export const listComments = (imageId) => async (dispatch) => {
     }
 }
 
-// // edit image data
-// export const editDescription = (imageId, updatedState) => async (dispatch) => {
-//     const response = await csrfFetch(`/api/image/${imageId}/edit`, {
-//         method: 'PATCH',
-//         body: JSON.stringify({ description: updatedState })
-//     });
+// edit comment data
+export const editCommentContent = (imageId, updatedState) => async (dispatch) => {
+    const response = await csrfFetch(`/api/image/${imageId}/comment/${updatedState.Id}/edit`, {
+        method: 'PATCH',
+        body: JSON.stringify({ comment: updatedState })
+    });
 
-//     if (response.ok) {
-//         const data = await response.json();
-//         dispatch(editImage(data));
-//         return response;
-//     };
-// };
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(editComment(data));
+        return response;
+    };
+};
 
 
-// // delete an image
-// export const deleteImage = (imageId) => async (dispatch) => {
-//     const response = await csrfFetch(`/api/image/${imageId}/delete`, {
-//         method: 'DELETE',
-//     });
+// delete an comment
+export const deleteComment = (imageId, commentId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/image/${imageId}/comment/${commentId}/delete`, {
+        method: 'DELETE',
+    });
 
-//     if (response.ok) {
-//         const data = await response.json();
-//         dispatch(removeImage(data));
-//     };
-// };
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(removeComment(data));
+    };
+};
 
 
 // Define an initial state
@@ -98,18 +98,14 @@ const commentReducer = (state = initialState, action) => {
             newState = Object.assign({}, state);
             newState = action.comment;
             return newState;
-        // case GET_COMMENT:
-        //     newState = Object.assign({}, state);
-        //     newState = action.comment;
-        //     return newState;
-        // case EDIT_COMMENT:
-        //     newState = Object.assign({}, state);
-        //     newState.comment.comment = action.comment.comment;
-        //     return newState;
-        // case REMOVE_COMMENT:
-        //     newState = Object.assign({}, state);
-        //     delete newState[action.comment]
-        //     return newState;
+        case EDIT_COMMENT:
+            newState = Object.assign({}, state);
+            newState.comment.comment = action.comment.comment;
+            return newState;
+        case REMOVE_COMMENT:
+            newState = Object.assign({}, state);
+            delete newState[action.comment]
+            return newState;
         default:
             return state;
     }

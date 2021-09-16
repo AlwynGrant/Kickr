@@ -85,7 +85,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 }));
 
 // edit comment content
-router.patch('/comment/:id(\\d+)/edit', asyncHandler(async (req, res) => {
+router.patch('/:id(\\d+)/comment/:id(\\d+)/edit', asyncHandler(async (req, res) => {
     const { comment } = req.body;
     const commentId = parseInt(req.params.id, 10);
     const oldComment = await Comment.findByPk(commentId);
@@ -94,9 +94,9 @@ router.patch('/comment/:id(\\d+)/edit', asyncHandler(async (req, res) => {
 }));
 
 // delete comment
-router.delete('/comment/:id(\\d+)/delete', asyncHandler(async (req, res) => {
+router.delete('/:id(\\d+)/comment/:id(\\d+)/delete', asyncHandler(async (req, res) => {
     const commentId = parseInt(req.params.id, 10);
-    const comment = await Comment.findByPk(imageId);
+    const comment = await Comment.findByPk(commentId);
     await comment.destroy();
     return res.json({ deleted: 'deleted!' });
 }));
