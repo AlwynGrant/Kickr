@@ -3,7 +3,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
-import { createComment } from '../../store/comment';
+import commentReducer, { createComment } from '../../store/comment';
 import '../../reset.css'
 import './ImagePage.css'
 import '../../index.css'
@@ -25,22 +25,26 @@ function ImagePage() {
         dispatch(listImage(imageId));
     }, [dispatch, imageId]);
 
+    useEffect(() => {
+
+    }, [])
+
+    useEffect(() => {
+        if (isLogged === undefined) {
+            const editImageDiv = document.querySelector('.edit-image');
+            const deleteImageDiv = document.querySelector('.delete-image');
+            const commentFormDiv = document.querySelector('.comment-form-container');
+            commentFormDiv.setAttribute('hidden', true);
+            editImageDiv.setAttribute('hidden', true);
+            deleteImageDiv.setAttribute('hidden', true);
+        }
+    }, [isLogged]);
 
     const handleDelete = (e) => {
         e.preventDefault();
         dispatch(deleteImage(imageId));
         history.push(`/user/${image?.userId}`)
     }
-
-    useEffect(() => {
-        if (isLogged === undefined) {
-            const editImageDiv = document.querySelector('.edit-image');
-            const deleteImageDiv = document.querySelector('.delete-image');
-            editImageDiv.setAttribute('hidden', true);
-            deleteImageDiv.setAttribute('hidden', true);
-        }
-    }, [isLogged]);
-
 
     const handleBack = (e) => {
         e.preventDefault();
