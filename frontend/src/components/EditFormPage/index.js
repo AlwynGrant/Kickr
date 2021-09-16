@@ -28,6 +28,11 @@ function EditFormPage() {
         history.push(`/image/${imageId}`)
     }
 
+    const handleCancel = (e) => {
+        e.preventDefault()
+        history.push(`/image/${imageId}`)
+    }
+
     return (
         <div className='edit-container'>
             <form className='edit-image-form' onSubmit={handleSubmit}>
@@ -38,7 +43,8 @@ function EditFormPage() {
                         onChange={(e) => setEdit(e.target.value)}
                     >
                     </textarea>
-                    <button type='submit' >Submit</button>
+                    <button type='button' onClick={handleCancel}>Back to Image</button>
+                    <button type='submit'>Submit</button>
                 </label>
             </form>
         </div>

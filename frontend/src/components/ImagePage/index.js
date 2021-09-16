@@ -36,11 +36,15 @@ function ImagePage() {
     }, [isLogged]);
 
 
-
+    const handleBack = (e) => {
+        e.preventDefault();
+        history.push(`/user/${ image?.userId }`)
+    }
 
     return (
     <>
         <div className='image-container'>
+            <button type='submit' onClick={handleBack}>Your Images</button>
             <h1>{image?.imageUrl}</h1>
             <h2>{image?.description}</h2>
             <NavLink to={`/image/${image?.id}/edit`} className='edit-image'>EDIT</NavLink>
