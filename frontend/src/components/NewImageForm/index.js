@@ -8,13 +8,12 @@ import './NewImage.css'
 
 
 function NewImageForm() {
-    const [url, setUrl] = useState('')
-    const [description, setDescription] = useState('')
+    const [url, setUrl] = useState('');
+    const [description, setDescription] = useState('');
 
     const history = useHistory();
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    // const images = useSelector(state => state.image);
 
     if (!sessionUser) return <Redirect to="/" />;
 

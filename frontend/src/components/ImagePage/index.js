@@ -3,6 +3,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
+import { createComment } from '../../store/comment';
 import '../../reset.css'
 import './ImagePage.css'
 import '../../index.css'
@@ -10,15 +11,20 @@ import '../../index.css'
 
 function ImagePage() {
     const sessionUser = useSelector(state => state.session.user);
+    const image = useSelector(state => state.image.image);
+    const comments = useSelector(state => state.image.image);
+
     const [isLogged, setIsLogged] = useState(sessionUser);
+    const [newComment, setNewComment] = useState('');
+
     const { imageId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
-    const image = useSelector(state => state.image.image);
 
     useEffect(() => {
         dispatch(listImage(imageId));
     }, [dispatch, imageId]);
+
 
     const handleDelete = (e) => {
         e.preventDefault();
@@ -41,6 +47,16 @@ function ImagePage() {
         history.push(`/user/${ image?.userId }`)
     }
 
+    const handleSubmitComment = async (e) => {
+        e.preventDefault();
+        const addComment = {
+            userId: sessionUser.id,
+            imageId: imageId,
+            comment: newComment
+        };
+        await dispatch(createComment(addComment));
+    }
+
     return (
     <>
         <div className='image-container'>
@@ -52,10 +68,17 @@ function ImagePage() {
         </div>
         <div className='comment-container'>
             <h1>COMMENTS</h1>
-            <textarea className='add-comment-box' placeholder='Add a comment'>
+            <form className='comment-form-container' onSubmit={handleSubmitComment}>
+                <textarea
+                    className='add-comment-box'
+                    placeholder='Add a comment'
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                >
 
-            </textarea>
-            <button type='submit'>Comment</button>
+                </textarea>
+                <button type='submit'>Comment</button>
+            </form>
         </div>
     </>
     );

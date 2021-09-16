@@ -25,7 +25,7 @@ const addComment = (comment) => ({ type: ADD_COMMENT, comment });
 // create comment
 export const createComment = (newComment) => async (dispatch) => {
     const { userId, imageId, comment } = newComment;
-    const response = await csrfFetch(`/api/${imageId}/comment`, {
+    const response = await csrfFetch(`/api/image/${imageId}/comment`, {
         method: 'POST',
         body: JSON.stringify({
             userId,

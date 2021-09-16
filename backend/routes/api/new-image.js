@@ -62,15 +62,15 @@ router.post("/:id(\\d+)/comment", validateComment, asyncHandler(async (req, res)
 
     const { userId, imageId, comment } = req.body;
     const newComment = await Comment.build({ userId, imageId, comment });
-    const validationErrors = validationResult(req);
+    // const validationErrors = validationResult(req);
 
-    if (validationErrors.isEmpty()) {
-        await newComment.save();
-        return res.json(newComment);
-    } else {
-        const errors = validationErrors.array().map((error) => error.msg);
-        return res.json(errors)
-    }
+    await newComment.save();
+    return res.json(newComment);
+    // if (validationErrors.isEmpty()) {
+    // } else {
+    //     const errors = validationErrors.array().map((error) => error.msg);
+    //     return res.json(errors)
+    // }
 }));
 
 
