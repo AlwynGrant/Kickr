@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
@@ -13,8 +13,6 @@ function ImagePage() {
     const sessionUser = useSelector(state => state.session.user);
     const image = useSelector(state => state.image.image);
     const comments = useSelector(state => state.comment.comments);
-    // const commentId = document.querySelector('#')
-    console.log(comments)
 
     const [isLogged, setIsLogged] = useState(sessionUser);
     const [newComment, setNewComment] = useState('');
@@ -34,9 +32,14 @@ function ImagePage() {
             const editImageDiv = document.querySelector('.edit-image');
             const deleteImageDiv = document.querySelector('.delete-image');
             const commentFormDiv = document.querySelector('.comment-form-container');
-            commentFormDiv.setAttribute('hidden', true);
-            editImageDiv.setAttribute('hidden', true);
-            deleteImageDiv.setAttribute('hidden', true);
+            const commentEditDiv = document.querySelector('.edit-comment-button');
+            const commentDeleteDiv = document.querySelector('.delete-comment-button');
+            commentEditDiv?.setAttribute('hidden', true);
+            commentDeleteDiv?.setAttribute('hidden', true);
+            commentFormDiv?.setAttribute('hidden', true);
+            commentFormDiv?.setAttribute('hidden', true);
+            editImageDiv?.setAttribute('hidden', true);
+            deleteImageDiv?.setAttribute('hidden', true);
         }
     }, [isLogged]);
 
@@ -58,6 +61,7 @@ function ImagePage() {
 
     const handleSubmitComment = async (e) => {
         e.preventDefault();
+        if (!isLogged) return;
         const addComment = {
             userId: sessionUser.id,
             imageId: imageId,
@@ -69,7 +73,7 @@ function ImagePage() {
     return (
     <>
         <div className='image-container'>
-            <button type='submit' onClick={handleBack}>Your Images</button>
+            <button type='submit' onClick={handleBack}>Back to Images</button>
             <h1>{image?.imageUrl}</h1>
             <h2>{image?.description}</h2>
             <NavLink to={`/image/${image?.id}/edit`} className='edit-image'>EDIT</NavLink>
@@ -84,7 +88,6 @@ function ImagePage() {
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                 >
-
                 </textarea>
                 <button type='submit'>Comment</button>
             </form>
@@ -95,8 +98,8 @@ function ImagePage() {
                         {comment.updatedAt}
                         {/* TODO: INCLUDE COMMENTER USERNAME */}
                         {/* {comment.userId === sessionUser.id} */}
-                            <button >Edit</button>
-                            <button onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
+                            <button className='edit-comment-button'>Edit</button>
+                            <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
                     </div>
                 })
             }
