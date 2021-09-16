@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
-import { editDescription, listImage } from '../../store/image';
+import { editDescription, listImage, deleteImage } from '../../store/image';
 import '../../reset.css'
 import './EditFormPage.css'
 import '../../index.css'
@@ -38,7 +38,7 @@ function EditFormPage() {
                         onChange={(e) => setEdit(e.target.value)}
                     >
                     </textarea>
-                    <button type='submit'>Submit</button>
+                    <button type='submit' >Submit</button>
                 </label>
             </form>
         </div>
