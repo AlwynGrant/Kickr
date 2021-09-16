@@ -13,8 +13,8 @@ function ImagePage() {
     const sessionUser = useSelector(state => state.session.user);
     const image = useSelector(state => state.image.image);
     const comments = useSelector(state => state.comment.comments);
-    const commentId = document.querySelector('#')
-    console.log(comments[0].id)
+    // const commentId = document.querySelector('#')
+    console.log(comments)
 
     const [isLogged, setIsLogged] = useState(sessionUser);
     const [newComment, setNewComment] = useState('');
