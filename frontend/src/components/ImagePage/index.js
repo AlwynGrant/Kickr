@@ -52,6 +52,10 @@ function ImagePage() {
         </div>
         <div className='comment-container'>
             <h1>COMMENTS</h1>
+            <textarea className='add-comment-box' placeholder='Add a comment'>
+
+            </textarea>
+            <button type='submit'>Comment</button>
         </div>
     </>
     );
