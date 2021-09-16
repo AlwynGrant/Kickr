@@ -29,20 +29,19 @@ function EditFormPage() {
     }
 
     return (
-            <div className='edit-container'>
-                <form className='edit-image-form' onSubmit={handleSubmit}>
-                    <label>
-                        <textarea
-                            value={edit}
-                            onChange={(e) => setEdit(e.target.value)}
-                        >
-
-                        </textarea>
-                        <button type='submit'>Submit</button>
-                    </label>
-
-                </form>
-            </div>
+        <div className='edit-container'>
+            <form className='edit-image-form' onSubmit={handleSubmit}>
+                <label>
+                    <textarea
+                        placeholder='Tell us about this kick!'
+                        value={edit}
+                        onChange={(e) => setEdit(e.target.value)}
+                    >
+                    </textarea>
+                    <button type='submit'>Submit</button>
+                </label>
+            </form>
+        </div>
     );
 }
 
