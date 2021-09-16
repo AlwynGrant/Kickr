@@ -13,13 +13,11 @@ function ImagePage() {
     const sessionUser = useSelector(state => state.session.user);
     const image = useSelector(state => state.image.image);
     const comments = useSelector(state => state.comment.comments);
-    console.log(comments?.[0].userId)
+    console.log(comments?.[0]?.userId)
     console.log(sessionUser?.id)
 
-    const match = comments?.map((comment) => comment.userId === sessionUser?.id)
     const [isLogged, setIsLogged] = useState(sessionUser);
     const [newComment, setNewComment] = useState('');
-    const [userMatch, setUserMatch] = useState(match);
 
     const { imageId } = useParams();
     const history = useHistory();
@@ -36,9 +34,14 @@ function ImagePage() {
         history.push(`/user/${image?.userId}`)
     }
 
-    const handleCommentDelete = (e, commentId) => {
+    const handleCommentDelete = async (e, commentId) => {
         e.preventDefault();
-        dispatch(deleteComment(imageId, commentId));
+        await dispatch(deleteComment(imageId, commentId));
+    }
+
+    const handleCommentEdit = async (e, commentId) => {
+        e.preventDefault();
+        // await dispatch(editCommentContent(imageId, commentId));
     }
 
     const handleBack = (e) => {
@@ -79,6 +82,7 @@ function ImagePage() {
                             placeholder='Add a comment'
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}
+                            required
                         >
                         </textarea>
                         <button type='submit'>Comment</button>
@@ -86,13 +90,13 @@ function ImagePage() {
                 )}
             {
                 comments?.map((comment) => {
-                    return <div className='comment-box' id={comment.id} key={comment.id}>
-                        {comment.comment} <br></br>
-                        {comment.updatedAt} <br></br>
+                    return <div className={`comment-box ${comment.id}`} id={comment.id} key={comment.id}>
+                        <div className='comment-content-box'>{comment.comment}</div> <br></br>
+                        <div className='comment-timestamp-box'>{comment.updatedAt}</div> <br></br>
                         {/* TODO: INCLUDE COMMENTER USERNAME */}
-                        {match && isLogged && (
+                        {comment.userId === sessionUser?.id && isLogged && (
                             <>
-                                <button className='edit-comment-button'>Edit</button>
+                                <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Edit</button>
                                 <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
                             </>
                         )}

@@ -14,7 +14,7 @@ body {
 }
 
 .image-container {
-    background-color: grey;
+    background-color: rgb(202, 223, 197);
     height: 50vh;
     width: 100vw;
 
@@ -32,7 +32,6 @@ body {
 
 .comment-box {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;

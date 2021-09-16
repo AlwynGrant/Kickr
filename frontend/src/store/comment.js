@@ -92,11 +92,11 @@ const commentReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_COMMENT:
             newState = Object.assign({}, state);
-            newState = action.comment;
+            newState= action.comment;
             return newState;
         case GET_COMMENTS:
             newState = Object.assign({}, state);
-            newState = action.comment;
+            newState= action.comment;
             return newState;
         case EDIT_COMMENT:
             newState = Object.assign({}, state);
