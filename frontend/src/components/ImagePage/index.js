@@ -18,6 +18,7 @@ function ImagePage() {
 
     const [isLogged, setIsLogged] = useState(sessionUser);
     const [newComment, setNewComment] = useState('');
+    const [commentId, setCommentId] = useState(0);
 
     const { imageId } = useParams();
     const history = useHistory();
@@ -47,7 +48,7 @@ function ImagePage() {
 
     const handleCommentDelete = (e) => {
         e.preventDefault();
-        dispatch(deleteComment(imageId, /* */));
+        dispatch(deleteComment(imageId, commentId));
     }
 
     const handleBack = (e) => {
