@@ -10,7 +10,6 @@ import '../../index.css'
 
 
 function ImagePage() {
-    const handleCleanup = () => ''
     const sessionUser = useSelector(state => state.session.user);
     const image = useSelector(state => state.image.image);
     const comments = useSelector(state => state.comment.comments);
@@ -87,6 +86,9 @@ function ImagePage() {
                         {comment.comment} <br></br>
                         {comment.updatedAt}
                         {/* TODO: INCLUDE COMMENTER USERNAME */}
+                        {/* {comment.userId === sessionUser.id} */}
+                            <button>Edit</button>
+                            <button>Delete</button>
                     </div>
                 })
             }
