@@ -119,7 +119,7 @@ const imageReducer = (state = initialState, action) => {
             return newState;
         case EDIT_IMAGE:
             newState = Object.assign({}, state);
-            newState.image = action.image;
+            newState.image.description = action.image.description;
             return newState;
         case REMOVE_IMAGE:
             newState = Object.assign({}, state);
