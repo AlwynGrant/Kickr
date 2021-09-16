@@ -14,8 +14,31 @@ body {
 }
 
 .image-container {
-    background-color: grey;
+    background-color: rgb(202, 223, 197);
     height: 50vh;
     width: 100vw;
 
+}
+
+
+.add-comment-box {
+    background-color: rgb(246, 212, 212);
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 300px;
+    height: 100px;
+}
+
+.comment-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(243, 235, 235);
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 300px;
+    height: 100px;
 }
