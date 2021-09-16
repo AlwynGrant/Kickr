@@ -70,11 +70,10 @@ export const listImage = (imageId) => async (dispatch) => {
 
 
 // edit image data
-export const editDescription = (imageId, image) => async (dispatch) => {
-    const { description } = image;
+export const editDescription = (imageId, updatedState) => async (dispatch) => {
     const response = await csrfFetch(`/api/image/${imageId}/edit`, {
         method: 'PATCH',
-        body: JSON.stringify({ description })
+        body: JSON.stringify({ description: updatedState })
     });
 
     if (response.ok) {
@@ -120,7 +119,7 @@ const imageReducer = (state = initialState, action) => {
             return newState;
         case EDIT_IMAGE:
             newState = Object.assign({}, state);
-            newState = action.image;
+            newState.image = action.image;
             return newState;
         case REMOVE_IMAGE:
             newState = Object.assign({}, state);
