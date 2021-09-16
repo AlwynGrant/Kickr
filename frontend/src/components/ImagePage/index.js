@@ -46,7 +46,7 @@ function ImagePage() {
         history.push(`/user/${image?.userId}`)
     }
 
-    const handleCommentDelete = (e) => {
+    const handleCommentDelete = (e, commentId) => {
         e.preventDefault();
         dispatch(deleteComment(imageId, commentId));
     }
@@ -96,7 +96,7 @@ function ImagePage() {
                         {/* TODO: INCLUDE COMMENTER USERNAME */}
                         {/* {comment.userId === sessionUser.id} */}
                             <button >Edit</button>
-                            <button onClick={handleCommentDelete}>Delete</button>
+                            <button onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
                     </div>
                 })
             }
