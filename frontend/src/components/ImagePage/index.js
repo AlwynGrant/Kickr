@@ -13,10 +13,13 @@ function ImagePage() {
     const sessionUser = useSelector(state => state.session.user);
     const image = useSelector(state => state.image.image);
     const comments = useSelector(state => state.comment.comments);
+    console.log(comments?.[0].userId)
+    console.log(sessionUser?.id)
 
+    const match = comments?.map((comment) => comment.userId === sessionUser?.id)
     const [isLogged, setIsLogged] = useState(sessionUser);
     const [newComment, setNewComment] = useState('');
-    const [commentId, setCommentId] = useState(0);
+    const [userMatch, setUserMatch] = useState(match);
 
     const { imageId } = useParams();
     const history = useHistory();
@@ -24,24 +27,8 @@ function ImagePage() {
 
     useEffect(() => {
         dispatch(listImage(imageId));
-        dispatch(listComments(imageId))
+        dispatch(listComments(imageId));
     }, [dispatch, imageId]);
-
-    useEffect(() => {
-        if (isLogged === undefined) {
-            const editImageDiv = document.querySelector('.edit-image');
-            const deleteImageDiv = document.querySelector('.delete-image');
-            const commentFormDiv = document.querySelector('.comment-form-container');
-            const commentEditDiv = document.querySelector('.edit-comment-button');
-            const commentDeleteDiv = document.querySelector('.delete-comment-button');
-            commentEditDiv?.setAttribute('hidden', true);
-            commentDeleteDiv?.setAttribute('hidden', true);
-            commentFormDiv?.setAttribute('hidden', true);
-            commentFormDiv?.setAttribute('hidden', true);
-            editImageDiv?.setAttribute('hidden', true);
-            deleteImageDiv?.setAttribute('hidden', true);
-        }
-    }, [isLogged]);
 
     const handleDelete = (e) => {
         e.preventDefault();
@@ -76,30 +63,39 @@ function ImagePage() {
             <button type='submit' onClick={handleBack}>Back to Images</button>
             <h1>{image?.imageUrl}</h1>
             <h2>{image?.description}</h2>
-            <NavLink to={`/image/${image?.id}/edit`} className='edit-image'>EDIT</NavLink>
-            <button className='delete-image' onClick={handleDelete}>DELETE</button>
+            {isLogged && (
+                <>
+                    <NavLink to={`/image/${image?.id}/edit`} className='edit-image'>EDIT</NavLink>
+                    <button className='delete-image' onClick={handleDelete}>DELETE</button>
+                </>
+            )}
         </div>
         <div className='comment-container'>
             <h1>COMMENTS</h1>
-            <form className='comment-form-container' onSubmit={handleSubmitComment}>
-                <textarea
-                    className='add-comment-box'
-                    placeholder='Add a comment'
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                >
-                </textarea>
-                <button type='submit'>Comment</button>
-            </form>
+                {isLogged && (
+                    <form className='comment-form-container' onSubmit={handleSubmitComment}>
+                        <textarea
+                            className='add-comment-box'
+                            placeholder='Add a comment'
+                            value={newComment}
+                            onChange={(e) => setNewComment(e.target.value)}
+                        >
+                        </textarea>
+                        <button type='submit'>Comment</button>
+                    </form>
+                )}
             {
                 comments?.map((comment) => {
                     return <div className='comment-box' id={comment.id} key={comment.id}>
                         {comment.comment} <br></br>
-                        {comment.updatedAt}
+                        {comment.updatedAt} <br></br>
                         {/* TODO: INCLUDE COMMENTER USERNAME */}
-                        {/* {comment.userId === sessionUser.id} */}
-                            <button className='edit-comment-button'>Edit</button>
-                            <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
+                        {match && isLogged && (
+                            <>
+                                <button className='edit-comment-button'>Edit</button>
+                                <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
+                            </>
+                        )}
                     </div>
                 })
             }

@@ -21,22 +21,15 @@ function UserPage() {
         dispatch(listImages(userId));
     }, [dispatch, userId]);
 
-    useEffect(() => {
-        console.log(isLogged)
-        if (isLogged === undefined) {
-            const createImageDiv = document.querySelector('.create-newImage')
-            createImageDiv.setAttribute('hidden', true)
-        }
-    },[isLogged])
-
-
     return (
         <div className='user-container'>
             <div className='top-container'>
 
             </div>
             <div className='bottom-container'>
+            {isLogged && (
                 <NavLink className='create-newImage' to='/image'>Upload new Image</NavLink>
+            )}
             {
                 images?.map((image) => {
                 return <NavLink className='image-box' to={`/image/${image.id}`}>
