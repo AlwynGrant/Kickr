@@ -27,7 +27,7 @@ function ImagePage() {
 
     useEffect(() => {
         if (!comments) dispatch(listComments(imageId));
-    }, [dispatch, comments?.length, imageId]);
+    }, [dispatch, comments, imageId]);
 
     const handleDelete = (e) => {
         e.preventDefault();

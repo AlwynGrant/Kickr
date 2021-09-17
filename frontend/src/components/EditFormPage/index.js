@@ -7,7 +7,7 @@ import '../../reset.css'
 import './EditFormPage.css'
 import '../../index.css'
 
-
+// EDIT IMAGE DESCRIPTION FORM
 function EditFormPage() {
     const sessionUser = useSelector(state => state.session.user);
     const { imageId } = useParams();
@@ -25,8 +25,8 @@ function EditFormPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(editDescription( imageId , edit));
-        // history.push(`/image/${imageId}`)
-        return <Redirect to={`/image/${imageId}`} />
+        history.push(`/image/${imageId}`)
+        // return <Redirect to={`/image/${imageId}`} />
     }
 
     const handleCancel = (e) => {
