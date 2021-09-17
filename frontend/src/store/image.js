@@ -7,7 +7,6 @@ const GET_IMAGE = 'users/GET_IMAGE'
 const GET_IMAGES = 'users/GET_IMAGE'
 const ADD_IMAGE = 'users/ADD_IMAGE';
 const EDIT_IMAGE = 'users/EDIT_IMAGE';
-const REMOVE_IMAGE = 'users/REMOVE_IMAGE';
 
 
 // --------------------------- Defined Action Creator(s) --------------------------
@@ -17,7 +16,6 @@ const getImage = (image) => ({ type: GET_IMAGE, image });
 const getImages = (image) => ({ type: GET_IMAGES, image });
 const addImage = (image) => ({ type: ADD_IMAGE, image });
 const editImage = (image) => ({ type: EDIT_IMAGE, image });
-const removeImage = () => ({ type: REMOVE_IMAGE })
 
 
 // ---------------------------  Defined Thunk(s) --------------------------------
@@ -95,7 +93,7 @@ export const deleteImage = (imageId) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(removeImage(data));
+        dispatch(getImages(data));
     };
 };
 
@@ -110,7 +108,7 @@ const imageReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_IMAGE:
             newState = Object.assign({}, state);
-            newState = action.image;
+            newState['images'] = action.image;
             return newState;
         case GET_IMAGES:
             newState = Object.assign({}, state);
@@ -123,10 +121,6 @@ const imageReducer = (state = initialState, action) => {
         case EDIT_IMAGE:
             newState = Object.assign({}, state);
             newState.image = action.image;
-            return newState;
-        case REMOVE_IMAGE:
-            newState = Object.assign({}, state);
-            delete newState[action.image]
             return newState;
         default:
             return state;

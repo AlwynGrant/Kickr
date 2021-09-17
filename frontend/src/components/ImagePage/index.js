@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useHistory, Redirect } from 'react-router-dom';
+import { NavLink, useHistory} from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
@@ -27,7 +27,7 @@ function ImagePage() {
 
     useEffect(() => {
         if (!comments) dispatch(listComments(imageId));
-    }, [dispatch, imageId]);
+    }, [dispatch, comments, imageId]);
 
     const handleDelete = (e) => {
         e.preventDefault();

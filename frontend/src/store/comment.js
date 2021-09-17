@@ -4,7 +4,7 @@ import { csrfFetch } from './csrf';
 
 
 
-const GET_COMMENTS = 'users/GET_COMMENTS'
+const GET_COMMENTS = 'users/GET_COMMENTS';
 const ADD_COMMENT = 'users/ADD_COMMENT';
 const EDIT_COMMENT = 'users/EDIT_COMMENT';
 

@@ -10,11 +10,12 @@ import '../../index.css'
 
 function UserPage() {
     const sessionUser = useSelector(state => state.session.user);
+    const images = useSelector(state => state.image.images);
+
     const [isLogged, setIsLogged] = useState(sessionUser);
 
     const { userId } = useParams();
     const dispatch = useDispatch();
-    const images = useSelector(state => state.image.images);
 
     useEffect(() => {
         if(!images) dispatch(listImages(userId));

@@ -7,12 +7,12 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { Image, Comment } = require('../../db/models');
 const router = express.Router();
 
-const validateImage = [
-    check('imageUrl')
-        .exists({ checkFalsy: true })
-        .withMessage('Please provide a valid url.'),
-    handleValidationErrors
-];
+// const validateImage = [
+//     check('imageUrl')
+//         .exists({ checkFalsy: true })
+//         .withMessage('Please provide a valid url.'),
+//     handleValidationErrors
+// ];
 
 const validateComment = [
     check('comment')
@@ -23,22 +23,23 @@ const validateComment = [
 
 
 // new image
-router.post("/", singleMulterUpload("imageUrl"), validateImage, asyncHandler(async (req, res) => {
+router.post("/", singleMulterUpload("imageUrl"),/* validateImage, */ asyncHandler(async (req, res) => {
 
     const { userId, description } = req.body;
     const imageUrl = await singlePublicFileUpload(req.file);
 
     const image = await Image.build({ userId, imageUrl, description });
+    // const validationErrors = validationResult(req);
 
-    const validationErrors = validationResult(req);
+    await image.save();
+    const images = await Image.findAll({ where: { userId } });
+    return res.json(images);
 
-    if (validationErrors.isEmpty()) {
-        await image.save();
-        return res.json(image);
-    } else {
-        const errors = validationErrors.array().map((error) => error.msg);
-        return res.json(errors)
-    }
+    // if (validationErrors.isEmpty()) {
+    // } else {
+    //     const errors = validationErrors.array().map((error) => error.msg);
+    //     return res.json(errors)
+    // }
 
 }));
 
@@ -55,9 +56,10 @@ router.patch('/:id(\\d+)/edit', asyncHandler(async (req, res) => {
 router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
     const imageId = parseInt(req.params.id, 10);
     const image = await Image.findByPk(imageId);
-    // const { imageId } = image;
+    const userId = image.userId
     await image.destroy();
-    return res.json({ deleted: 'deleted!' })
+    const images = await Image.findAll({ where: { userId } });
+    return res.json({ images })
 }));
 
 
