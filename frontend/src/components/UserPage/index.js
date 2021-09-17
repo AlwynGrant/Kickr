@@ -16,10 +16,9 @@ function UserPage() {
     const dispatch = useDispatch();
     const images = useSelector(state => state.image.images);
 
-
     useEffect(() => {
-        dispatch(listImages(userId));
-    }, [dispatch, userId]);
+        if(!images) dispatch(listImages(userId));
+    }, [dispatch, images, userId]);
 
     return (
         <div className='user-container'>
@@ -33,7 +32,7 @@ function UserPage() {
             {
                 images?.map((image) => {
                 return <NavLink className='image-box' to={`/image/${image.id}`}>
-                    <img className='actual-image' src={image.imageUrl} key={image.id} ></img>
+                    <img className='actual-image' src={image.imageUrl} key={image.id} alt='user-img' ></img>
                        </NavLink>
                 })
             }
