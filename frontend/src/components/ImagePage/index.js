@@ -27,12 +27,12 @@ function ImagePage() {
 
     useEffect(() => {
         if (!comments) dispatch(listComments(imageId));
-    }, [dispatch, comments, imageId]);
+    }, [dispatch, imageId]);
 
     const handleDelete = (e) => {
         e.preventDefault();
         dispatch(deleteImage(imageId));
-        history.push(`/user/${image?.userId}`)
+        history.push(`/user/${image?.userId}`);
     }
 
     const handleCommentDelete = async (e, commentId) => {

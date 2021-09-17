@@ -26,7 +26,6 @@ function EditFormPage() {
         e.preventDefault();
         dispatch(editDescription( imageId , edit));
         history.push(`/image/${imageId}`)
-        // return <Redirect to={`/image/${imageId}`} />
     }
 
     const handleCancel = (e) => {

@@ -73,7 +73,8 @@ router.post("/:id(\\d+)/comment", validateComment, asyncHandler(async (req, res)
 
     if (validationErrors.isEmpty()) {
         await newComment.save();
-        return res.json(newComment);
+        const comments = await Comment.findAll({ where: { imageId } });
+        return res.json(comments);
     } else {
         const errors = validationErrors.array().map((error) => error.msg);
         return res.json(errors)
@@ -84,9 +85,7 @@ router.post("/:id(\\d+)/comment", validateComment, asyncHandler(async (req, res)
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const imageId = parseInt(req.params.id, 10);
 
-    const comments = await Comment.findAll({
-        where: { imageId }
-    })
+    const comments = await Comment.findAll({ where: { imageId } });
     return res.json({ comments })
 }));
 
