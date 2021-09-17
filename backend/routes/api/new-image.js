@@ -27,18 +27,20 @@ router.post("/", singleMulterUpload("imageUrl"),/* validateImage, */ asyncHandle
 
     const { userId, description } = req.body;
     const imageUrl = await singlePublicFileUpload(req.file);
-    console.log('IMAGEIMAGEIMAGE',imageUrl)
-    const image = await Image.build({ userId, imageUrl, description });
 
-    const validationErrors = validationResult(req);
+    const image = await Image.build({ userId, imageUrl, description });
+    // const validationErrors = validationResult(req);
 
     await image.save();
-    return res.json(image);
+    const images = await Image.findAll({ where: { userId } });
+    return res.json(images);
+
     // if (validationErrors.isEmpty()) {
     // } else {
     //     const errors = validationErrors.array().map((error) => error.msg);
     //     return res.json(errors)
     // }
+
 }));
 
 // edit image content
@@ -54,13 +56,14 @@ router.patch('/:id(\\d+)/edit', asyncHandler(async (req, res) => {
 router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
     const imageId = parseInt(req.params.id, 10);
     const image = await Image.findByPk(imageId);
-    // const { imageId } = image;
+    const userId = image.userId
     await image.destroy();
-    return res.json({ deleted: 'deleted!' })
+    const images = await Image.findAll({ where: { userId } });
+    return res.json({ images })
 }));
 
 
-// =================================================================================
+// ====================================== COMMENTS ====================================
 
 
 // new comment
@@ -72,7 +75,8 @@ router.post("/:id(\\d+)/comment", validateComment, asyncHandler(async (req, res)
 
     if (validationErrors.isEmpty()) {
         await newComment.save();
-        return res.json(newComment);
+        const comments = await Comment.findAll({ where: { imageId } });
+        return res.json(comments);
     } else {
         const errors = validationErrors.array().map((error) => error.msg);
         return res.json(errors)
@@ -83,9 +87,7 @@ router.post("/:id(\\d+)/comment", validateComment, asyncHandler(async (req, res)
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const imageId = parseInt(req.params.id, 10);
 
-    const comments = await Comment.findAll({
-        where: { imageId }
-    })
+    const comments = await Comment.findAll({ where: { imageId } });
     return res.json({ comments })
 }));
 
@@ -99,11 +101,15 @@ router.patch('/:id(\\d+)/comment/:id(\\d+)/edit', asyncHandler(async (req, res) 
 }));
 
 // delete comment
-router.delete('/:id(\\d+)/comment/:id(\\d+)/delete', asyncHandler(async (req, res) => {
-    const commentId = parseInt(req.params.id, 10);
+router.delete('/:imageId(\\d+)/comment/:commentId(\\d+)/delete', asyncHandler(async (req, res) => {
+    const commentId = parseInt(req.params.commentId, 10);
+    const imageId = parseInt(req.params.imageId, 10);
     const comment = await Comment.findByPk(commentId);
+
     await comment.destroy();
-    return res.json({ deleted: 'deleted!' });
+
+    const comments = await Comment.findAll({ where: { imageId } });
+    return res.json({ comments });
 }));
 
 module.exports = router;
