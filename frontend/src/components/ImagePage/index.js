@@ -22,9 +22,12 @@ function ImagePage() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(listImage(imageId));
-        dispatch(listComments(imageId));
-    }, [dispatch, imageId]);
+        if (!image) dispatch(listImage(imageId));
+    }, [dispatch, image, imageId]);
+
+    useEffect(() => {
+        if (!comments) dispatch(listComments(imageId));
+    }, [dispatch, comments?.length, imageId]);
 
     const handleDelete = (e) => {
         e.preventDefault();

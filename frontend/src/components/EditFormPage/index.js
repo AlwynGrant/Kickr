@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
-import { editDescription, listImage, deleteImage } from '../../store/image';
+import { editDescription, listImage } from '../../store/image';
 import '../../reset.css'
 import './EditFormPage.css'
 import '../../index.css'
@@ -25,7 +25,8 @@ function EditFormPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(editDescription( imageId , edit));
-        history.push(`/image/${imageId}`)
+        // history.push(`/image/${imageId}`)
+        return <Redirect to={`/image/${imageId}`} />
     }
 
     const handleCancel = (e) => {
