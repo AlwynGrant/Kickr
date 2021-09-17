@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
+const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3')
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -29,7 +30,7 @@ const validateSignup = [
 
 
 // Sign up
-router.post('/', validateSignup, asyncHandler(async (req, res) => {
+router.post('/', asyncHandler(async (req, res) => {
         const { email, password, username } = req.body;
         const user = await User.signup({ email, username, password });
 
@@ -51,6 +52,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     })
     return res.json({ images })
 }));
+
 
 // get image
 router.get('/image/:id(\\d+)', asyncHandler(async (req, res) => {
