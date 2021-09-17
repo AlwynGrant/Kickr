@@ -1,6 +1,6 @@
 const AWS = require("aws-sdk");
 // name of your bucket here
-const kickrbucket = "aws-s3-pern-demo";
+const kickrbucket = "kickrbucket";
 
 const multer = require("multer");
 

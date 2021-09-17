@@ -26,7 +26,7 @@ function NewImageForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newImage = { userId: sessionUser.id, imageUrl: url, description,  }
+        const newImage = { userId: sessionUser.id, imageUrl: url, description }
         dispatch(newImageActions.createImage(newImage))
             .then(() => {
                 setDescription('');
