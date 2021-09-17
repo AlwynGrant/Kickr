@@ -1,16 +1,18 @@
 const express = require('express')
 const asyncHandler = require('express-async-handler');
+
+const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3')
 const { check, validationResult } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Image, Comment } = require('../../db/models');
 const router = express.Router();
 
-const validateImage = [
-    check('imageUrl')
-        .exists({ checkFalsy: true })
-        .withMessage('Please provide a valid url.'),
-    handleValidationErrors
-];
+// const validateImage = [
+//     check('imageUrl')
+//         .exists({ checkFalsy: true })
+//         .withMessage('Please provide a valid url.'),
+//     handleValidationErrors
+// ];
 
 const validateComment = [
     check('comment')
@@ -21,19 +23,22 @@ const validateComment = [
 
 
 // new image
-router.post("/", validateImage , asyncHandler(async (req, res) => {
+router.post("/", singleMulterUpload("imageUrl"),/* validateImage, */ asyncHandler(async (req, res) => {
 
-    const { userId, imageUrl, description } = req.body;
+    const { userId, description } = req.body;
+    const imageUrl = await singlePublicFileUpload(req.file);
+    console.log('IMAGEIMAGEIMAGE',imageUrl)
     const image = await Image.build({ userId, imageUrl, description });
+
     const validationErrors = validationResult(req);
 
-        if (validationErrors.isEmpty()) {
-            await image.save();
-            return res.json(image);
-        } else {
-            const errors = validationErrors.array().map((error) => error.msg);
-            return res.json(errors)
-        }
+    await image.save();
+    return res.json(image);
+    // if (validationErrors.isEmpty()) {
+    // } else {
+    //     const errors = validationErrors.array().map((error) => error.msg);
+    //     return res.json(errors)
+    // }
 }));
 
 // edit image content

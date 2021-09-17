@@ -13,8 +13,6 @@ function ImagePage() {
     const sessionUser = useSelector(state => state.session.user);
     const image = useSelector(state => state.image.image);
     const comments = useSelector(state => state.comment.comments);
-    console.log(comments?.[0]?.userId)
-    console.log(sessionUser?.id)
 
     const [isLogged, setIsLogged] = useState(sessionUser);
     const [newComment, setNewComment] = useState('');
@@ -64,7 +62,9 @@ function ImagePage() {
     <>
         <div className='image-container'>
             <button type='submit' onClick={handleBack}>Back to Images</button>
-            <h1>{image?.imageUrl}</h1>
+                <div className='image-box'>
+                <img className='actual-image' src={image?.imageUrl}></img>
+            </div>
             <h2>{image?.description}</h2>
             {isLogged && (
                 <>

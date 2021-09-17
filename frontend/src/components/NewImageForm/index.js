@@ -8,7 +8,7 @@ import './NewImage.css'
 
 
 function NewImageForm() {
-    const [url, setUrl] = useState('');
+    const [url, setUrl] = useState(null); // image upload
     const [description, setDescription] = useState('');
 
     const history = useHistory();
@@ -17,25 +17,49 @@ function NewImageForm() {
 
     if (!sessionUser) return <Redirect to="/" />;
 
-    const handleSubmit = async (e) => {
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     const newImage = { userId: sessionUser.id, description, imageUrl: url }
+    //     await dispatch(newImageActions.createImage(newImage));
+    //     history.push(`/user/${sessionUser.id}`);
+    // }
+
+    const handleSubmit = (e) => {
         e.preventDefault();
-        const newImage = { userId: sessionUser.id, description, imageUrl: url }
-        await dispatch(newImageActions.createImage(newImage));
+        const newImage = { userId: sessionUser.id, imageUrl: url, description }
+        dispatch(newImageActions.createImage(newImage))
+            .then(() => {
+                setDescription('');
+                setUrl(null);
+            })
         history.push(`/user/${sessionUser.id}`);
-    }
+    };
+
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setUrl(file);
+    };
+
+    console.log(url)
 
     return (
         <div className='new-image-container'>
             <form className='new-image-form' onSubmit={handleSubmit}>
                 <label>
                     <input
-                        type='text'
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
-                        placeholder='image url'
+                        type='file'
+                        onChange={updateFile}
                         required
                     />
                 </label>
+                {/* <label>
+                    <input
+                        type='text'
+                        value={imageUrl}
+                        onChange={(e) => setImageUrl(e.target.value)}
+                        placeholder='test'
+                    />
+                </label> */}
                 <label>
                     <input
                         type='text'
