@@ -23,20 +23,23 @@ const validateComment = [
 
 
 // new image
-router.post("/", singleMulterUpload("image"), validateImage, asyncHandler(async (req, res) => {
+router.post("/", singleMulterUpload("imageUrl"), validateImage, asyncHandler(async (req, res) => {
 
-    const { userId, description } = req.body;
-    const image = await Image.build({ userId, imageUrl: profileImageUrl, description });
+    const { userId, imageUrl, description } = req.body; // instead of using this 'imageUrl'...
     const profileImageUrl = await singlePublicFileUpload(req.file);
+    const image = await Image.build({ userId, imageUrl: profileImageUrl, description });
+    // I tried setting profileImageUrl to a new key of imageUrl and building the db entry with that, but no go.
+
+
     const validationErrors = validationResult(req);
 
-        if (validationErrors.isEmpty()) {
-            await image.save();
-            return res.json(image);
-        } else {
-            const errors = validationErrors.array().map((error) => error.msg);
-            return res.json(errors)
-        }
+    if (validationErrors.isEmpty()) {
+        await image.save();
+        return res.json(image);
+    } else {
+        const errors = validationErrors.array().map((error) => error.msg);
+        return res.json(errors)
+    }
 }));
 
 // edit image content
