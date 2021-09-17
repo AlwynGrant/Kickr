@@ -14,20 +14,20 @@ function ImagePage() {
     const image = useSelector(state => state.image.image);
     const comments = useSelector(state => state.comment.comments);
 
-    const [isLogged, setIsLogged] = useState(sessionUser);
-    const [newComment, setNewComment] = useState('');
-
     const { imageId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
+
+    const [isLogged] = useState(sessionUser);
+    const [newComment, setNewComment] = useState('');
 
     useEffect(() => {
         if (!image) dispatch(listImage(imageId));
     }, [dispatch, image, imageId]);
 
     useEffect(() => {
-        if (!comments) dispatch(listComments(imageId));
-    }, [dispatch, comments, imageId]);
+         dispatch(listComments(imageId));
+    }, [dispatch, imageId]);
 
     const handleDelete = (e) => {
         e.preventDefault();

@@ -80,11 +80,11 @@ export const deleteComment = (imageId, commentId) => async (dispatch) => {
 };
 
 
-// Define an initial state
+// Comment state
 const initialState = {};
 
 
-// Define a reducer
+// Comment reducer
 const commentReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {

@@ -98,11 +98,11 @@ export const deleteImage = (imageId) => async (dispatch) => {
 };
 
 
-// Define an initial state
+// Image state
 const initialState = {};
 
 
-// Define a reducer
+// Image reducer
 const imageReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
