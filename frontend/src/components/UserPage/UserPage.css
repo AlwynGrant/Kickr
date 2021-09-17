@@ -37,13 +37,16 @@
 
 .image-box {
     display: flex;
-    justify-content: center;
-    text-decoration: none;
-    
-    align-items: center;
-    border: 2px solid white;
+    border: 2px solid rgb(185, 101, 174);
     background-color: white;
     width: 300px;
     height: 200px;
     align-self: center;
+}
+
+.actual-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
 }

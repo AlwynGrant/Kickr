@@ -69,13 +69,6 @@ function NewImageForm() {
                     />
                 </label>
                 <button type='submit'>Add new Image</button>
-                <div>
-                    {sessionUser && (
-                        <div>
-                            <img style={{ width: "150px" }} src={sessionUser?.profileImageUrl} alt="profile"/>
-                        </div>
-                    )}
-                </div>
             </form>
         </div>
     );
