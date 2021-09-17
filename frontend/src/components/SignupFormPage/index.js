@@ -9,36 +9,12 @@ function SignupFormPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [image, setImage] = useState(null);
-    // for multuple file upload =  const [images, setImages] = useState([]);
     const [errors, setErrors] = useState([]);
 
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
 
     if (sessionUser) return <Redirect to="/" />;
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     if (password === confirmPassword) {
-    //         let newErrors = [];
-    //         dispatch(sessionActions.signup({ username, email, password, image }))
-    //             .then(() => {
-    //                 setUsername("");
-    //                 setEmail("");
-    //                 setPassword("");
-    //                 setImage(null);
-    //             })
-    //             .catch(async (res) => {
-    //                 const data = await res.json();
-    //                 if (data && data.errors) {
-    //                     newErrors = data.errors;
-    //                     setErrors(newErrors);
-    //                 }
-    //         });
-    //     }
-    //     return setErrors(['Confirm Password field must be the same as the Password field']);
-    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
