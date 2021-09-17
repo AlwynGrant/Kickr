@@ -18,7 +18,6 @@ function ImagePage() {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [isLogged] = useState(sessionUser);
     const [newComment, setNewComment] = useState('');
 
     useEffect(() => {
@@ -52,7 +51,7 @@ function ImagePage() {
 
     const handleSubmitComment = async (e) => {
         e.preventDefault();
-        if (!isLogged) return;
+        if (!sessionUser) return;
         const addComment = {
             userId: sessionUser.id,
             imageId: imageId,
@@ -67,10 +66,10 @@ function ImagePage() {
         <div className='image-container'>
             <button type='submit' onClick={handleBack}>Back to Images</button>
                 <div className='image-box'>
-                <img className='actual-image' src={image?.imageUrl}></img>
+                <img className='actual-image' src={image?.imageUrl} alt='kick'></img>
             </div>
             <h2>{image?.description}</h2>
-            {isLogged && (
+            {sessionUser && (
                 <>
                     <NavLink to={`/image/${image?.id}/edit`} className='edit-image'>EDIT</NavLink>
                     <button className='delete-image' onClick={handleDelete}>DELETE</button>
@@ -79,7 +78,7 @@ function ImagePage() {
         </div>
         <div className='comment-container'>
             <h1>COMMENTS</h1>
-                {isLogged && (
+                {sessionUser && (
                     <form className='comment-form-container' onSubmit={handleSubmitComment}>
                         <textarea
                             className='add-comment-box'
@@ -98,7 +97,7 @@ function ImagePage() {
                         <div className='comment-content-box'>{comment.comment}</div> <br></br>
                         <div className='comment-timestamp-box'>{comment.updatedAt}</div> <br></br>
                         {/* TODO: INCLUDE COMMENTER USERNAME */}
-                        {comment.userId === sessionUser?.id && isLogged && (
+                        {comment.userId === sessionUser?.id && sessionUser && (
                             <>
                                 <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Edit</button>
                                 <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
