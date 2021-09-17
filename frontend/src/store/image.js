@@ -24,21 +24,24 @@ const removeImage = () => ({ type: REMOVE_IMAGE })
 
 
 // create image
-export const createImage = (image) => async (dispatch) => {
-    const { userId, imageUrl, description } = image;
+export const createImage = (newImage) => async (dispatch) => {
+    const { userId, imageUrl, description } = newImage;
+
+    const formData = new FormData();
+        formData.append("userId", userId);
+        if (imageUrl) formData.append("imageUrl", imageUrl);
+        formData.append("description", description);
+
     const response = await csrfFetch('/api/image', {
         method: 'POST',
-        body: JSON.stringify({
-            userId,
-            imageUrl,
-            description
-        })
+        headers: { "Content-Type": "multipart/form-data" },
+        body: formData
     });
 
     if(response.ok) {
         const data = await response.json();
         dispatch(addImage(data));
-        return response;
+        // return response;
     };
 };
 
