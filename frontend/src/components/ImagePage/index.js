@@ -58,7 +58,8 @@ function ImagePage() {
             imageId: imageId,
             comment: newComment
         };
-        await dispatch(createComment(addComment));
+        await dispatch(createComment(addComment))
+            .then(setNewComment(''));
     }
 
     return (
