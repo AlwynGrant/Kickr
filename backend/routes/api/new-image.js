@@ -7,12 +7,12 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { Image, Comment } = require('../../db/models');
 const router = express.Router();
 
-// const validateImage = [
-//     check('imageUrl')
-//         .exists({ checkFalsy: true })
-//         .withMessage('Please provide a valid url.'),
-//     handleValidationErrors
-// ];
+const validateImage = [
+    check('imageUrl')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide a valid url.'),
+    handleValidationErrors
+];
 
 const validateComment = [
     check('comment')
@@ -23,22 +23,23 @@ const validateComment = [
 
 
 // new image
-router.post("/", singleMulterUpload("imageUrl"),/* validateImage, */ asyncHandler(async (req, res) => {
+router.post("/", singleMulterUpload("imageUrl"), validateImage, asyncHandler(async (req, res) => {
 
     const { userId, description } = req.body;
     const imageUrl = await singlePublicFileUpload(req.file);
-    console.log('IMAGEIMAGEIMAGE',imageUrl)
+
     const image = await Image.build({ userId, imageUrl, description });
 
     const validationErrors = validationResult(req);
 
-    await image.save();
-    return res.json(image);
-    // if (validationErrors.isEmpty()) {
-    // } else {
-    //     const errors = validationErrors.array().map((error) => error.msg);
-    //     return res.json(errors)
-    // }
+    if (validationErrors.isEmpty()) {
+        await image.save();
+        return res.json(image);
+    } else {
+        const errors = validationErrors.array().map((error) => error.msg);
+        return res.json(errors)
+    }
+
 }));
 
 // edit image content
@@ -60,7 +61,7 @@ router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
 }));
 
 
-// =================================================================================
+// ====================================== COMMENTS ====================================
 
 
 // new comment
@@ -99,11 +100,15 @@ router.patch('/:id(\\d+)/comment/:id(\\d+)/edit', asyncHandler(async (req, res) 
 }));
 
 // delete comment
-router.delete('/:id(\\d+)/comment/:id(\\d+)/delete', asyncHandler(async (req, res) => {
-    const commentId = parseInt(req.params.id, 10);
+router.delete('/:imageId(\\d+)/comment/:commentId(\\d+)/delete', asyncHandler(async (req, res) => {
+    const commentId = parseInt(req.params.commentId, 10);
+    const imageId = parseInt(req.params.imageId, 10);
     const comment = await Comment.findByPk(commentId);
+
     await comment.destroy();
-    return res.json({ deleted: 'deleted!' });
+
+    const comments = await Comment.findAll({ where: { imageId } });
+    return res.json({ comments });
 }));
 
 module.exports = router;

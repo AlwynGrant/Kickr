@@ -16,7 +16,7 @@ const REMOVE_COMMENT = 'users/REMOVE_COMMENT';
 const getComments = (comment) => ({ type: GET_COMMENTS, comment });
 const addComment = (comment) => ({ type: ADD_COMMENT, comment });
 const editComment = (comment) => ({ type: EDIT_COMMENT, comment });
-const removeComment = (comment) => ({ type: REMOVE_COMMENT, comment });
+// const removeComment = (comment) => ({ type: REMOVE_COMMENT, comment });
 
 
 // ---------------------------  Defined Thunk(s) --------------------------------
@@ -77,7 +77,7 @@ export const deleteComment = (imageId, commentId) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(removeComment(data));
+        dispatch(getComments(data));
     };
 };
 
@@ -91,6 +91,7 @@ const commentReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case ADD_COMMENT:
+            // return {...state, comment: action.comment}
             newState = Object.assign({}, state);
             newState= action.comment;
             return newState;
@@ -101,10 +102,6 @@ const commentReducer = (state = initialState, action) => {
         case EDIT_COMMENT:
             newState = Object.assign({}, state);
             newState.comment.comment = action.comment.comment;
-            return newState;
-        case REMOVE_COMMENT:
-            newState = Object.assign({}, state);
-            delete newState[action.comment]
             return newState;
         default:
             return state;
