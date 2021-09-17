@@ -7,7 +7,7 @@ import '../../reset.css'
 import './EditFormPage.css'
 import '../../index.css'
 
-// EDIT IMAGE DESCRIPTION FORM
+
 function EditFormPage() {
     const sessionUser = useSelector(state => state.session.user);
     const { imageId } = useParams();

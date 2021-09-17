@@ -16,7 +16,7 @@ const REMOVE_COMMENT = 'users/REMOVE_COMMENT';
 const getComments = (comment) => ({ type: GET_COMMENTS, comment });
 const addComment = (comment) => ({ type: ADD_COMMENT, comment });
 const editComment = (comment) => ({ type: EDIT_COMMENT, comment });
-const removeComment = () => ({ type: REMOVE_COMMENT });
+const removeComment = (comment) => ({ type: REMOVE_COMMENT, comment });
 
 
 // ---------------------------  Defined Thunk(s) --------------------------------
