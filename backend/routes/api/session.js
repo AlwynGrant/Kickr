@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express');
 const asyncHandler = require('express-async-handler');
 
 const { check } = require('express-validator');
@@ -57,11 +57,5 @@ router.get('/', restoreUser, (req, res) => {
         } else return res.json({});
     }
 );
-
-// test route = WORKS
-// router.get('/test', asyncHandler(async (req, res) => {
-//     const users = await User.findByPk(1);
-//     return res.json(users);
-// }));
 
 module.exports = router;

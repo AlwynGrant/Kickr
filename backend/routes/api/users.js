@@ -30,10 +30,10 @@ const validateSignup = [
 
 
 // Sign up
-router.post('/', singleMulterUpload("image"), validateSignup, asyncHandler(async (req, res) => {
+router.post('/', asyncHandler(async (req, res) => {
         const { email, password, username } = req.body;
-        const profileImageUrl = await singlePublicFileUpload(req.file);
-    const user = await User.signup({ email, username, password, profileImageUrl });
+        const user = await User.signup({ email, username, password });
+
         await setTokenCookie(res, user);
 
         return res.json({
@@ -52,6 +52,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     })
     return res.json({ images })
 }));
+
 
 // get image
 router.get('/image/:id(\\d+)', asyncHandler(async (req, res) => {
