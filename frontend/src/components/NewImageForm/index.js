@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import * as newImageActions from '../../store/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -8,6 +8,8 @@ import './NewImage.css'
 
 
 function NewImageForm() {
+    const modalImageRef = useRef();
+    const modalRef = useRef();
     const history = useHistory();
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
@@ -115,6 +117,23 @@ function NewImageForm() {
         console.log(files)
     }
 
+    // ========================================== MODAL
+
+    const openImageModal = (file) => {
+        const reader = new FileReader(); // async file/data buffer reader
+        modalRef.current.style.display = "block";
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            modalImageRef.current.style.backgroundImage = `url(${e.target.result})`;
+        }
+    }
+
+    const closeModal = () => {
+        modalRef.current.style.display = "none";
+        modalImageRef.current.style.backgroundImage = 'none';
+    }
+
+
     // ========================================== COMPONENT
 
     return (
@@ -168,7 +187,7 @@ function NewImageForm() {
                             {
                                 selectedFiles.map((data, i) =>
                                     <div className="file-status-bar" key={i}>
-                                        <div>
+                                        <div onClick={!data.invalid ? () => openImageModal(data) : () => removeFile(data.name)}>
                                             <div className="file-type-logo"></div>
                                             <div className="file-type">{fileType(data.name)}</div>
                                             <span className='file-name'>{data.name}</span>
@@ -181,6 +200,11 @@ function NewImageForm() {
                         </div>
 
                     </div>
+                </div>
+                <div className="modal" ref={modalRef}>
+                    <div className="overlay"></div>
+                    <span className="close" onClick={(() => closeModal())}>X</span>
+                    <div className="modal-image" ref={modalImageRef}></div>
                 </div>
             </div>
         </>
