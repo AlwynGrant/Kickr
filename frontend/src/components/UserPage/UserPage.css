@@ -1,3 +1,7 @@
+html {
+    background-color: #eff4f5;
+}
+
 .user-container {
     display: flex;
     flex-direction: column;
@@ -8,22 +12,22 @@
 .top-container {
     display: flex;
     background-color: rgb(0, 0, 0);
-    height: 40vh;
-    width: 100vw;
+    min-height: 250px;
+    width: 100%;
 }
 
 .bottom-container {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
     border: 2px solid white;
     background-color: #eff4f5;
-    width: 100vw;
-    height: 50vh;
-    align-self: center;
+    width: 100%;
+    height: auto;
 }
 
 .create-newImage {
+    display: flex;
     font-family: Arial, Helvetica, sans-serif;
     color: white;
     background-color: #4aa1f3;
@@ -31,22 +35,29 @@
     text-transform: uppercase;
     outline: none;
     font-weight: bold;
-
     padding: 8px 15px;
-    /* margin: 5px 0px 5px 0px; */
-
+    margin: 5px 0px 0px 0px;
 }
 
 .image-box {
-
     background-color: rgb(163, 62, 62);
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
+    margin: 2.5px;
+    overflow: hidden;
 }
 
 .actual-image {
-    width: 300px;
-    height: 300px;
-    object-fit:cover;
+    max-width: 100%;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
     overflow: hidden;
+
+    transform: scale(1);
+    transition: .2s ease-in-out;
+}
+
+.actual-image:hover {
+    transform: scale(1.1);
 }
