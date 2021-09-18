@@ -8,21 +8,16 @@ import './NewImage.css'
 
 
 function NewImageForm() {
-    const [url, setUrl] = useState(null); // image upload
-    const [description, setDescription] = useState('');
-
     const history = useHistory();
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
 
-    if (!sessionUser) return <Redirect to="/" />;
+    
+    const [url, setUrl] = useState(null);
+    const [description, setDescription] = useState('');
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     const newImage = { userId: sessionUser.id, description, imageUrl: url }
-    //     await dispatch(newImageActions.createImage(newImage));
-    //     history.push(`/user/${sessionUser.id}`);
-    // }
+
+    if (!sessionUser) return <Redirect to="/" />;
 
     const handleSubmit = (e) => {
         e.preventDefault();
