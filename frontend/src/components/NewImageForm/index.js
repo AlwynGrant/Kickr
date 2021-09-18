@@ -8,6 +8,7 @@ import './NewImage.css'
 
 
 function NewImageForm() {
+    const fileInputRef = useRef();
     const modalImageRef = useRef();
     const modalRef = useRef();
     const history = useHistory();
@@ -78,23 +79,11 @@ function NewImageForm() {
 
     // ========================================== DROPZONE HANDLERS
 
-    //  To limit uploading files over a specific file size, for possible future use.
-
-    // const fileSize = (size) => {
-    //     if (size === 0) return '0 Bytes';
-    //     const k = 1024;
-    //     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    //     const i = Math.floor(Math.log(size) / Math.log(k));
-    //     return parseFloat((size / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    // }
-
     const fileType = (fileName) => {
         return fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) || fileName;
     }
 
-
-
-
+    // TODO: Limit upload of files over a specific file size.
 
     // ========================================== FILE VALIDATORS
 
@@ -134,6 +123,17 @@ function NewImageForm() {
     }
 
 
+    // ========================================== HIDDEN INPUT
+
+    const fileInputClicked = () => {
+        fileInputRef.current.click();
+    }
+
+    const filesSelected = () => {
+        if (fileInputRef.current.files.length) {
+            handleFiles(fileInputRef.current.files);
+        }
+    }
     // ========================================== COMPONENT
 
     return (
@@ -170,17 +170,26 @@ function NewImageForm() {
                 <p className="title">React Drag and Drop Image Upload</p>
                 <div className="content">
                     <div className="container">
+                        <button className='file-upload-btn'>Upload Image</button>
                         <div
                             className="drop-container"
                             onDragOver={dragOver}
                             onDragEnter={dragEnter}
                             onDragLeave={dragLeave}
                             onDrop={fileDrop}
+                            onClick={fileInputClicked}
                         >
                             <div className="drop-message">
                                 <div className="upload-icon"></div>
                                 Drag & Drop files here or click to upload
                             </div>
+                            <input
+                                ref={fileInputRef}
+                                className="file-input"
+                                type="file"
+                                multiple
+                                onChange={filesSelected}
+                            />
                         </div>
 
                         <div className="file-display-container">

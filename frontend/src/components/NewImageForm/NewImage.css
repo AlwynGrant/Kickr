@@ -180,3 +180,22 @@
     font-weight: bold;
     transition: 0.3s;
 }
+
+/* UPLOAD SUBMIT */
+
+
+.file-upload-btn {
+    color: white;
+    text-transform: uppercase;
+    outline: none;
+    background-color: #4aa1f3;
+    font-weight: bold;
+    padding: 8px 15px;
+    margin-bottom: 5px;
+}
+
+/* HIDDEN INPUT */
+
+.file-input {
+    display: none;
+} 
