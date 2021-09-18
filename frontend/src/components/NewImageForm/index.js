@@ -15,6 +15,8 @@ function NewImageForm() {
 
     const [url, setUrl] = useState(null);
     const [description, setDescription] = useState('');
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
 
     if (!sessionUser) return <Redirect to="/" />;
@@ -35,10 +37,52 @@ function NewImageForm() {
         const file = e.target.files[0];
         if (file) setUrl(file);
     };
+
     // ========================================== DROPZONE VALIDATIONS
 
+    const validateFile = (file) => {
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/x-icon'];
+        if (validTypes.indexOf(file.type) === -1) return false
+        return true;
+    }
+
+    const handleFiles = (files) => {
+        for (let i = 0; i < files.length; i++) {
+            if (validateFile(files[i])) {
+                // add to an array so we can display the name of file
+                setSelectedFiles(prevArray => [...prevArray, files[i]]);
+            } else {
+                // add a new property called invalid
+                files[i]['invalid'] = true;
+                // add to the same array so we can display the name of the file
+                setSelectedFiles(selectedFiles => [...selectedFiles, files[i]]);
+                // set error msg
+                setErrorMessage('File type is not supported at this time!');
+            }
+        }
+    }
 
     // ========================================== DROPZONE HANDLERS
+
+    //  To limit uploading files over a specific file size, for possible future use.
+
+    // const fileSize = (size) => {
+    //     if (size === 0) return '0 Bytes';
+    //     const k = 1024;
+    //     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    //     const i = Math.floor(Math.log(size) / Math.log(k));
+    //     return parseFloat((size / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    // }
+
+    const fileType = (fileName) => {
+        return fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) || fileName;
+    }
+
+
+
+
+
+    // ========================================== FILE VALIDATORS
 
     const dragOver = (e) => {
         e.preventDefault();
@@ -55,10 +99,11 @@ function NewImageForm() {
     const fileDrop = (e) => {
         e.preventDefault();
         const files = e.dataTransfer.files;
-        console.log(files);
+        if (files.length) handleFiles(files)
+        // console.log(files)
     }
 
-    // ========================================== /////////////////
+    // ========================================== COMPONENT
 
     return (
         <>
@@ -105,6 +150,22 @@ function NewImageForm() {
                                 <div className="upload-icon"></div>
                                 Drag & Drop files here or click to upload
                             </div>
+                        </div>
+
+                        <div className="file-display-container">
+                            {
+                                selectedFiles.map((data, i) =>
+                                    <div className="file-status-bar" key={i}>
+                                        <div>
+                                            <div className="file-type-logo"></div>
+                                            <div className="file-type">{fileType(data.name)}</div>
+                                            <span className='file-name'>{data.name}</span>
+                                            {data.invalid && <span className='file-error-message'>({errorMessage})</span>}
+                                        </div>
+                                        <div className="file-remove">X</div>
+                                    </div>
+                                )
+                            }
                         </div>
 
                     </div>
