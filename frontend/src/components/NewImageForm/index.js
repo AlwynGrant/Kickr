@@ -1,13 +1,14 @@
 import React, { useState, useRef } from 'react';
 import * as newImageActions from '../../store/image';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
+import { useParams } from 'react-router';
 import '../../reset.css'
 import './NewImage.css'
 
 
 function NewImageForm() {
+    const params = useParams();
     const fileInputRef = useRef();
     const modalImageRef = useRef();
     const modalRef = useRef();
@@ -27,7 +28,7 @@ function NewImageForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newImage = { userId: sessionUser.id, imageUrl: url, description }
+        const newImage = { userId: sessionUser.id, imageUrl: selectedFiles[0], description }
         dispatch(newImageActions.createImage(newImage))
             .then(() => {
                 setDescription('');
@@ -35,12 +36,6 @@ function NewImageForm() {
             })
         history.push(`/user/${sessionUser.id}`);
     };
-
-    const updateFile = (e) => {
-        const file = e.target.files[0];
-        if (file) setUrl(file);
-    };
-    console.log(url)
 
     // ========================================== DROPZONE VALIDATIONS
 
@@ -103,9 +98,9 @@ function NewImageForm() {
         e.preventDefault();
         const files = e.dataTransfer.files;
         if (files.length) handleFiles(files)
-        console.log(files)
-    }
 
+    }
+    console.log(selectedFiles[0])
     // ========================================== MODAL
 
     const openImageModal = (file) => {
@@ -137,86 +132,68 @@ function NewImageForm() {
     // ========================================== COMPONENT
 
     return (
-        <>
-            <div className='new-image-container'>
-                <form className='new-image-form' onSubmit={handleSubmit}>
-                    <label className='upload-box'>
+        <div>
+            <div className="content">
+                <div className="container">
+                    {/* <button className='go-back-btn' type='submit' onClick={handleBack}>Back to Images</button> */}
+                    <button className='file-upload-btn' onClick={handleSubmit} disabled={!selectedFiles.length}>Upload Image</button>
+                    <div
+                        className="drop-container"
+                        onDragOver={dragOver}
+                        onDragEnter={dragEnter}
+                        onDragLeave={dragLeave}
+                        onDrop={fileDrop}
+                        onClick={fileInputClicked}
+                    >
+                        <div className="drop-message">
+                            <div className="upload-icon"></div>
+                            Drag & Drop files here or click to upload
+                        </div>
                         <input
-                            className='upload-input'
-                            type='file'
-                            onChange={updateFile}
-                            required
+                            ref={fileInputRef}
+                            className="file-input"
+                            type="file"
+                            multiple
+                            onChange={filesSelected}
                         />
-                    </label>
+                    </div>
                     <label className='description-box'>
-                        <input
+                        <textarea
                             className='description-input'
                             type='text'
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            placeholder='Tell us about this kick!'
+                            placeholder='Tell us about this kick...'
                         />
                     </label>
-                    <button className='submit-new-image' type='submit'>Add new Image</button>
-                </form>
-            </div>
-
-
-            {/* =================================== {CUT OFF POINT ----- INTERGRATE IN LATER PHASE!!!} ================================= */}
-
-
-
-            <div>
-                <p className="title">React Drag and Drop Image Upload</p>
-                <div className="content">
-                    <div className="container">
-                        <button className='file-upload-btn'>Upload Image</button>
-                        <div
-                            className="drop-container"
-                            onDragOver={dragOver}
-                            onDragEnter={dragEnter}
-                            onDragLeave={dragLeave}
-                            onDrop={fileDrop}
-                            onClick={fileInputClicked}
-                        >
-                            <div className="drop-message">
-                                <div className="upload-icon"></div>
-                                Drag & Drop files here or click to upload
-                            </div>
-                            <input
-                                ref={fileInputRef}
-                                className="file-input"
-                                type="file"
-                                multiple
-                                onChange={filesSelected}
-                            />
-                        </div>
-
-                        <div className="file-display-container">
-                            {
-                                selectedFiles.map((data, i) =>
-                                    <div className="file-status-bar" key={i}>
-                                        <div onClick={!data.invalid ? () => openImageModal(data) : () => removeFile(data.name)}>
-                                            <div className="file-type-logo"></div>
-                                            <div className="file-type">{fileType(data.name)}</div>
-                                            <span className='file-name'>{data.name}</span>
-                                            {data.invalid && <span className='file-error-message'>({errorMessage})</span>}
-                                        </div>
-                                        <div className="file-remove" onClick={() => removeFile(data.name)}>X</div>
+                    <div className="file-display-container">
+                        {
+                            selectedFiles.map((data, i) =>
+                                <div className="file-status-bar" key={i}>
+                                    <div className='file-details' onClick={!data.invalid ? () => openImageModal(data) : () => removeFile(data.name)}>
+                                        <div className="file-type-logo"></div>
+                                        <div className="file-type">{fileType(data.name)}</div>
+                                        <div className='file-name'>{data.name}</div>
+                                        {data.invalid && <span className='file-error-message'>({errorMessage})</span>}
                                     </div>
-                                )
-                            }
-                        </div>
-
+                                    <div className="file-remove" onClick={() => removeFile(data.name)}>
+                                        <p className='x-button'>x</p>
+                                    </div>
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
-                <div className="modal" ref={modalRef}>
-                    <div className="overlay"></div>
-                    <span className="close" onClick={(() => closeModal())}>X</span>
-                    <div className="modal-image" ref={modalImageRef}></div>
-                </div>
             </div>
-        </>
+            <div className="modal" ref={modalRef}>
+                <div className="overlay"></div>
+                <span className="close" onClick={(() => closeModal())}>
+                    <p className='x-button'>x</p>
+                </span>
+                <div className="modal-image" ref={modalImageRef}></div>
+            </div>
+        </div>
+
     );
 }
 
