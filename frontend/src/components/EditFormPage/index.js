@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { editDescription, listImage } from '../../store/image';
 import '../../reset.css'
 import './EditFormPage.css'
-import '../../index.css'
 
 
 function EditFormPage() {

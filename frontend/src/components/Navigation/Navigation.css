@@ -1,8 +1,8 @@
 .global-navbar {
     display: flex;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     width: 100%;
-    height: 70px;
+    height: 10vh;
 }
 
 .link-login {
@@ -33,7 +33,7 @@
 }
 
 .signup:hover {
-    color: grey;
+    color: rgb(138, 138, 138);
 }
 .link-home {
     align-self: center;
@@ -57,7 +57,6 @@
     border: none;
     border: 1px solid black;
     border-radius: 8px;
-    /* color: grey; */
     background-color: whitesmoke;
 }
 
