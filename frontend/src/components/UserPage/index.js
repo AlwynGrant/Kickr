@@ -24,10 +24,10 @@ function UserPage() {
             <div className='top-container'>
 
             </div>
-            <div className='bottom-container'>
             {sessionUser && (
                 <NavLink className='create-newImage' to='/image'>Upload new Image</NavLink>
             )}
+            <div className='bottom-container'>
             {
                 images?.map((image) => {
                 return <NavLink className='image-box' to={`/image/${image.id}`}>

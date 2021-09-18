@@ -1,45 +1,52 @@
-.main-container {
-    display: inline-flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
+.user-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 90vh;
 }
 
 .top-container {
     display: flex;
-    background-color: green;
+    background-color: rgb(0, 0, 0);
     height: 40vh;
-    width: 100%;
+    width: 100vw;
 }
 
 .bottom-container {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     border: 2px solid white;
-    background-color: white;
-    width: 100%;
-    height: 100%;
+    background-color: #eff4f5;
+    width: 100vw;
+    height: 50vh;
     align-self: center;
 }
 
 .create-newImage {
-    display: flex;
-    align-self: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    background-color: #4aa1f3;
+    text-decoration: none;
+    text-transform: uppercase;
+    outline: none;
+    font-weight: bold;
+
+    padding: 8px 15px;
+    /* margin: 5px 0px 5px 0px; */
 
 }
 
 .image-box {
-    display: flex;
-    border: 2px solid rgb(185, 101, 174);
-    background-color: white;
-    width: 300px;
+
+    background-color: rgb(163, 62, 62);
+    width: 200px;
     height: 200px;
-    align-self: center;
 }
 
 .actual-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 300px;
+    height: 300px;
+    object-fit:cover;
     overflow: hidden;
 }
