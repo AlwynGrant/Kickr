@@ -37,6 +37,7 @@ function NewImageForm() {
         const file = e.target.files[0];
         if (file) setUrl(file);
     };
+    console.log(url)
 
     // ========================================== DROPZONE VALIDATIONS
 
@@ -60,6 +61,17 @@ function NewImageForm() {
                 setErrorMessage('File type is not supported at this time!');
             }
         }
+    }
+
+    // ========================================== DROPZONE HANDLERS
+
+    const removeFile = (name) => {
+        // find the index of the item
+        // remove the item from array
+        const selectedFileIndex = selectedFiles.findIndex(e => e.name === name);
+        selectedFiles.splice(selectedFileIndex, 1);
+        // update selectedFiles array
+        setSelectedFiles([...selectedFiles]);
     }
 
     // ========================================== DROPZONE HANDLERS
@@ -100,7 +112,7 @@ function NewImageForm() {
         e.preventDefault();
         const files = e.dataTransfer.files;
         if (files.length) handleFiles(files)
-        // console.log(files)
+        console.log(files)
     }
 
     // ========================================== COMPONENT
@@ -162,7 +174,7 @@ function NewImageForm() {
                                             <span className='file-name'>{data.name}</span>
                                             {data.invalid && <span className='file-error-message'>({errorMessage})</span>}
                                         </div>
-                                        <div className="file-remove">X</div>
+                                        <div className="file-remove" onClick={() => removeFile(data.name)}>X</div>
                                     </div>
                                 )
                             }
