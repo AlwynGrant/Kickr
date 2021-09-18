@@ -16,8 +16,8 @@ function UserPage() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(!images) dispatch(listImages(userId));
-    }, [dispatch, images, userId]);
+         dispatch(listImages(userId));
+    }, [dispatch, userId]);
 
     return (
         <div className='user-container'>
