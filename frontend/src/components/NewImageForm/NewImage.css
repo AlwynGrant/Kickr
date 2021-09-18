@@ -1,5 +1,59 @@
-.new-image-container {
-    background-color: forestgreen;
-    height: 90vh;
-    width: 100vw;
+
+/* OUTER MOST CONTAINER CSS */
+
+.title {
+  font-size: 2rem;
+  text-align: center !important;
+  margin-top: 10%;
+  color: #4aa1f3;
+  font-weight: bold;
 }
+
+.content {
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* DROP CONTAINER CSS */
+
+.container {
+    transform: translateY(-100%);
+}
+
+.container p {
+    color: red;
+    text-align: center;
+}
+
+.drop-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    width: 800px;
+    height: 200px;
+    border: 4px dashed #4aa1f3;
+}
+
+.upload-icon {
+    width: 50px;
+    height: 50px;
+    background: url(./upload-file-images/upload.png) no-repeat center center;
+    background-size: 100%;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.drop-message {
+    text-align: center;
+    color: #4aa1f3;
+    font-family: Arial;
+    font-size: 20px;
+}
+
+/*  */

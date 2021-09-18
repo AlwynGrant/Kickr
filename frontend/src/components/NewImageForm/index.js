@@ -12,11 +12,13 @@ function NewImageForm() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
 
+
     const [url, setUrl] = useState(null);
     const [description, setDescription] = useState('');
 
 
     if (!sessionUser) return <Redirect to="/" />;
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -34,31 +36,51 @@ function NewImageForm() {
         if (file) setUrl(file);
     };
 
-    console.log(url)
-
     return (
-        <div className='new-image-container'>
-            <form className='new-image-form' onSubmit={handleSubmit}>
-                <label className='upload-box'>
-                    <input
-                        className='upload-input'
-                        type='file'
-                        onChange={updateFile}
-                        required
-                    />
-                </label>
-                <label className='description-box'>
-                    <input
-                        className='description-input'
-                        type='text'
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        placeholder='Tell us about this kick!'
-                    />
-                </label>
-                <button className='submit-new-image' type='submit'>Add new Image</button>
-            </form>
-        </div>
+        <>
+            <div className='new-image-container'>
+                <form className='new-image-form' onSubmit={handleSubmit}>
+                    <label className='upload-box'>
+                        <input
+                            className='upload-input'
+                            type='file'
+                            onChange={updateFile}
+                            required
+                        />
+                    </label>
+                    <label className='description-box'>
+                        <input
+                            className='description-input'
+                            type='text'
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            placeholder='Tell us about this kick!'
+                        />
+                    </label>
+                    <button className='submit-new-image' type='submit'>Add new Image</button>
+                </form>
+            </div>
+
+
+            {/* =================================== {CUT OFF POINT ----- INTERGRATE IN LATER PHASE!!!} ================================= */}
+
+
+
+            <div>
+                <p className="title">React Drag and Drop Image Upload</p>
+                <div className="content">
+                    <div className="container">
+                        <div className="drop-container">
+                            <div className="drop-message">
+                                <div className="upload-icon"></div>
+                                Drag & Drop files here or click to upload
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </>
     );
 }
 
