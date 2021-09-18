@@ -12,7 +12,6 @@ function NewImageForm() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
 
-    
     const [url, setUrl] = useState(null);
     const [description, setDescription] = useState('');
 
@@ -40,30 +39,24 @@ function NewImageForm() {
     return (
         <div className='new-image-container'>
             <form className='new-image-form' onSubmit={handleSubmit}>
-                <label>
+                <label className='upload-box'>
                     <input
+                        className='upload-input'
                         type='file'
                         onChange={updateFile}
                         required
                     />
                 </label>
-                {/* <label>
+                <label className='description-box'>
                     <input
-                        type='text'
-                        value={imageUrl}
-                        onChange={(e) => setImageUrl(e.target.value)}
-                        placeholder='test'
-                    />
-                </label> */}
-                <label>
-                    <input
+                        className='description-input'
                         type='text'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder='Tell us about this kick!'
                     />
                 </label>
-                <button type='submit'>Add new Image</button>
+                <button className='submit-new-image' type='submit'>Add new Image</button>
             </form>
         </div>
     );
