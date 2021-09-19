@@ -35,16 +35,15 @@ function EditFormPage() {
     return (
         <div className='edit-container'>
             <form className='edit-image-form' onSubmit={handleSubmit}>
-                <label>
                     <textarea
-                        placeholder='Tell us about this kick!'
+                        className='edit-text-box'
+                        placeholder='Edit your kick description...'
                         value={edit}
                         onChange={(e) => setEdit(e.target.value)}
                     >
                     </textarea>
-                    <button type='button' onClick={handleCancel}>Back to Image</button>
-                    <button type='submit'>Submit</button>
-                </label>
+                    <button className='back-button' type='button' onClick={handleCancel}>Back to Image</button>
+                    <button className='submit-edit-button' type='submit'>Submit</button>
             </form>
         </div>
     );

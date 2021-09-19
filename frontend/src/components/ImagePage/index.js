@@ -63,10 +63,10 @@ function ImagePage() {
 
     return (
     <>
-        <div className='image-container'>
+        <div className='user-image-container'>
             <button type='submit' onClick={handleBack}>Back to Images</button>
-                <div className='image-box'>
-                <img className='actual-image' src={image?.imageUrl} alt='kick'></img>
+                <div className='user-image-box'>
+                <img className='user-image' src={image?.imageUrl} alt='kick'></img>
             </div>
             <h2>{image?.description}</h2>
             {sessionUser && (

@@ -22,7 +22,6 @@ function NewImageForm() {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 
-
     if (!sessionUser) return <Redirect to="/" />;
 
 
@@ -59,6 +58,7 @@ function NewImageForm() {
                 setErrorMessage('File type is not supported at this time!');
             }
         }
+
     }
 
     // ========================================== DROPZONE HANDLERS
@@ -70,6 +70,7 @@ function NewImageForm() {
         selectedFiles.splice(selectedFileIndex, 1);
         // update selectedFiles array
         setSelectedFiles([...selectedFiles]);
+        setErrorMessage('');
     }
 
     // ========================================== DROPZONE HANDLERS
@@ -100,7 +101,7 @@ function NewImageForm() {
         if (files.length) handleFiles(files)
 
     }
-    console.log(selectedFiles[0])
+
     // ========================================== MODAL
 
     const openImageModal = (file) => {
@@ -136,7 +137,7 @@ function NewImageForm() {
             <div className="content">
                 <div className="container">
                     {/* <button className='go-back-btn' type='submit' onClick={handleBack}>Back to Images</button> */}
-                    <button className='file-upload-btn' onClick={handleSubmit} disabled={!selectedFiles.length}>Upload Image</button>
+                    <button className='file-upload-btn' onClick={handleSubmit} disabled={!selectedFiles.length || errorMessage !== ''}>UPLOAD IMAGE</button>
                     <div
                         className="drop-container"
                         onDragOver={dragOver}
