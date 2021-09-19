@@ -19,9 +19,6 @@ function ImagePage() {
     const history = useHistory();
     const dispatch = useDispatch();
 
-
-    const comment = comments?.map((comment) => comment);
-
     const [newComment, setNewComment] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [edit, setEdit] = useState('');
@@ -36,7 +33,7 @@ function ImagePage() {
          dispatch(listComments(imageId));
     }, [dispatch, imageId]);
 
-    
+
     // ============================================================= BACK TO USER PAGE
 
     const handleBack = (e) => {
@@ -69,27 +66,27 @@ function ImagePage() {
     // ============================================================= EDIT COMMENT
 
     //  Make the div editable
-    const handleCommentEditable = async (e) => {
+    const handleCommentEditable = async (e, comment, commentId) => {
         e.preventDefault();
-        const commentContentBox = document.querySelector('.comment-content-box');
+        const commentContentBox = document.querySelector(`.com${commentId}`);
         commentContentBox.setAttribute('contentEditable', true);
+        setEdit(comment);
         setEditableDiv(true);
-        // TODO:
     }
 
     // Cancel editable div
-    const handleCancelCommentEdit = async (e) => {
+    const handleCancelCommentEdit = async (e, comment, commentId) => {
         e.preventDefault();
-        const commentContentBox = document.querySelector('.comment-content-box');
+        const commentContentBox = document.querySelector(`.com${commentId}`);
         commentContentBox.removeAttribute('contentEditable');
+        commentContentBox.innerText = comment;
         setEditableDiv(false);
-        // TODO: RESET DIV CONTENT UPON CANCELING
     }
 
     // Submit edit
     const handleCommentEdit = async (e, commentId) => {
         e.preventDefault();
-        const commentContentBox = document.querySelector('.comment-content-box');
+        const commentContentBox = document.querySelector(`.com${commentId}`);
         await dispatch(editCommentContent(imageId, commentId));
         commentContentBox.removeAttribute('contentEditable');
         setEditableDiv(false);
@@ -102,7 +99,7 @@ function ImagePage() {
         await dispatch(deleteComment(imageId, commentId));
     }
 
-
+    // ============================================================= RENDER
 
     return (
     <>
@@ -147,25 +144,26 @@ function ImagePage() {
                         return <div className={`comment-box ${comment.id}`} id={comment.id} key={comment.id}>
                             <div className='comment-content-container'>
                                 <div
-                                    className='comment-content-box'
+                                    className={`comment-content-box com${comment.id}`}
                                     value={edit}
                                     onChange={(e) => setEdit(e.target.value)}
                                 >
                                     {comment.comment}
                                 </div>
                             </div>
+
                             <div className='comment-data-container'>
                                 {/* TODO: INCLUDE COMMENTER USERNAME */}
                                 <div className='comment-timestamp-box'>Posted: {comment.createdAt}</div>
                                 {comment.userId === sessionUser?.id && sessionUser && !editableDiv && (
                                     <div className='comment-tools-container'>
-                                        <button className='edit-comment-button' onClick={(e) => handleCommentEditable(e)}>Edit</button>
+                                        <button className='edit-comment-button' onClick={(e) => handleCommentEditable(e, comment.comment, comment.id)}>Edit</button>
                                         <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
                                     </div>
                                 )}
                                 {comment.userId === sessionUser?.id && sessionUser && editableDiv && (
                                     <div className='comment-tools-container'>
-                                        <button className='edit-comment-button' onClick={(e) => handleCancelCommentEdit(e)}>Cancel</button>
+                                        <button className='edit-comment-button' onClick={(e) => handleCancelCommentEdit(e, comment.comment, comment.id)}>Cancel</button>
                                         <button className='delete-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Submit</button>
                                     </div>
                                 )}
