@@ -28,7 +28,7 @@ function UserPage() {
                 <NavLink className='create-newImage' to='/image'>UPLOAD IMAGE</NavLink>
             )}
             <div className='bottom-container'>
-            {!images?.length && (
+            {!images?.length && sessionUser && (
                 <div className='no-image-div'>
                     <h1>There is no activity to show right now</h1> <br></br>
                     <h1>Start by uploading an image</h1>

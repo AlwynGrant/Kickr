@@ -67,7 +67,6 @@ function ImagePage() {
                 <div className='user-image-box'>
                 <img className='user-image' src={image?.imageUrl} alt='kick'></img>
             </div>
-            <h2>{image?.description}</h2>
         </div>
         <div className='btn-container'>
             <button className='back-to-images' type='submit' onClick={handleBack}>Back to Images</button>
@@ -79,36 +78,40 @@ function ImagePage() {
             )}
 
         </div>
-        <div className='comment-container'>
-            <h1>COMMENTS</h1>
-                {sessionUser && (
-                    <form className='comment-form-container' onSubmit={handleSubmitComment}>
-                        <textarea
-                            className='add-comment-box'
-                            placeholder='Add a comment'
-                            value={newComment}
-                            onChange={(e) => setNewComment(e.target.value)}
-                            required
-                        >
-                        </textarea>
-                        <button type='submit'>Comment</button>
-                    </form>
-                )}
-            {
-                comments?.map((comment) => {
-                    return <div className={`comment-box ${comment.id}`} id={comment.id} key={comment.id}>
-                        <div className='comment-content-box'>{comment.comment}</div> <br></br>
-                        <div className='comment-timestamp-box'>{comment.updatedAt}</div> <br></br>
-                        {/* TODO: INCLUDE COMMENTER USERNAME */}
-                        {comment.userId === sessionUser?.id && sessionUser && (
-                            <>
-                                <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Edit</button>
-                                <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
-                            </>
-                        )}
-                    </div>
-                })
-            }
+        <div className='underimage-container'>
+            <div className='comment-container'>
+                    {sessionUser && (
+                        <form className='comment-form-container' onSubmit={handleSubmitComment}>
+                            <textarea
+                                className='add-comment-box'
+                                placeholder='Add a comment'
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                                required
+                            >
+                            </textarea>
+                            <button className='submit-comment' type='submit'>Comment</button>
+                        </form>
+                    )}
+                {
+                    comments?.map((comment) => {
+                        return <div className={`comment-box ${comment.id}`} id={comment.id} key={comment.id}>
+                            <div className='comment-content-box'>{comment.comment}</div> <br></br>
+                            <div className='comment-timestamp-box'>{comment.updatedAt}</div> <br></br>
+                            {/* TODO: INCLUDE COMMENTER USERNAME */}
+                            {comment.userId === sessionUser?.id && sessionUser && (
+                                <>
+                                    <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Edit</button>
+                                    <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
+                                </>
+                            )}
+                        </div>
+                    })
+                }
+            </div>
+            <div className='description-section'>
+                    <h2 className='description-content'>{image?.description}</h2>
+            </div>
         </div>
     </>
     );
