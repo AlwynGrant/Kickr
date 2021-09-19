@@ -97,11 +97,11 @@ function ImagePage() {
                     comments?.map((comment) => {
                         return <div className={`comment-box ${comment.id}`} id={comment.id} key={comment.id}>
                             <div className='comment-content-container'>
-                                <div className='comment-content-box'>{comment.comment}</div> <br></br>
+                                <div className='comment-content-box'>{comment.comment}</div>
                             </div>
                             <div className='comment-data-container'>
                                 {/* TODO: INCLUDE COMMENTER USERNAME */}
-                                <div className='comment-timestamp-box'>Posted: {comment.updatedAt}</div> <br></br>
+                                <div className='comment-timestamp-box'>Posted: {comment.createdAt}</div>
                                 {comment.userId === sessionUser?.id && sessionUser && (
                                     <div className='comment-tools-container'>
                                         <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Edit</button>
@@ -114,6 +114,8 @@ function ImagePage() {
                 }
             </div>
             <div className='description-section'>
+                    <h1 className='description-username'>{sessionUser?.username}</h1>
+                    <h2 className='description-create-date'>Posted: {image?.createdAt}</h2>
                     <h2 className='description-content'>{image?.description}</h2>
             </div>
         </div>
