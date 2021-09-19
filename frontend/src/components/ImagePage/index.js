@@ -19,6 +19,7 @@ function ImagePage() {
     const dispatch = useDispatch();
     const modalEditRef = useRef();
     const modalRef = useRef();
+    modalRef.current.style.display = "block";
 
     const [newComment, setNewComment] = useState('');
 
@@ -67,7 +68,13 @@ function ImagePage() {
     // ===================================== MODEL - EDIT COMMENTS
 
     const openEditModal = () => {
+        modalRef.current.style.display = "block";
+        // modalImageRef.current.style.backgroundImage = `url(${e.target.result})`;
+    }
 
+    const closeModal = () => {
+        modalRef.current.style.display = "none";
+        // modalImageRef.current.style.backgroundImage = 'none';
     }
 
     return (
@@ -118,10 +125,10 @@ function ImagePage() {
                                     </div>
                                 )}
                             </div>
-                            <div className="modal">
-                                <div className="overlay"></div>
-                                <span className="close">x</span>
-                                <div className="modal-edit">
+                                <div className="modal" ref={modalRef}>
+                                    <div className="overlay"></div>
+                                    <span className="close" onClick={() => closeModal()}>X</span>
+                                    <div className="modal-edit" ref={modalEditRef}>
                                     <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Edit</button>
                                 </div>
                             </div>
