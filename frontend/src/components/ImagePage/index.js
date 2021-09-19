@@ -19,6 +19,9 @@ function ImagePage() {
     const history = useHistory();
     const dispatch = useDispatch();
 
+
+    const comment = comments?.map((comment) => comment);
+
     const [newComment, setNewComment] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [edit, setEdit] = useState('');
@@ -44,7 +47,13 @@ function ImagePage() {
 
     const handleCommentEdit = async (e, commentId) => {
         e.preventDefault();
-        // await dispatch(editCommentContent(imageId, commentId));
+        await dispatch(editCommentContent(imageId, commentId));
+    }
+
+    const handleCancelCommentEdit = async (e) => {
+        e.preventDefault();
+         setShowModal(false);
+
     }
 
     const handleBack = (e) => {
@@ -110,7 +119,16 @@ function ImagePage() {
                                         <button className='edit-comment-button' onClick={() => setShowModal(true)}>Edit</button>
                                         {showModal && (
                                             <Modal onClose={() => setShowModal(false)}>
-
+                                                <form onSubmit={(e) => handleCommentEdit(e, comment?.id)}>
+                                                    <textarea
+                                                        className='edit-comment-box'
+                                                        value={edit}
+                                                        onChange={(e) => setEdit(e.target.value)}
+                                                    >
+                                                    </textarea>
+                                                    <button onClick={(e) => handleCancelCommentEdit(e)}>Cancel</button>
+                                                    <button type='submit'>Submit</button>
+                                                </form>
                                             </Modal>
                                         )}
                                         <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
