@@ -77,7 +77,12 @@ function ImagePage() {
     <>
         <div className='user-image-container'>
                 <div className='user-image-box'>
-                <img className='user-image' src={image?.imageUrl} alt='kick'></img>
+                <img className='user-image' src={image?.imageUrl} alt='kick' onClick={() => setShowModal(true)}></img>
+                    {showModal && (
+                        <Modal onClose={() => setShowModal(false)}>
+                            <img className='user-modal-image' src={image?.imageUrl} alt='kick' onClick={() => setShowModal(true)}></img>
+                        </Modal>
+                    )}
             </div>
         </div>
         <div className='btn-container'>
@@ -117,20 +122,6 @@ function ImagePage() {
                                 {comment.userId === sessionUser?.id && sessionUser && (
                                     <div className='comment-tools-container'>
                                         <button className='edit-comment-button' onClick={() => setShowModal(true)}>Edit</button>
-                                        {showModal && (
-                                            <Modal onClose={() => setShowModal(false)}>
-                                                <form onSubmit={(e) => handleCommentEdit(e, comment?.id)}>
-                                                    <textarea
-                                                        className='edit-comment-box'
-                                                        value={edit}
-                                                        onChange={(e) => setEdit(e.target.value)}
-                                                    >
-                                                    </textarea>
-                                                    <button onClick={(e) => handleCancelCommentEdit(e)}>Cancel</button>
-                                                    <button type='submit'>Submit</button>
-                                                </form>
-                                            </Modal>
-                                        )}
                                         <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
                                     </div>
                                 )}

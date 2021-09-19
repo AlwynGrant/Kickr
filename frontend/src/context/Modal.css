@@ -20,5 +20,12 @@
 
 #modal-content {
   position: absolute;
-  background-color:white;
+  background-color:rgba(0, 0, 0, 0)
+}
+
+.user-modal-image {
+  width: 60vw;
+  height: 90vh;
+  object-fit: contain;
+
 }
