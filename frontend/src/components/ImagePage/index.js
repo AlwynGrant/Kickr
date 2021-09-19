@@ -25,6 +25,7 @@ function ImagePage() {
     const [newComment, setNewComment] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [edit, setEdit] = useState('');
+    const [editableDiv, setEditableDiv] = useState(false);
 
     useEffect(() => {
         if (!image) dispatch(listImage(imageId));
@@ -45,14 +46,18 @@ function ImagePage() {
         await dispatch(deleteComment(imageId, commentId));
     }
 
-    const handleCommentEdit = async (e, commentId) => {
+    const handleCommentEdit = async (e) => {
         e.preventDefault();
-        await dispatch(editCommentContent(imageId, commentId));
+        const commentContentBox = document.querySelector('.comment-content-box');
+        commentContentBox.setAttribute('contentEditable', true);
+        setEditableDiv(true)
+        console.log(commentContentBox)
+        // await dispatch(editCommentContent(imageId, commentId));
     }
 
     const handleCancelCommentEdit = async (e) => {
         e.preventDefault();
-         setShowModal(false);
+         setEditableDiv(false)
 
     }
 
@@ -110,6 +115,7 @@ function ImagePage() {
                             <button className='submit-comment' type='submit'>Comment</button>
                         </form>
                     )}
+
                 {
                     comments?.map((comment) => {
                         return <div className={`comment-box ${comment.id}`} id={comment.id} key={comment.id}>
@@ -119,10 +125,16 @@ function ImagePage() {
                             <div className='comment-data-container'>
                                 {/* TODO: INCLUDE COMMENTER USERNAME */}
                                 <div className='comment-timestamp-box'>Posted: {comment.createdAt}</div>
-                                {comment.userId === sessionUser?.id && sessionUser && (
+                                {comment.userId === sessionUser?.id && sessionUser && !editableDiv && (
                                     <div className='comment-tools-container'>
-                                        <button className='edit-comment-button' onClick={() => setShowModal(true)}>Edit</button>
+                                        <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e)}>Edit</button>
                                         <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
+                                    </div>
+                                )}
+                                {comment.userId === sessionUser?.id && sessionUser && editableDiv && (
+                                    <div className='comment-tools-container'>
+                                        <button className='edit-comment-button' onClick={(e) => handleCancelCommentEdit(e)}>Cancel</button>
+                                        <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Submit</button>
                                     </div>
                                 )}
                             </div>
