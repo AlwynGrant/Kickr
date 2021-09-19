@@ -64,18 +64,20 @@ function ImagePage() {
     return (
     <>
         <div className='user-image-container'>
-            <button type='submit' onClick={handleBack}>Back to Images</button>
                 <div className='user-image-box'>
                 <img className='user-image' src={image?.imageUrl} alt='kick'></img>
             </div>
             <h2>{image?.description}</h2>
+        </div>
+
             {sessionUser && (
                 <>
                     <NavLink to={`/image/${image?.id}/edit`} className='edit-image'>EDIT</NavLink>
                     <button className='delete-image' onClick={handleDelete}>DELETE</button>
                 </>
             )}
-        </div>
+            <button type='submit' onClick={handleBack}>Back to Images</button>
+            
         <div className='comment-container'>
             <h1>COMMENTS</h1>
                 {sessionUser && (
