@@ -9,12 +9,26 @@ html {
     height: 90vh;
 }
 
+
+/* TOP CONTAINER */
+
 .top-container {
     display: flex;
+    flex-direction: column-reverse;
     background-color: rgb(0, 0, 0);
     min-height: 250px;
     width: 100%;
 }
+
+.top-username {
+    padding: 10px;
+    color: white;
+    text-transform: capitalize;
+}
+
+
+
+/* BOTTOM CONTAINER */
 
 .bottom-container {
     display: flex;
