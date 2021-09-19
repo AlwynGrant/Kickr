@@ -69,15 +69,16 @@ function ImagePage() {
             </div>
             <h2>{image?.description}</h2>
         </div>
-
+        <div className='btn-container'>
+            <button className='back-to-images' type='submit' onClick={handleBack}>Back to Images</button>
             {sessionUser && (
                 <>
-                    <NavLink to={`/image/${image?.id}/edit`} className='edit-image'>EDIT</NavLink>
-                    <button className='delete-image' onClick={handleDelete}>DELETE</button>
+                    <button className='delete-image-btn' onClick={handleDelete}>Delete Image</button>
+                    <NavLink to={`/image/${image?.id}/edit`} className='edit-image-btn'>Edit Description</NavLink>
                 </>
             )}
-            <button type='submit' onClick={handleBack}>Back to Images</button>
-            
+
+        </div>
         <div className='comment-container'>
             <h1>COMMENTS</h1>
                 {sessionUser && (

@@ -25,12 +25,76 @@
 
 /* BUTTONS */
 
-.edit-image {
+.btn-container {
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
 
 }
 
-.delete-image {
-    
+.back-to-images {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #eff4f5;
+    background-color: #4aa1f3;
+    min-width: 150px;
+    width: 150px;
+    text-decoration: none;
+    outline: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    margin: 0px 0px 5px 0px;
+}
+
+.back-to-images:hover {
+    cursor: pointer;
+}
+
+.edit-image-btn {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #eff4f5;
+    background-color: #4aa1f3;
+    min-width: 150px;
+    width: 150px;
+    text-decoration: none;
+    outline: none;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 7.2px 15px;
+    margin: 0px 0px 5px 0px;
+}
+
+.edit-image-btn:hover {
+    cursor: pointer;
+}
+
+.delete-image-btn {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #eff4f5;
+    background-color: #923cd8;
+    min-width: 150px;
+    width: 150px;
+    text-decoration: none;
+    outline: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    margin: 0px 0px 5px 0px;
+}
+
+.delete-image-btn:hover {
+    cursor: pointer;
 }
 
 /* DESCRIPTION SECTION */
@@ -40,7 +104,7 @@
 /* COMMENT SECTION */
 
 .comment-container {
-    height: 40vh;
+    height: 30vh;
 }
 
 .add-comment-box {
