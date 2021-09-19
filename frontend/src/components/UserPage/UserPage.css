@@ -80,10 +80,10 @@ html {
     object-fit: cover;
     overflow: hidden;
 
-    transform: scale(1);
+    transform: scale(1.1);
     transition: .2s ease-in-out;
 }
 
 .actual-image:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
