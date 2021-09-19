@@ -19,7 +19,6 @@ function ImagePage() {
     const dispatch = useDispatch();
     const modalEditRef = useRef();
     const modalRef = useRef();
-    modalRef.current.style.display = "block";
 
     const [newComment, setNewComment] = useState('');
 
@@ -129,7 +128,21 @@ function ImagePage() {
                                     <div className="overlay"></div>
                                     <span className="close" onClick={() => closeModal()}>X</span>
                                     <div className="modal-edit" ref={modalEditRef}>
-                                    <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Edit</button>
+
+                                        <form className='edit-comment-form' onSubmit={null}>
+                                            <textarea className='edit-comment-box' value={null} onChange={null}></textarea>
+
+
+                                            <button className='cancel-button' type='button' onClick={null}>Cancel</button>
+                                            <button className='submit-edit-button' type='submit'>Submit</button>
+                                        </form>
+
+
+
+
+
+
+                                        <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Edit</button>
                                 </div>
                             </div>
                         </div>
