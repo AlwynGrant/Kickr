@@ -27,6 +27,7 @@ function ImagePage() {
     const [edit, setEdit] = useState('');
     const [editableDiv, setEditableDiv] = useState(false);
 
+
     useEffect(() => {
         if (!image) dispatch(listImage(imageId));
     }, [dispatch, image, imageId]);
@@ -35,48 +36,73 @@ function ImagePage() {
          dispatch(listComments(imageId));
     }, [dispatch, imageId]);
 
-    const handleDelete = (e) => {
-        e.preventDefault();
-        dispatch(deleteImage(imageId));
-        history.push(`/user/${image?.userId}`);
-    }
-
-    const handleCommentDelete = async (e, commentId) => {
-        e.preventDefault();
-        await dispatch(deleteComment(imageId, commentId));
-    }
-
-    const handleCommentEdit = async (e) => {
-        e.preventDefault();
-        const commentContentBox = document.querySelector('.comment-content-box');
-        commentContentBox.setAttribute('contentEditable', true);
-        setEditableDiv(true)
-        console.log(commentContentBox)
-        // await dispatch(editCommentContent(imageId, commentId));
-    }
-
-    const handleCancelCommentEdit = async (e) => {
-        e.preventDefault();
-         setEditableDiv(false)
-
-    }
+    
+    // ============================================================= BACK TO USER PAGE
 
     const handleBack = (e) => {
         e.preventDefault();
         history.push(`/user/${ image?.userId }`)
     }
 
-    const handleSubmitComment = async (e) => {
+    // ============================================================= DELETE IMAGE
+
+    const handleDelete = (e) => {
         e.preventDefault();
-        if (!sessionUser) return;
-        const addComment = {
-            userId: sessionUser.id,
-            imageId: imageId,
-            comment: newComment
-        };
-        await dispatch(createComment(addComment))
-            .then(setNewComment(''));
+        dispatch(deleteImage(imageId));
+        history.push(`/user/${image?.userId}`);
     }
+
+    // ============================================================= ADD NEW COMMENT
+
+        const handleSubmitComment = async (e) => {
+            e.preventDefault();
+            if (!sessionUser) return;
+            const addComment = {
+                userId: sessionUser.id,
+                imageId: imageId,
+                comment: newComment
+            };
+            await dispatch(createComment(addComment))
+                .then(setNewComment(''));
+        }
+
+    // ============================================================= EDIT COMMENT
+
+    //  Make the div editable
+    const handleCommentEditable = async (e) => {
+        e.preventDefault();
+        const commentContentBox = document.querySelector('.comment-content-box');
+        commentContentBox.setAttribute('contentEditable', true);
+        setEditableDiv(true);
+        // TODO:
+    }
+
+    // Cancel editable div
+    const handleCancelCommentEdit = async (e) => {
+        e.preventDefault();
+        const commentContentBox = document.querySelector('.comment-content-box');
+        commentContentBox.removeAttribute('contentEditable');
+        setEditableDiv(false);
+        // TODO: RESET DIV CONTENT UPON CANCELING
+    }
+
+    // Submit edit
+    const handleCommentEdit = async (e, commentId) => {
+        e.preventDefault();
+        const commentContentBox = document.querySelector('.comment-content-box');
+        await dispatch(editCommentContent(imageId, commentId));
+        commentContentBox.removeAttribute('contentEditable');
+        setEditableDiv(false);
+    }
+
+    // ============================================================= DELETE COMMENT
+
+    const handleCommentDelete = async (e, commentId) => {
+        e.preventDefault();
+        await dispatch(deleteComment(imageId, commentId));
+    }
+
+
 
     return (
     <>
@@ -120,21 +146,27 @@ function ImagePage() {
                     comments?.map((comment) => {
                         return <div className={`comment-box ${comment.id}`} id={comment.id} key={comment.id}>
                             <div className='comment-content-container'>
-                                <div className='comment-content-box'>{comment.comment}</div>
+                                <div
+                                    className='comment-content-box'
+                                    value={edit}
+                                    onChange={(e) => setEdit(e.target.value)}
+                                >
+                                    {comment.comment}
+                                </div>
                             </div>
                             <div className='comment-data-container'>
                                 {/* TODO: INCLUDE COMMENTER USERNAME */}
                                 <div className='comment-timestamp-box'>Posted: {comment.createdAt}</div>
                                 {comment.userId === sessionUser?.id && sessionUser && !editableDiv && (
                                     <div className='comment-tools-container'>
-                                        <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e)}>Edit</button>
+                                        <button className='edit-comment-button' onClick={(e) => handleCommentEditable(e)}>Edit</button>
                                         <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
                                     </div>
                                 )}
                                 {comment.userId === sessionUser?.id && sessionUser && editableDiv && (
                                     <div className='comment-tools-container'>
                                         <button className='edit-comment-button' onClick={(e) => handleCancelCommentEdit(e)}>Cancel</button>
-                                        <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Submit</button>
+                                        <button className='delete-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Submit</button>
                                     </div>
                                 )}
                             </div>
