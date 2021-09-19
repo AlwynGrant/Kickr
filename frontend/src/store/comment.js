@@ -49,6 +49,7 @@ export const listComments = (imageId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(getComments(data));
+        return response;
     }
 }
 
@@ -76,6 +77,7 @@ export const deleteComment = (imageId, commentId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(getComments(data));
+        return response;
     };
 };
 

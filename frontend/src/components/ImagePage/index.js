@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
 import { createComment, listComments, editCommentContent, deleteComment } from '../../store/comment';
+import { Modal } from '../../context/Modal';
 import '../../reset.css'
 import './ImagePage.css'
 import '../../index.css'
@@ -19,6 +20,8 @@ function ImagePage() {
     const dispatch = useDispatch();
 
     const [newComment, setNewComment] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [edit, setEdit] = useState('');
 
     useEffect(() => {
         if (!image) dispatch(listImage(imageId));
@@ -104,7 +107,12 @@ function ImagePage() {
                                 <div className='comment-timestamp-box'>Posted: {comment.createdAt}</div>
                                 {comment.userId === sessionUser?.id && sessionUser && (
                                     <div className='comment-tools-container'>
-                                        <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Edit</button>
+                                        <button className='edit-comment-button' onClick={() => setShowModal(true)}>Edit</button>
+                                        {showModal && (
+                                            <Modal onClose={() => setShowModal(false)}>
+
+                                            </Modal>
+                                        )}
                                         <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
                                     </div>
                                 )}
