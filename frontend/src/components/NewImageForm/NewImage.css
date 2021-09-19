@@ -32,6 +32,10 @@
     min-width: 600px;
 }
 
+.drop-container:hover {
+    cursor: pointer;
+}
+
 .upload-icon {
     width: 30px;
     height: 30px;
@@ -63,6 +67,10 @@
     max-width: 95vw;
     min-height: 20vh;
     max-height: 20vh;
+}
+
+.description-input:focus {
+    background-color: #add7ff;
 }
 
 .description-input::placeholder {
@@ -224,6 +232,10 @@
     font-weight: bold;
     padding: 8px 15px;
     margin: 0px 0px 5px 0px;
+}
+
+.file-upload-btn:hover {
+    cursor: pointer;
 }
 
 .file-upload-btn:disabled {
