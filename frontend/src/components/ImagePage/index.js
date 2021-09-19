@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory} from 'react-router-dom';
 import { useParams } from 'react-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { listImage, deleteImage } from '../../store/image';
 import { createComment, listComments, editCommentContent, deleteComment } from '../../store/comment';
 import '../../reset.css'
@@ -17,6 +17,8 @@ function ImagePage() {
     const { imageId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
+    const modalEditRef = useRef();
+    const modalRef = useRef();
 
     const [newComment, setNewComment] = useState('');
 
@@ -59,6 +61,13 @@ function ImagePage() {
         };
         await dispatch(createComment(addComment))
             .then(setNewComment(''));
+    }
+
+
+    // ===================================== MODEL - EDIT COMMENTS
+
+    const openEditModal = () => {
+
     }
 
     return (
@@ -104,10 +113,17 @@ function ImagePage() {
                                 <div className='comment-timestamp-box'>Posted: {comment.createdAt}</div>
                                 {comment.userId === sessionUser?.id && sessionUser && (
                                     <div className='comment-tools-container'>
-                                        <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Edit</button>
+                                        <button className='edit-comment-button' onClick={() => openEditModal()}>Edit</button>
                                         <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
                                     </div>
                                 )}
+                            </div>
+                            <div className="modal">
+                                <div className="overlay"></div>
+                                <span className="close">x</span>
+                                <div className="modal-edit">
+                                    <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Edit</button>
+                                </div>
                             </div>
                         </div>
                     })
