@@ -118,7 +118,7 @@
     overflow-wrap: break-word
 }
 
-/* COMMENT SECTION */
+/* NEW COMMENT SECTION */
 
 .comment-container {
     height: 30vh;
@@ -149,20 +149,6 @@
     background-color: #add7ff;
 }
 
-
-.comment-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: rgb(243, 235, 235);
-    margin: 20px;
-    border: 1px solid black;
-    border-radius: 10px;
-    width: 40vw;
-    height: 100px;
-}
-
 .submit-comment {
     display: flex;
     align-self: flex-end;
@@ -181,4 +167,48 @@
 
 .submit-comment:hover {
     cursor: pointer;
+}
+
+/* COMMENTS LIST */
+
+.comment-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(243, 235, 235);
+    margin: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 40vw;
+    height: 100px;
+}
+
+.comment-content-container {
+
+}
+
+.comment-content-box {
+
+}
+
+.comment-data-container {
+
+}
+
+.comment-timestamp-box {
+
+}
+
+.comment-tools-container {
+
+}
+
+.edit-comment-button {
+
+}
+
+.delete-comment-button {
+
 }

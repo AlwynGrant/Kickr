@@ -96,15 +96,19 @@ function ImagePage() {
                 {
                     comments?.map((comment) => {
                         return <div className={`comment-box ${comment.id}`} id={comment.id} key={comment.id}>
-                            <div className='comment-content-box'>{comment.comment}</div> <br></br>
-                            <div className='comment-timestamp-box'>{comment.updatedAt}</div> <br></br>
-                            {/* TODO: INCLUDE COMMENTER USERNAME */}
-                            {comment.userId === sessionUser?.id && sessionUser && (
-                                <>
-                                    <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Edit</button>
-                                    <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
-                                </>
-                            )}
+                            <div className='comment-content-container'>
+                                <div className='comment-content-box'>{comment.comment}</div> <br></br>
+                            </div>
+                            <div className='comment-data-container'>
+                                {/* TODO: INCLUDE COMMENTER USERNAME */}
+                                <div className='comment-timestamp-box'>Posted: {comment.updatedAt}</div> <br></br>
+                                {comment.userId === sessionUser?.id && sessionUser && (
+                                    <div className='comment-tools-container'>
+                                        <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Edit</button>
+                                        <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     })
                 }
