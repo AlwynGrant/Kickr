@@ -25,16 +25,22 @@ function UserPage() {
 
             </div>
             {sessionUser && (
-                <NavLink className='create-newImage' to='/image'>Upload new Image</NavLink>
+                <NavLink className='create-newImage' to='/image'>UPLOAD IMAGE</NavLink>
             )}
             <div className='bottom-container'>
+            {!images?.length && (
+                <div className='no-image-div'>
+                    <h1>There is no activity to show right now</h1> <br></br>
+                    <h1>Start by uploading an image</h1>
+                </div>
+            )}
             {
-                images?.map((image) => {
-                return <NavLink className='image-box' to={`/image/${image.id}`}>
-                    <img className='actual-image' src={image.imageUrl} key={image.id} alt='user-img' ></img>
-                       </NavLink>
-                })
-            }
+                    images?.map((image) => {
+                    return <NavLink className='image-box' to={`/image/${image.id}`}>
+                        <img className='actual-image' src={image.imageUrl} key={image.id} alt='user-img' ></img>
+                            </NavLink>
+                    })
+                }
             </div>
 
         </div>

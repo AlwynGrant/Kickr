@@ -8,20 +8,20 @@
 .link-login {
     align-self: center;
     padding: 3px;
-    margin: 5px;
+    margin: 0px 30px 0 10px;
 }
 
 .login {
-    color: white
+    color: #eff4f5
 }
 
 .link-signup {
     align-self: center;
-    padding: 3px;
-    margin: 0px 5px 0px 5px;
-    border: 2px solid white;
+    padding: 5px 15px;
+    margin: 0px 30px 0px 10px;
+    border: 2px solid #eff4f5;
     border-radius: 3px;
-    background: white;
+    background: #eff4f5;
 }
 
 .signup {
@@ -37,13 +37,13 @@
 }
 .link-home {
     align-self: center;
-    margin: 0px 5px 0px 5px;
+    margin: 0px 30px 0px 30px;
     padding: 5px;
 }
 
 .home {
     text-decoration: none;
-    color: white;
+    color: #eff4f5;
 }
 
 .search-bar {
