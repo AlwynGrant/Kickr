@@ -120,7 +120,7 @@ function ImagePage() {
         </div>
         <div className='btn-container'>
             <button className='back-to-images' type='submit' onClick={handleBack}>Back to Images</button>
-            {sessionUser && (
+            {sessionUser && sessionUser?.id === image?.userId && (
                 <>
                     <button className='delete-image-btn' onClick={handleDelete}>Delete Image</button>
                     <NavLink to={`/image/${image?.id}/edit`} className='edit-image-btn'>Edit Description</NavLink>
