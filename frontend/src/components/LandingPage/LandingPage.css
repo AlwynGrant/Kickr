@@ -7,7 +7,6 @@
 }
 
 .landing-container {
-    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,6 +52,7 @@
 .footer {
     display: flex;
     justify-content: center;
+    align-content: flex-end;
     align-items: center;
     background-color: black;
     width: 100%;
@@ -80,12 +80,12 @@
 /* CROSSFADE */
 
 
-html,
+/* html,
 body,
 #root {
   height: 100%;
   width: 100%;
-}
+} */
 
 body {
   font-family: system-ui;
