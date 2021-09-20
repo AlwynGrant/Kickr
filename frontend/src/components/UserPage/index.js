@@ -22,7 +22,8 @@ function UserPage() {
     return (
         <div className='user-container'>
             <div className='top-container'>
-            <h1 className='top-username'>{sessionUser?.username}</h1>
+                <div className='banner-img'></div>
+                <h1 className='top-username'>{sessionUser?.username}</h1>
             </div>
             {sessionUser && (
                 <NavLink className='create-newImage' to='/image'>UPLOAD IMAGE</NavLink>
