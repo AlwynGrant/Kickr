@@ -15,15 +15,17 @@ function ImagePage() {
     const image = useSelector(state => state.image.image);
     const comments = useSelector(state => state.comment.comments);
 
+    const userComments = comments?.filter((comment) => comment.userId = sessionUser?.id)
+    console.log(userComments)
+
     const { imageId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
 
     const [newComment, setNewComment] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const [edit, setEdit] = useState('');
+    let [edit, setEdit] = useState(userComments);
     const [editableDiv, setEditableDiv] = useState(false);
-
 
     useEffect(() => {
         if (!image) dispatch(listImage(imageId));
@@ -65,12 +67,17 @@ function ImagePage() {
 
     // ============================================================= EDIT COMMENT
 
+    // handleValue
+    const handleValue = (commentId) => {
+        const comment = edit.find(comment => comment.id === commentId);
+        return comment
+    }
+
     //  Make the div editable
     const handleCommentEditable = async (e, comment, commentId) => {
         e.preventDefault();
         const commentContentBox = document.querySelector(`.com${commentId}`);
-        commentContentBox.setAttribute('contentEditable', true);
-        setEdit(comment);
+        commentContentBox.removeAttribute('disabled');
         setEditableDiv(true);
     }
 
@@ -78,18 +85,19 @@ function ImagePage() {
     const handleCancelCommentEdit = async (e, comment, commentId) => {
         e.preventDefault();
         const commentContentBox = document.querySelector(`.com${commentId}`);
-        commentContentBox.removeAttribute('contentEditable');
+        commentContentBox.setAttribute('disabled', true);
         commentContentBox.innerText = comment;
         setEditableDiv(false);
     }
 
     // Submit edit
-    const handleCommentEdit = async (e, commentId) => {
+    const handleCommentEdit = async (e, comment, commentId) => {
         e.preventDefault();
         const commentContentBox = document.querySelector(`.com${commentId}`);
-        await dispatch(editCommentContent(imageId, commentId));
-        commentContentBox.removeAttribute('contentEditable');
+        await dispatch(editCommentContent(imageId, edit, commentId));
+        commentContentBox.setAttribute('disabled', true);
         setEditableDiv(false);
+        // setEdit(comment);
     }
 
     // ============================================================= DELETE COMMENT
@@ -143,28 +151,28 @@ function ImagePage() {
                     comments?.map((comment) => {
                         return <div className={`comment-box ${comment.id}`} id={comment.id} key={comment.id}>
                             <div className='comment-content-container'>
-                                <div
+                                <textarea
+                                    disabled={true}
                                     className={`comment-content-box com${comment.id}`}
-                                    value={edit}
+                                    value={comment.comment}
                                     onChange={(e) => setEdit(e.target.value)}
                                 >
-                                    {comment.comment}
-                                </div>
+                                </textarea>
                             </div>
 
                             <div className='comment-data-container'>
                                 {/* TODO: INCLUDE COMMENTER USERNAME */}
                                 <div className='comment-timestamp-box'>Posted: {comment.createdAt}</div>
-                                {comment.userId === sessionUser?.id && sessionUser && !editableDiv && (
+                                {comment.userId === sessionUser?.id && sessionUser && !editableDiv &&  (
                                     <div className='comment-tools-container'>
-                                        <button className='edit-comment-button' onClick={(e) => handleCommentEditable(e, comment.comment, comment.id)}>Edit</button>
+                                        <button className='edit-comment-button' disabled={true} onClick={(e) => handleCommentEditable(e, comment.comment, comment.id)}>Edit</button>
                                         <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
                                     </div>
                                 )}
                                 {comment.userId === sessionUser?.id && sessionUser && editableDiv && (
                                     <div className='comment-tools-container'>
-                                        <button className='edit-comment-button' onClick={(e) => handleCancelCommentEdit(e, comment.comment, comment.id)}>Cancel</button>
-                                        <button className='delete-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Submit</button>
+                                        <button className='cancel-comment-button' onClick={(e) => handleCancelCommentEdit(e, comment.comment, comment.id)}>Cancel</button>
+                                        <button className='submit-comment-button' onClick={(e) => handleCommentEdit(e, comment.comment, comment.id)}>Submit</button>
                                     </div>
                                 )}
                             </div>

@@ -218,7 +218,8 @@
 
 .comment-content-box {
     overflow-wrap: break-word;
-    width: 600px;
+    border-radius: 10px 10px 0px 0px;
+    width: 599px;
     height: 125px;
     padding: 10px;
 }
@@ -246,6 +247,18 @@
     font-family: Arial, Helvetica, sans-serif;
     color: #eff4f5;
     background-color: #4aa1f3;
+    width: 70px;
+    text-decoration: none;
+    outline: none;
+    font-weight: bold;
+    padding: 5px 2px;
+}
+
+.edit-comment-button:disabled {
+    border-radius: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgba(240, 239, 239, 0.6);
+    background-color: rgba(83, 130, 204, 0.6);
     width: 70px;
     text-decoration: none;
     outline: none;
