@@ -15,16 +15,13 @@ function ImagePage() {
     const image = useSelector(state => state.image.image);
     const comments = useSelector(state => state.comment.comments);
 
-    const userComments = comments?.filter((comment) => comment.userId = sessionUser?.id)
-    console.log(userComments)
-
     const { imageId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
 
     const [newComment, setNewComment] = useState('');
     const [showModal, setShowModal] = useState(false);
-    let [edit, setEdit] = useState(userComments);
+    let [edit, setEdit] = useState('');
     const [editableDiv, setEditableDiv] = useState(false);
 
     useEffect(() => {
