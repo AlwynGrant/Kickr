@@ -38,6 +38,18 @@ body {
     height: 400px;
     flex-direction: column;
     align-items: center;
+    word-wrap: break-word;
+}
+
+.login-error-list {
+    display: flex;
+    color: red;
+    text-align: center;
+    align-self: center;
+    word-wrap: break-word;
+    flex-direction: column;
+    list-style: none;
+    width: 400px;
 }
 
 .login-form-heading {

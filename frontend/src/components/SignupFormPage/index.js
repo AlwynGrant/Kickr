@@ -30,11 +30,13 @@ function SignupFormPage() {
     };
 
     return (
+    <>
+        <div className='signup-bg'></div>
         <div className='signup-page-container'>
             <div className='signup-form-body'>
                 <form onSubmit={handleSubmit} className='signup-form'>
                     <h4 className='signup-form-heading'>Sign up to Kickr</h4>
-                    <ul>
+                    <ul className='signup-error-list'>
                         { errors.map((error, idx) => <li key={idx}>{error}</li>) }
                     </ul>
                     <label className='email-input'>
@@ -88,6 +90,7 @@ function SignupFormPage() {
                 </form>
             </div>
         </div>
+    </>
     );
 }
 
