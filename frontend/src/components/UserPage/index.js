@@ -36,7 +36,7 @@ function UserPage() {
             )}
             {
                     images?.map((image) => {
-                    return <NavLink className='image-box' to={`/image/${image.id}`}>
+                        return <NavLink className='image-box' to={`/image/${image.id}`} key={image.id}>
                         <img className='actual-image' src={image.imageUrl} key={image.id} alt='user-img' ></img>
                             </NavLink>
                     })

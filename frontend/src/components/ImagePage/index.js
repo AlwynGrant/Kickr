@@ -65,10 +65,10 @@ function ImagePage() {
     // ============================================================= EDIT COMMENT
 
     // handleValue
-    const handleValue = (commentId) => {
-        const comment = edit.find(comment => comment.id === commentId);
-        return comment
-    }
+    // const handleValue = (commentId) => {
+    //     const comment = edit.find(comment => comment.id === commentId);
+    //     return comment
+    // }
 
     //  Make the div editable
     const handleCommentEditable = async (e, comment, commentId) => {
