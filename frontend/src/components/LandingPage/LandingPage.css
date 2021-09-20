@@ -1,3 +1,4 @@
+
 #root {
     display: flex;
     flex-direction: column;
@@ -6,8 +7,7 @@
 }
 
 .landing-container {
-    /* background-color: black; */
-    background-image: linear-gradient(to bottom,rgba(0,0,0,0.8), rgba(255,255,255,.9));
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -67,7 +67,6 @@
     height: 5vh;
 }
 
-
 .github-img {
     display: flex;
     background-image: url('./github-image/github-white.png');
@@ -75,4 +74,39 @@
     background-size: contain;
     width: 50px;
     height: 100%;
+}
+
+
+/* CROSSFADE */
+
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: system-ui;
+  margin: 0;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.flex.fill {
+  height: 100%;
+}
+
+.flex.center {
+  justify-content: center;
 }
