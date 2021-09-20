@@ -16,7 +16,6 @@
 
 
 .edit-text-box {
-
     background-color: #eff4f5;
     font-size: x-large;
     font-family: Arial, Helvetica, sans-serif;
@@ -29,10 +28,13 @@
     min-height: 70vh;
     max-height: 70vh;
     padding: 10px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .edit-text-box:focus {
     background-color: #add7ff;
+    opacity: 1;
 }
 
 .back-button {
@@ -49,10 +51,13 @@
     font-weight: bold;
     padding: 8px 15px;
     margin: 0px 0px 5px 0px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .back-button:hover {
     cursor: pointer;
+    opacity: 1;
 }
 
 .submit-edit-button {
@@ -69,8 +74,11 @@
     font-weight: bold;
     padding: 8px 15px;
     margin: 0px 0px 5px 0px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .submit-edit-button:hover {
     cursor: pointer;
+    opacity: 1;
 }

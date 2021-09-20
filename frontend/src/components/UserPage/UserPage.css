@@ -77,6 +77,13 @@ html {
     font-weight: bold;
     padding: 8px 15px;
     margin: 5px 0px 0px 0px;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.create-newImage:hover {
+    cursor: pointer;
+    opacity: 1;
 }
 
 .no-image-div {

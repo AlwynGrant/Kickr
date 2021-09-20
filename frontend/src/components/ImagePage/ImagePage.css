@@ -51,10 +51,13 @@
     font-weight: bold;
     padding: 8px 15px;
     margin: 0px 0px 5px 0px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .back-to-images:hover {
     cursor: pointer;
+    opacity: 1;
 }
 
 .edit-image-btn {
@@ -73,10 +76,13 @@
     font-size: 14px;
     padding: 7.2px 15px;
     margin: 0px 0px 5px 0px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .edit-image-btn:hover {
     cursor: pointer;
+    opacity: 1;
 }
 
 .delete-image-btn {
@@ -94,10 +100,13 @@
     font-weight: bold;
     padding: 8px 15px;
     margin: 0px 0px 5px 0px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .delete-image-btn:hover {
     cursor: pointer;
+    opacity: 1;
 }
 
 
@@ -178,10 +187,14 @@
     max-width: 40vw;
     min-height: 20vh;
     max-height: 20vh;
+    opacity: 0.8;
+    transition: 0.3s;
+
 }
 
 .add-comment-box:focus {
     background-color: #add7ff;
+    opacity: 1;
 }
 
 .submit-comment {
@@ -198,10 +211,13 @@
     font-weight: bold;
     padding: 8px 15px;
     margin: 0px 40px 10px 0px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .submit-comment:hover {
     cursor: pointer;
+    opacity: 1;
 }
 
 /* COMMENTS LIST */
@@ -218,22 +234,29 @@
     border-radius: 10px;
     width: 600px;
     height: 200px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .comment-box:hover {
     background-color: #add7ff;
+    opacity: 1;
 }
 
+.comment-box:after {
+    background-color: #add7ff;
+    opacity: 1;
+}
 .comment-content-container {
     width: 600px;
-    height: 125px;
+    height: 156px;
 }
 
 .comment-content-box {
     overflow-wrap: break-word;
     border-radius: 10px 10px 0px 0px;
     width: 599px;
-    height: 125px;
+    height: 156px;
     padding: 10px;
 }
 
@@ -265,6 +288,13 @@
     outline: none;
     font-weight: bold;
     padding: 5px 2px;
+    /* opacity: 0.8;
+    transition: 0.3s; */
+}
+
+.submit-edit-button:hover {
+    cursor: pointer;
+    /* opacity: 1; */
 }
 
 .edit-comment-button:disabled {
@@ -293,8 +323,11 @@
     outline: none;
     font-weight: bold;
     padding: 5px 2px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .delete-comment-button:hover {
     cursor: pointer;
+    opacity: 1;
 }

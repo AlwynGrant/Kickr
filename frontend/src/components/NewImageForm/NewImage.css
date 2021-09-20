@@ -61,16 +61,20 @@
     font-size: x-large;
     font-family: Arial, Helvetica, sans-serif;
     margin: 10px 0 10px 0;
+    padding: 10px;
     border: none;
     outline-style: none;
     min-width: 95vw;
     max-width: 95vw;
     min-height: 20vh;
     max-height: 20vh;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .description-input:focus {
     background-color: #add7ff;
+    opacity: 1;
 }
 
 .description-input::placeholder {
@@ -218,7 +222,7 @@
 /* UPLOAD SUBMIT */
 
 
-.file-upload-btn {
+.file-upload-btn:enabled {
     display: flex;
     align-self: center;
     justify-content: center;
@@ -232,10 +236,13 @@
     font-weight: bold;
     padding: 8px 15px;
     margin: 0px 0px 5px 0px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .file-upload-btn:hover {
     cursor: pointer;
+    opacity: 1;
 }
 
 .file-upload-btn:disabled {
@@ -252,7 +259,6 @@
     font-weight: bold;
     padding: 8px 15px;
     margin: 0px 0px 5px 0px;
-
 }
 
 /* HIDDEN INPUT */

@@ -43,10 +43,13 @@
     justify-content: center;
     align-items: center;
     font-weight: bolder;
+    opacity: 0.8;
+    transition: 0.3s;
+
 }
 
 .landing-signup-link:hover {
-    color: rgb(160, 158, 158)
+    opacity: 1;
 }
 
 .footer {
@@ -76,8 +79,14 @@
     background-size: contain;
     width: 50px;
     height: 100%;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
+.github-img:hover {
+    cursor: pointer;
+    opacity: 1;
+}
 
 /* CROSSFADE */
 

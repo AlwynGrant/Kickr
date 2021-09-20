@@ -9,6 +9,13 @@
     align-self: center;
     padding: 3px;
     margin: 0px 30px 0 10px;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.link-login:hover {
+    cursor: pointer;
+    opacity: 1;
 }
 
 .login {
@@ -22,6 +29,9 @@
     border: 2px solid #eff4f5;
     border-radius: 3px;
     background: #eff4f5;
+    opacity: 0.9;
+    transition: 0.3s;
+
 }
 
 .signup {
@@ -29,7 +39,7 @@
 }
 
 .link-signup:hover {
-    box-shadow: 1px 1px;
+     opacity: 1;
 }
 
 .signup:hover {
@@ -76,10 +86,13 @@
     width: 50px;
     border-radius: 50%;
     margin: 10px 60px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .profile-button:hover {
     cursor:pointer;
+    opacity: 1;
 }
 
 .fa-running {
@@ -108,8 +121,11 @@
     background-color: #4aa1f3;
     padding: 2px;
     font-weight: bold;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .logout-btn:hover {
     cursor:pointer;
+    opacity: 1;
 }

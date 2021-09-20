@@ -62,10 +62,12 @@ body {
     margin: 5px 0px 5px 0px;
     width: 225px;
     height: 30px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .email:hover {
-    background-color: white;
+    opacity: 1;
 }
 
 .username {
@@ -75,10 +77,12 @@ body {
     margin: 5px 0px 5px 0px;
     width: 225px;
     height: 30px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .username:hover {
-    background-color: white;
+    opacity: 1;
 }
 
 .password {
@@ -88,10 +92,12 @@ body {
     margin: 5px 0px 5px 0px;
     width: 225px;
     height: 30px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .password:hover {
-    background-color: white;
+    opacity: 1;
 }
 
 .confirm-password {
@@ -101,10 +107,12 @@ body {
     margin: 5px 0px 5px 0px;
     width: 225px;
     height: 30px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .confirm-password:hover {
-    background-color: white;
+    opacity: 1;
 }
 
 .submit-signup {
@@ -115,11 +123,12 @@ body {
     border-radius: 4px;
     background-color: #128fdc;
     color: white;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .submit-signup:hover {
-    border: 1px solid #26a4f3;
-    background-color: #26a4f3;
+    opacity: 1;
 }
 
 .login-redirect {
