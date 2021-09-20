@@ -2,13 +2,11 @@ import React, { useState, useRef } from 'react';
 import * as newImageActions from '../../store/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Redirect } from 'react-router-dom';
-import { useParams } from 'react-router';
 import '../../reset.css'
 import './NewImage.css'
 
 
 function NewImageForm() {
-    const params = useParams();
     const fileInputRef = useRef();
     const modalImageRef = useRef();
     const modalRef = useRef();
@@ -17,7 +15,6 @@ function NewImageForm() {
     const sessionUser = useSelector(state => state.session.user);
 
 
-    const [url, setUrl] = useState(null);
     const [description, setDescription] = useState('');
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
@@ -31,7 +28,6 @@ function NewImageForm() {
         dispatch(newImageActions.createImage(newImage))
             .then(() => {
                 setDescription('');
-                setUrl(null);
             })
         history.push(`/user/${sessionUser.id}`);
     };

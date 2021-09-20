@@ -7,9 +7,11 @@
     align-items: center;
     height: 50vh;
     width: 100vw;
+    overflow-x: hidden;
 }
 
 .user-image-box {
+    border-radius: 10px;
     min-width: 70vh;
     min-height: 45vh;
     width: 70vw;
@@ -17,6 +19,7 @@
 }
 
 .user-image {
+    border-radius: 10px;
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -30,7 +33,7 @@
     display: flex;
     flex-direction: row;
     justify-content:space-around;
-
+    overflow-x: hidden;
 }
 
 .back-to-images {
@@ -48,10 +51,13 @@
     font-weight: bold;
     padding: 8px 15px;
     margin: 0px 0px 5px 0px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .back-to-images:hover {
     cursor: pointer;
+    opacity: 1;
 }
 
 .edit-image-btn {
@@ -70,10 +76,13 @@
     font-size: 14px;
     padding: 7.2px 15px;
     margin: 0px 0px 5px 0px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .edit-image-btn:hover {
     cursor: pointer;
+    opacity: 1;
 }
 
 .delete-image-btn {
@@ -91,17 +100,24 @@
     font-weight: bold;
     padding: 8px 15px;
     margin: 0px 0px 5px 0px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .delete-image-btn:hover {
     cursor: pointer;
+    opacity: 1;
 }
 
 
 /* UNDERIMAGE CONTAINER */
 
 .underimage-container {
+    background-color: #eff4f5;
     display: flex;
+    min-height: 100%;
+    height: 100vh;
+    overflow-x: hidden;
 }
 
 
@@ -110,8 +126,10 @@
 .description-section {
     position:relative;
     height: 100vh;
-    min-width:50vw;
+    min-width:50%;
     border-left: 1px solid black;
+    background-color: #eff4f5;
+    overflow-x: hidden;
 }
 
 .description-content {
@@ -137,11 +155,14 @@
 /* NEW COMMENT SECTION */
 
 .comment-container {
+    background-color: #eff4f5;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 30vh;
-    min-width: 50vw;
+    height: 100vh;
+    min-width:700px;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 .comment-form-container {
@@ -162,14 +183,18 @@
     border: none;
     border-radius: 10px;
     outline-style: none;
-    min-width: 40vw;
+    min-width: 600px;
     max-width: 40vw;
     min-height: 20vh;
     max-height: 20vh;
+    opacity: 0.8;
+    transition: 0.3s;
+
 }
 
 .add-comment-box:focus {
     background-color: #add7ff;
+    opacity: 1;
 }
 
 .submit-comment {
@@ -186,15 +211,19 @@
     font-weight: bold;
     padding: 8px 15px;
     margin: 0px 40px 10px 0px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .submit-comment:hover {
     cursor: pointer;
+    opacity: 1;
 }
 
 /* COMMENTS LIST */
 
 .comment-box {
+    background-color: #eff4f5;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -205,22 +234,29 @@
     border-radius: 10px;
     width: 600px;
     height: 200px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .comment-box:hover {
     background-color: #add7ff;
+    opacity: 1;
 }
 
+.comment-box:after {
+    background-color: #add7ff;
+    opacity: 1;
+}
 .comment-content-container {
     width: 600px;
-    height: 125px;
+    height: 156px;
 }
 
 .comment-content-box {
     overflow-wrap: break-word;
     border-radius: 10px 10px 0px 0px;
     width: 599px;
-    height: 125px;
+    height: 156px;
     padding: 10px;
 }
 
@@ -252,6 +288,13 @@
     outline: none;
     font-weight: bold;
     padding: 5px 2px;
+    /* opacity: 0.8;
+    transition: 0.3s; */
+}
+
+.submit-edit-button:hover {
+    cursor: pointer;
+    /* opacity: 1; */
 }
 
 .edit-comment-button:disabled {
@@ -280,8 +323,11 @@
     outline: none;
     font-weight: bold;
     padding: 5px 2px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .delete-comment-button:hover {
     cursor: pointer;
+    opacity: 1;
 }

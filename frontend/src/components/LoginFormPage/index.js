@@ -31,11 +31,13 @@ function LoginFormPage() {
     }
 
     return (
+        <>
+        <div className='login-bg'></div>
         <div className='login-page-container'>
             <div className='login-form-body'>
                 <form onSubmit={handleSubmit} className='login-form'>
                     <h4 className='login-form-heading'>Log in to Kickr</h4>
-                    <ul>
+                    <ul className='login-error-list'>
                         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                     </ul>
                     <label className='username-input'>
@@ -69,6 +71,7 @@ function LoginFormPage() {
                 </form>
             </div>
         </div>
+        </>
     );
 }
 

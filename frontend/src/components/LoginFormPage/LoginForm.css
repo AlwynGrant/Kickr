@@ -1,19 +1,28 @@
 body {
+    font-family: system-ui;
+    height: 100vh;
+    width: 100vw;
+}
+
+.login-bg {
+    background-image: url(login-image/soccer-example-image.jpg);
+    background-repeat: no-repeat;
+    background-size:cover;
+    position: absolute;
+    z-index: -1;
+    bottom: 0px;
     height: 100vh;
     width: 100vw;
 }
 
 .login-page-container {
-    background-image: url(login-image/soccer-example-image.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-    width: 100%;
+    width: 100vw;
 }
 
 .login-form-body {
     display: flex;
-    height: 90vh;
+    transform: translateY(10%);
+    height: 500px;
     width: 100vw;
     justify-content: space-evenly;
     align-items: center;
@@ -22,13 +31,25 @@ body {
 .login-form {
     display: flex;
     border: 1px solid rgb(246, 246, 246);
-    border-radius: 6px;
+    border-radius: 10px;
     background-color: rgb(251, 251, 251);
-    box-shadow: 1px 1px rgba(0, 0, 0, 0.3);
-    width: 350px;
-    height: 350px;
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    height: 400px;
     flex-direction: column;
     align-items: center;
+    word-wrap: break-word;
+}
+
+.login-error-list {
+    display: flex;
+    color: red;
+    text-align: center;
+    align-self: center;
+    word-wrap: break-word;
+    flex-direction: column;
+    list-style: none;
+    width: 400px;
 }
 
 .login-form-heading {
@@ -43,10 +64,12 @@ body {
     margin: 5px 0px 5px 0px;
     width: 225px;
     height: 30px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
-.username:hover {
-    background-color: white;
+.username:focus {
+     opacity: 1;
 }
 
 .password {
@@ -56,10 +79,12 @@ body {
     margin: 5px 0px 5px 0px;
     width: 225px;
     height: 30px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
-.password:hover {
-    background-color: white;
+.password:focus {
+     opacity: 1;
 }
 
 .submit-login {
@@ -70,16 +95,18 @@ body {
     border-radius: 4px;
     background-color: #128fdc;
     color: white;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .submit-login:hover {
-    border: 1px solid #26a4f3;
-    background-color: #26a4f3;
+    cursor: pointer;
+    opacity: 1;
 }
 
 .submit-demo {
     display: flex;
-    margin: 20px 0px 20px 0px;
+    margin: 10px 0px 20px 0px;
     width: 225px;
     height: 30px;
     border: 1px solid #128fdc;
@@ -90,11 +117,12 @@ body {
     justify-content: center;
     font-size: 15px;
     color: white;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .submit-demo:hover {
-    border: 1px solid #26a4f3;
-    background-color: #26a4f3;
+    opacity: 1;
 }
 
 .signup-redirect {
