@@ -25,13 +25,13 @@ function UserPage() {
                 <div className='banner-img'></div>
                 <h1 className='top-username'>{sessionUser?.username}</h1>
             </div>
-            {sessionUser && (
+            {sessionUser && sessionUser.id === userId && (
                 <div className='new-image-div'>
                     <NavLink className='create-newImage' to='/image'>UPLOAD IMAGE</NavLink>
                 </div>
             )}
             <div className='bottom-container'>
-            {!images?.length && sessionUser && (
+            {!images?.length && sessionUser && sessionUser.id === userId && (
                 <div className='no-image-div'>
                     <h1>There is no activity to show right now</h1> <br></br>
                     <h1>Start by uploading an image</h1>
