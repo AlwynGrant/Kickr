@@ -49,13 +49,14 @@ export const listComments = (imageId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(getComments(data));
+        return response;
     }
 }
 
 // edit comment data
-export const editCommentContent = (imageId, updatedState) => async (dispatch) => {
-    const response = await csrfFetch(`/api/image/${imageId}/comment/${updatedState.Id}/edit`, {
-        method: 'PATCH',
+export const editCommentContent = (imageId, updatedState, commentId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/image/${imageId}/comment/${commentId}/edit`, {
+        method: 'PUT',
         body: JSON.stringify({ comment: updatedState })
     });
 
@@ -76,6 +77,7 @@ export const deleteComment = (imageId, commentId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(getComments(data));
+        return response;
     };
 };
 
@@ -98,7 +100,7 @@ const commentReducer = (state = initialState, action) => {
             return newState;
         case EDIT_COMMENT:
             newState = Object.assign({}, state); // TODO: REFACTOR EDIT AFTER MODAL
-            newState.comment.comment = action.comment.comment;
+            newState.comment = action.comment
             return newState;
         default:
             return state;

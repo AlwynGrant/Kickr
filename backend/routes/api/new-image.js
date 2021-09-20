@@ -21,6 +21,7 @@ const validateComment = [
     handleValidationErrors
 ];
 
+// ====================================== COMMENTS ====================================
 
 // new image
 router.post("/", singleMulterUpload("imageUrl"),/* validateImage, */ asyncHandler(async (req, res) => {
@@ -92,7 +93,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 }));
 
 // edit comment content
-router.patch('/:id(\\d+)/comment/:id(\\d+)/edit', asyncHandler(async (req, res) => {
+router.put('/:id(\\d+)/comment/:id(\\d+)/edit', asyncHandler(async (req, res) => {
     const { comment } = req.body;
     const commentId = parseInt(req.params.id, 10);
     const oldComment = await Comment.findByPk(commentId);

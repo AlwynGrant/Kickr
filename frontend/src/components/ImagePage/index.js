@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
 import { createComment, listComments, editCommentContent, deleteComment } from '../../store/comment';
+import { Modal } from '../../context/Modal';
 import '../../reset.css'
 import './ImagePage.css'
 import '../../index.css'
@@ -14,11 +15,17 @@ function ImagePage() {
     const image = useSelector(state => state.image.image);
     const comments = useSelector(state => state.comment.comments);
 
+    const userComments = comments?.filter((comment) => comment.userId = sessionUser?.id)
+    console.log(userComments)
+
     const { imageId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
 
     const [newComment, setNewComment] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    let [edit, setEdit] = useState(userComments);
+    const [editableDiv, setEditableDiv] = useState(false);
 
     useEffect(() => {
         if (!image) dispatch(listImage(imageId));
@@ -28,44 +35,90 @@ function ImagePage() {
          dispatch(listComments(imageId));
     }, [dispatch, imageId]);
 
-    const handleDelete = (e) => {
-        e.preventDefault();
-        dispatch(deleteImage(imageId));
-        history.push(`/user/${image?.userId}`);
-    }
 
-    const handleCommentDelete = async (e, commentId) => {
-        e.preventDefault();
-        await dispatch(deleteComment(imageId, commentId));
-    }
-
-    const handleCommentEdit = async (e, commentId) => {
-        e.preventDefault();
-        // await dispatch(editCommentContent(imageId, commentId));
-    }
+    // ============================================================= BACK TO USER PAGE
 
     const handleBack = (e) => {
         e.preventDefault();
         history.push(`/user/${ image?.userId }`)
     }
 
-    const handleSubmitComment = async (e) => {
+    // ============================================================= DELETE IMAGE
+
+    const handleDelete = (e) => {
         e.preventDefault();
-        if (!sessionUser) return;
-        const addComment = {
-            userId: sessionUser.id,
-            imageId: imageId,
-            comment: newComment
-        };
-        await dispatch(createComment(addComment))
-            .then(setNewComment(''));
+        dispatch(deleteImage(imageId));
+        history.push(`/user/${image?.userId}`);
     }
+
+    // ============================================================= ADD NEW COMMENT
+
+        const handleSubmitComment = async (e) => {
+            e.preventDefault();
+            if (!sessionUser) return;
+            const addComment = {
+                userId: sessionUser.id,
+                imageId: imageId,
+                comment: newComment
+            };
+            await dispatch(createComment(addComment))
+                .then(setNewComment(''));
+        }
+
+    // ============================================================= EDIT COMMENT
+
+    // handleValue
+    const handleValue = (commentId) => {
+        const comment = edit.find(comment => comment.id === commentId);
+        return comment
+    }
+
+    //  Make the div editable
+    const handleCommentEditable = async (e, comment, commentId) => {
+        e.preventDefault();
+        const commentContentBox = document.querySelector(`.com${commentId}`);
+        commentContentBox.removeAttribute('disabled');
+        setEditableDiv(true);
+    }
+
+    // Cancel editable div
+    const handleCancelCommentEdit = async (e, comment, commentId) => {
+        e.preventDefault();
+        const commentContentBox = document.querySelector(`.com${commentId}`);
+        commentContentBox.setAttribute('disabled', true);
+        commentContentBox.innerText = comment;
+        setEditableDiv(false);
+    }
+
+    // Submit edit
+    const handleCommentEdit = async (e, comment, commentId) => {
+        e.preventDefault();
+        const commentContentBox = document.querySelector(`.com${commentId}`);
+        await dispatch(editCommentContent(imageId, edit, commentId));
+        commentContentBox.setAttribute('disabled', true);
+        setEditableDiv(false);
+        // setEdit(comment);
+    }
+
+    // ============================================================= DELETE COMMENT
+
+    const handleCommentDelete = async (e, commentId) => {
+        e.preventDefault();
+        await dispatch(deleteComment(imageId, commentId));
+    }
+
+    // ============================================================= RENDER
 
     return (
     <>
         <div className='user-image-container'>
                 <div className='user-image-box'>
-                <img className='user-image' src={image?.imageUrl} alt='kick'></img>
+                <img className='user-image' src={image?.imageUrl} alt='kick' onClick={() => setShowModal(true)}></img>
+                    {showModal && (
+                        <Modal onClose={() => setShowModal(false)}>
+                            <img className='user-modal-image' src={image?.imageUrl} alt='kick' onClick={() => setShowModal(true)}></img>
+                        </Modal>
+                    )}
             </div>
         </div>
         <div className='btn-container'>
@@ -93,19 +146,33 @@ function ImagePage() {
                             <button className='submit-comment' type='submit'>Comment</button>
                         </form>
                     )}
+
                 {
                     comments?.map((comment) => {
                         return <div className={`comment-box ${comment.id}`} id={comment.id} key={comment.id}>
                             <div className='comment-content-container'>
-                                <div className='comment-content-box'>{comment.comment}</div>
+                                <textarea
+                                    disabled={true}
+                                    className={`comment-content-box com${comment.id}`}
+                                    value={comment.comment}
+                                    onChange={(e) => setEdit(e.target.value)}
+                                >
+                                </textarea>
                             </div>
+
                             <div className='comment-data-container'>
                                 {/* TODO: INCLUDE COMMENTER USERNAME */}
                                 <div className='comment-timestamp-box'>Posted: {comment.createdAt}</div>
-                                {comment.userId === sessionUser?.id && sessionUser && (
+                                {comment.userId === sessionUser?.id && sessionUser && !editableDiv &&  (
                                     <div className='comment-tools-container'>
-                                        <button className='edit-comment-button' onClick={(e) => handleCommentEdit(e, comment.id)}>Edit</button>
+                                        <button className='edit-comment-button' disabled={true} onClick={(e) => handleCommentEditable(e, comment.comment, comment.id)}>Edit</button>
                                         <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
+                                    </div>
+                                )}
+                                {comment.userId === sessionUser?.id && sessionUser && editableDiv && (
+                                    <div className='comment-tools-container'>
+                                        <button className='cancel-comment-button' onClick={(e) => handleCancelCommentEdit(e, comment.comment, comment.id)}>Cancel</button>
+                                        <button className='submit-comment-button' onClick={(e) => handleCommentEdit(e, comment.comment, comment.id)}>Submit</button>
                                     </div>
                                 )}
                             </div>
