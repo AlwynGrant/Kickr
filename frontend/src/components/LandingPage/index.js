@@ -26,18 +26,18 @@ function LandingPage() {
         from: { opacity: 0 },
         enter: { opacity: 1 },
         leave: { opacity: 0 },
-        config: { duration: 700 },
+        config: { duration: 1200 },
     })
 
     useEffect(() => {
-        const t = setInterval(() => setIndex(state => (state + 1) % slides.length), 7000)
+        const t = setInterval(() => setIndex(state => (state + 1) % slides.length), 6000)
         return () => clearTimeout(t)
     }, [])
 
     if (sessionUser) return <Redirect to={`/user/${sessionUser.id}`} />;
 
     return (
-    <>
+        <>
             <div className="flex fill center">
                 {transitions((style, i) => (
                     <animated.div
@@ -49,17 +49,17 @@ function LandingPage() {
                     />
                 ))}
             </div>
-        <div className='landing-container'>
-            <h1 className='landing-title'>Kick start your collection.</h1>
-            <h2 className='landing-subtitle'> Join the Kickr community, home to fans and players <br></br> Share some of your favorite kicks</h2>
-            <NavLink className='landing-signup-link' to='/signup'>Start for free</NavLink>
-        </div>
-        <div className='footer'>
-                <a className='footer-github' href='https://github.com/AlwynGrant/Kickr'>
-                    <div className='github-img'></div>
-                </a>
-        </div>
-    </>
+            <div className='landing-container'>
+                            <h1 className='landing-title'>Kick start your collection.</h1>
+                            <h2 className='landing-subtitle'> Join the Kickr community, home to fans and players <br></br> Share some of your favorite kicks</h2>
+                            <NavLink className='landing-signup-link' to='/signup'>Start for free</NavLink>
+                        </div>
+            <div className='footer'>
+                    <a className='footer-github' href='https://github.com/AlwynGrant/Kickr'>
+                        <div className='github-img'></div>
+                    </a>
+            </div>
+        </>
     );
 }
 
