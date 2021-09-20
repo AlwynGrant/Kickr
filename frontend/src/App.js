@@ -44,8 +44,11 @@ function App() {
           <Route exact path='/image/:imageId'>
             <ImagePage />
           </Route>
-          <Route exact path='/image/:imageId/edit'>
+          <Route path='/image/:imageId/edit'>
             <EditFormPage />
+          </Route>
+          <Route>
+            Page Not Found
           </Route>
         </Switch>
       )}
