@@ -26,7 +26,9 @@ function UserPage() {
                 <h1 className='top-username'>{sessionUser?.username}</h1>
             </div>
             {sessionUser && (
-                <NavLink className='create-newImage' to='/image'>UPLOAD IMAGE</NavLink>
+                <div className='new-image-div'>
+                    <NavLink className='create-newImage' to='/image'>UPLOAD IMAGE</NavLink>
+                </div>
             )}
             <div className='bottom-container'>
             {!images?.length && sessionUser && (

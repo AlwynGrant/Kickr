@@ -1,5 +1,5 @@
 html {
-    background-color: #eff4f5;
+    background-color: #000000;
 }
 
 .user-container {
@@ -49,6 +49,14 @@ html {
     background-color: #eff4f5;
     width: 100%;
     height: auto;
+}
+
+.new-image-div {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 90vh;
+    background-color: #eff4f5;
 }
 
 .create-newImage {
