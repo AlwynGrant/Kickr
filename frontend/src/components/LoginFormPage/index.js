@@ -31,6 +31,8 @@ function LoginFormPage() {
     }
 
     return (
+        <>
+        <div className='login-bg'></div>
         <div className='login-page-container'>
             <div className='login-form-body'>
                 <form onSubmit={handleSubmit} className='login-form'>
@@ -69,6 +71,7 @@ function LoginFormPage() {
                 </form>
             </div>
         </div>
+        </>
     );
 }
 
