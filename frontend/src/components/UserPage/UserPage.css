@@ -1,5 +1,6 @@
 html {
     background-color: #000000;
+    max-height: 90vh;
 }
 
 .user-container {
@@ -26,7 +27,8 @@ html {
     background-image: url('./banner/banner-image.jpg');
     background-size:cover;
     background-repeat: no-repeat;
-    min-height: 50vh;
+    top: 0;
+    min-height: 350px;
     width: 100vw;
     z-index: -1;
 }
