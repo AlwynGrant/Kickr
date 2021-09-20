@@ -151,7 +151,7 @@ function ImagePage() {
                                 <textarea
                                     disabled={true}
                                     className={`comment-content-box com${comment.id}`}
-                                    value={comment.comment}
+                                    value={comment.comment} // FIX & REFACTOR
                                     onChange={(e) => setEdit(e.target.value)}
                                 >
                                 </textarea>
