@@ -48,7 +48,7 @@ function App() {
             <EditFormPage />
           </Route>
           <Route>
-            Page Not Found
+            Page Not Found - Here's a link to the home page
           </Route>
         </Switch>
       )}
