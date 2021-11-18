@@ -33,6 +33,7 @@ function Navigation({ isLoaded }) {
                     <NavLink exact to="/" className='link home'>Kickr</NavLink>
                 </div>
                 <div className='nav-right'>
+                    <a className='nav-about' href="/about">About</a>
                     {sessionUser && (
                         <NavLink className='create-newImage' to='/image'>
                             <i class="fas fa-cloud-upload-alt"></i>
