@@ -41,8 +41,8 @@ function UserPage() {
             <div className='user-container'>
                 <div>
                     <div>
-                        <button onClick={(e) => handleLargeGallery(e)}>LARGE IMAGES</button>
-                        <button onClick={(e) => handleSmallGallery(e)}>IMAGE GALLERY</button>
+                        <button className='size-btns' onClick={(e) => handleLargeGallery(e)}><i class="fas fa-square"></i></button>
+                        <button className='size-btns' onClick={(e) => handleSmallGallery(e)}><i class="fas fa-th-large"></i></button>
                     </div>
                 </div>
                 {

@@ -42,7 +42,6 @@ html {
 .sidebar {
     background-color: green;
     width: 30%;
-    height: 100%;
 }
 
 .top-username {
@@ -110,4 +109,9 @@ html {
 
 .actual-image:hover {
     transform: scale(1.2);
+}
+
+.size-btns {
+    font-size: 30px;
+    cursor: pointer;
 }
