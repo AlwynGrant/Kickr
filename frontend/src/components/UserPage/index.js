@@ -22,14 +22,7 @@ function UserPage() {
     return (
         <div className='user-container'>
             <div className='top-container'>
-                <div className='banner-img'></div>
-                <h1 className='top-username'>{sessionUser?.username}</h1>
             </div>
-            {sessionUser && (
-                <div className='new-image-div'>
-                    <NavLink className='create-newImage' to='/image'>UPLOAD IMAGE</NavLink>
-                </div>
-            )}
             <div className='bottom-container'>
             {!images?.length && sessionUser && (
                 <div className='no-image-div'>
