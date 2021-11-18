@@ -49,15 +49,15 @@ function UserPage() {
                     largeGallery &&
                         <div className='l-container'>
                             {!images?.length && sessionUser && (
-                                <div className='no-image-div'>
+                                <div className='l-no-image-div'>
                                     <div>There is no activity to show right now</div> <br></br>
                                     <div>Start by uploading an image</div>
                                 </div>
                             )}
                             {
                                 images?.map((image) => {
-                                    return <NavLink className='image-box' to={`/image/${image.id}`} key={image.id}>
-                                    <img className='actual-image' src={image.imageUrl} key={image.id} alt='user-img' ></img>
+                                    return <NavLink className='l-image-box' to={`/image/${image.id}`} key={image.id}>
+                                    <img className='l-actual-image' src={image.imageUrl} key={image.id} alt='user-img' ></img>
                                         </NavLink>
                                 })
                             }
@@ -67,15 +67,15 @@ function UserPage() {
                     smallGallery &&
                         <div className='s-container'>
                             {!images?.length && sessionUser && (
-                                <div className='no-image-div'>
+                                <div className='s-no-image-div'>
                                     <div>There is no activity to show right now</div> <br></br>
                                     <div>Start by uploading an image</div>
                                 </div>
                             )}
                             {
                                 images?.map((image) => {
-                                    return <NavLink className='image-box' to={`/image/${image.id}`} key={image.id}>
-                                    <img className='actual-image' src={image.imageUrl} key={image.id} alt='user-img' ></img>
+                                    return <NavLink className='s-image-box' to={`/image/${image.id}`} key={image.id}>
+                                    <img className='s-actual-image' src={image.imageUrl} key={image.id} alt='user-img' ></img>
                                         </NavLink>
                                 })
                             }
@@ -84,7 +84,9 @@ function UserPage() {
                 }
             </div>
             <div className='sidebar'>
-                TEST
+                <div className='sidebar-div1'>div1</div>
+                <div className='sidebar-div2'>div2</div>
+                <div className='sidebar-div3'>div3</div>
             </div>
         </div>
 
