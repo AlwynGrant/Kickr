@@ -32,6 +32,8 @@ function NewImageForm() {
         history.push(`/user/${sessionUser.id}`);
     };
 
+    console.log(window.location.href)
+
     // ========================================== DROPZONE VALIDATIONS
 
     const validateFile = (file) => {
@@ -133,7 +135,6 @@ function NewImageForm() {
             <div className="content">
                 <div className="container">
                     {/* <button className='go-back-btn' type='submit' onClick={handleBack}>Back to Images</button> */}
-                    <button className='file-upload-btn' onClick={handleSubmit} disabled={!selectedFiles.length || errorMessage !== ''}>UPLOAD IMAGE</button>
                     <div
                         className="drop-container"
                         onDragOver={dragOver}
@@ -163,12 +164,13 @@ function NewImageForm() {
                             placeholder='Tell us about this kick...'
                         />
                     </label>
-                    <div className="file-display-container">
+                    <button className='file-upload-btn' onClick={handleSubmit} disabled={!selectedFiles.length || errorMessage !== ''}>UPLOAD IMAGE</button>
+                    {/* <div className="file-display-container">
                         {
                             selectedFiles.map((data, i) =>
-                                <div className="file-status-bar" key={i}>
-                                    <div className='file-details' onClick={!data.invalid ? () => openImageModal(data) : () => removeFile(data.name)}>
-                                        <div className="file-type-logo"></div>
+                            <div className="file-status-bar" key={i}>
+                            <div className='file-details' onClick={!data.invalid ? () => openImageModal(data) : () => removeFile(data.name)}>
+                            <div className="file-type-logo"></div>
                                         <div className="file-type">{fileType(data.name)}</div>
                                         <div className='file-name'>{data.name}</div>
                                         {data.invalid && <span className='file-error-message'>({errorMessage})</span>}
@@ -179,7 +181,7 @@ function NewImageForm() {
                                 </div>
                             )
                         }
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className="modal" ref={modalRef}>
