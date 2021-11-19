@@ -42,23 +42,4 @@ router.post('/', asyncHandler(async (req, res) => {
     }),
 );
 
-// get all images
-router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    // const user = await User.findByPk(userId);
-
-    const images = await Image.findAll({
-        where: { userId }
-    })
-    return res.json({ images })
-}));
-
-
-// get image
-router.get('/image/:id(\\d+)', asyncHandler(async (req, res) => {
-    const imageId = parseInt(req.params.id, 10);
-    const image = await Image.findByPk(imageId)
-    return res.json({ image })
-}));
-
 module.exports = router;
