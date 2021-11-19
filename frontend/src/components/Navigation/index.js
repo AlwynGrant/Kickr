@@ -13,7 +13,7 @@ function Navigation({ isLoaded }) {
     useEffect(() => {
        if (window.location.href.endsWith("/image")) setNav(true)
        else setNav(false)
-    }, [nav, window.location.href, sessionUser?.id])
+    }, [sessionUser?.id])
 
 
     let sessionLinks;
@@ -38,12 +38,12 @@ function Navigation({ isLoaded }) {
     const whiteNav = (
         <div className = 'global-navbar-white'>
                 < div className = 'link-home-white' >
-                    <NavLink exact to="/" className='link home-white'>Kickr</NavLink>
+                    <NavLink exact to="/" className='link home-white' onClick={() => setNav(false)}>Kickr</NavLink>
                 </div >
         <div className='nav-right-white'>
-            <a className='nav-about-white' href="/about">About</a>
+                <a className='nav-about-white' href="/about" onClick={() => setNav(false)}>About</a>
             {sessionUser && (
-                <NavLink className='create-newImage-white' to='/image'>
+                    <NavLink className='create-newImage-white' to='/image' onClick={() => setNav(true)}>
                     <i class="fas fa-cloud-upload-alt"></i>
                 </NavLink>
             )}
@@ -55,12 +55,12 @@ function Navigation({ isLoaded }) {
     const blackNav = (
         <div className='global-navbar'>
                 <div className='link-home'>
-                    <NavLink exact to="/" className='link home'>Kickr</NavLink>
+                <NavLink exact to="/" className='link home' onClick={() => setNav(false)}>Kickr</NavLink>
                 </div>
                 <div className='nav-right'>
-                    <a className='nav-about' href="/about">About</a>
+                <a className='nav-about' href="/about" onClick={() => setNav(false)}>About</a>
                     {sessionUser && (
-                        <NavLink className='create-newImage' to='/image'>
+                    <NavLink className='create-newImage' to='/image' onClick={() => setNav(true)}>
                             <i class="fas fa-cloud-upload-alt"></i>
                         </NavLink>
                     )}

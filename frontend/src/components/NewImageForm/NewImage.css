@@ -11,23 +11,24 @@
 /* DROP CONTAINER CSS */
 
 .container {
-    transform: translateY(-14%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-width: 700px;
+    height: 93vh;
+    position: relative;
 }
 
 .drop-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 400px;
-    height: 250px;
-    border: 4px dashed #128fdc;
-    border-radius: 10px;
-    min-width: 600px;
+    background-color: rgba(0,0,0,0.9);
+    width: 100%;
+    position: absolute;
+    top: -1px;
+    bottom: -1px;
 }
 
 .drop-container:hover {

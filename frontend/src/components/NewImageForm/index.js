@@ -145,6 +145,7 @@ function NewImageForm() {
                     >
                         <div className="drop-message">
                             <div className="upload-icon"></div>
+                            Upload your favorite kicks <br />
                             Drag & Drop files here or click to upload
                         </div>
                         <input
@@ -155,7 +156,7 @@ function NewImageForm() {
                             onChange={filesSelected}
                         />
                     </div>
-                    <label className='description-box'>
+                    {/* <label className='description-box'>
                         <textarea
                             className='description-input'
                             type='text'
@@ -163,25 +164,8 @@ function NewImageForm() {
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder='Tell us about this kick...'
                         />
-                    </label>
-                    <button className='file-upload-btn' onClick={handleSubmit} disabled={!selectedFiles.length || errorMessage !== ''}>UPLOAD IMAGE</button>
-                    {/* <div className="file-display-container">
-                        {
-                            selectedFiles.map((data, i) =>
-                            <div className="file-status-bar" key={i}>
-                            <div className='file-details' onClick={!data.invalid ? () => openImageModal(data) : () => removeFile(data.name)}>
-                            <div className="file-type-logo"></div>
-                                        <div className="file-type">{fileType(data.name)}</div>
-                                        <div className='file-name'>{data.name}</div>
-                                        {data.invalid && <span className='file-error-message'>({errorMessage})</span>}
-                                    </div>
-                                    <div className="file-remove" onClick={() => removeFile(data.name)}>
-                                        <p className='x-button'>x</p>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    </div> */}
+                    </label> */}
+                    {/* <button className='file-upload-btn' onClick={handleSubmit} disabled={!selectedFiles.length || errorMessage !== ''}>UPLOAD IMAGE</button> */}
                 </div>
             </div>
             <div className="modal" ref={modalRef}>
