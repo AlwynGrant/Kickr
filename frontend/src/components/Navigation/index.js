@@ -11,7 +11,7 @@ function Navigation({ isLoaded }) {
     const [nav, setNav] = useState(false)
 
     useEffect(() => {
-       if (window.location.href.endsWith("/image")) setNav(true)
+       if (window.location.href.endsWith("/image/new")) setNav(true)
        else setNav(false)
     }, [sessionUser?.id])
 
@@ -43,7 +43,7 @@ function Navigation({ isLoaded }) {
         <div className='nav-right-white'>
                 <a className='nav-about-white' href="/about" onClick={() => setNav(false)}>About</a>
             {sessionUser && (
-                    <NavLink className='create-newImage-white' to='/image' onClick={() => setNav(true)}>
+                    <NavLink className='create-newImage-white' to='/image/new' onClick={() => setNav(true)}>
                     <i class="fas fa-cloud-upload-alt"></i>
                 </NavLink>
             )}
@@ -60,7 +60,7 @@ function Navigation({ isLoaded }) {
                 <div className='nav-right'>
                 <a className='nav-about' href="/about" onClick={() => setNav(false)}>About</a>
                     {sessionUser && (
-                    <NavLink className='create-newImage' to='/image' onClick={() => setNav(true)}>
+                    <NavLink className='create-newImage' to='/image/new' onClick={() => setNav(true)}>
                             <i class="fas fa-cloud-upload-alt"></i>
                         </NavLink>
                     )}
