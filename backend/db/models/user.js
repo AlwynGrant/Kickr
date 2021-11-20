@@ -23,6 +23,12 @@ module.exports = (sequelize, DataTypes) => {
         len: [3, 256]
       },
     },
+    profileImg: {
+      type: DataTypes.STRING(2000),
+    },
+    profileBannerImg: {
+      type: DataTypes.STRING(2000),
+    },
     hashedPassword: {
       type: DataTypes.STRING.BINARY,
       allowNull: false,
@@ -52,6 +58,7 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Album, { foreignKey: 'userId' });
     User.hasMany(models.Image, { foreignKey: 'userId' });
     User.hasMany(models.Comment, { foreignKey: 'userId' });
+    User.hasMany(models.Like, { foreignKey: 'userId' });
   };
 
   User.prototype.toSafeObject = function () {

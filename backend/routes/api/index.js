@@ -7,9 +7,9 @@ const { restoreUser } = require('../../utils/auth.js');
 const { requireAuth } = require('../../utils/auth.js');
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
-const imageRouter = require('./new-image.js');
+const imageRouter = require('./image.js');
 
-router.use('/image', imageRouter);
+router.use('/images', imageRouter);
 
 router.use('/session', sessionRouter);
 

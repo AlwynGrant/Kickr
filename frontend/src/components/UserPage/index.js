@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useParams } from 'react-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { listImages } from '../../store/image';
 import '../../reset.css'
 import './UserPage.css'
@@ -12,6 +12,9 @@ function UserPage() {
     const sessionUser = useSelector(state => state.session.user);
     const images = useSelector(state => state.image.images);
 
+    const [largeGallery, setLargeGallery] = useState(true)
+    const [smallGallery, setSmallGallery] = useState(false)
+
     const { userId } = useParams();
     const dispatch = useDispatch();
 
@@ -19,34 +22,74 @@ function UserPage() {
          dispatch(listImages(userId));
     }, [dispatch, userId]);
 
+    const handleLargeGallery = (e) => {
+        e.preventDefault();
+
+        setLargeGallery(true);
+        setSmallGallery(false);
+    }
+
+    const handleSmallGallery = (e) => {
+        e.preventDefault();
+
+        setSmallGallery(true);
+        setLargeGallery(false);
+    }
+
     return (
-        <div className='user-container'>
-            <div className='top-container'>
-                <div className='banner-img'></div>
-                <h1 className='top-username'>{sessionUser?.username}</h1>
-            </div>
-            {sessionUser && (
-                <div className='new-image-div'>
-                    <NavLink className='create-newImage' to='/image'>UPLOAD IMAGE</NavLink>
+        <div className='main-container'>
+            <div className='user-container'>
+                <div>
+                    <div>
+                        <button className='size-btns' onClick={(e) => handleLargeGallery(e)}><i class="fas fa-square"></i></button>
+                        <button className='size-btns' onClick={(e) => handleSmallGallery(e)}><i class="fas fa-th-large"></i></button>
+                    </div>
                 </div>
-            )}
-            <div className='bottom-container'>
-            {!images?.length && sessionUser && (
-                <div className='no-image-div'>
-                    <h1>There is no activity to show right now</h1> <br></br>
-                    <h1>Start by uploading an image</h1>
-                </div>
-            )}
-            {
-                    images?.map((image) => {
-                        return <NavLink className='image-box' to={`/image/${image.id}`} key={image.id}>
-                        <img className='actual-image' src={image.imageUrl} key={image.id} alt='user-img' ></img>
-                            </NavLink>
-                    })
+                {
+                    largeGallery &&
+                        <div className='l-container'>
+                            {!images?.length && sessionUser && (
+                                <div className='l-no-image-div'>
+                                    <div>There is no activity to show right now</div> <br></br>
+                                    <div>Start by uploading an image</div>
+                                </div>
+                            )}
+                            {
+                                images?.map((image) => {
+                                    return <NavLink className='l-image-box' to={`/image/${image.id}`} key={image.id}>
+                                    <img className='l-actual-image' src={image.imageUrl} key={image.id} alt='user-img' ></img>
+                                        </NavLink>
+                                })
+                            }
+                        </div>
+                }
+                {
+                    smallGallery &&
+                        <div className='s-container'>
+                            {!images?.length && sessionUser && (
+                                <div className='s-no-image-div'>
+                                    <div>There is no activity to show right now</div> <br></br>
+                                    <div>Start by uploading an image</div>
+                                </div>
+                            )}
+                            {
+                                images?.map((image) => {
+                                    return <NavLink className='s-image-box' to={`/image/${image.id}`} key={image.id}>
+                                    <img className='s-actual-image' src={image.imageUrl} key={image.id} alt='user-img' ></img>
+                                        </NavLink>
+                                })
+                            }
+                        </div>
+
                 }
             </div>
-
+            <div className='sidebar'>
+                <div className='sidebar-div1'>div1</div>
+                <div className='sidebar-div2'>div2</div>
+                <div className='sidebar-div3'>div3</div>
+            </div>
         </div>
+
     );
 }
 

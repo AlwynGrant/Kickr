@@ -2,10 +2,19 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import upload_image from "./navImages/upload_image.png"
 import './Navigation.css';
+import { useState, useEffect } from 'react';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
+    const [nav, setNav] = useState(false)
+
+    useEffect(() => {
+       if (window.location.href.endsWith("/image/new")) setNav(true)
+       else setNav(false)
+    }, [sessionUser?.id])
+
 
     let sessionLinks;
     if (sessionUser) {
@@ -26,16 +35,44 @@ function Navigation({ isLoaded }) {
         );
     }
 
-    return (
-            <div className='global-navbar'>
-                <div className='link-home'>
-                    <NavLink exact to="/" className='link home'>Kickr</NavLink>
-                </div>
-                <div className='search-bar'>
-                    {/* <input value='search...' className='search-input'></input> */}
-                </div>
-                {isLoaded && sessionLinks}
+    const whiteNav = (
+        <div className = 'global-navbar-white'>
+                < div className = 'link-home-white' >
+                    <NavLink exact to="/" className='link home-white' onClick={() => setNav(false)}>Kickr</NavLink>
+                </div >
+        <div className='nav-right-white'>
+                <a className='nav-about-white' href="/about" onClick={() => setNav(false)}>About</a>
+            {sessionUser && (
+                    <NavLink className='create-newImage-white' to='/image/new' onClick={() => setNav(true)}>
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </NavLink>
+            )}
+            {isLoaded && sessionLinks}
             </div>
+        </div >
+    )
+
+    const blackNav = (
+        <div className='global-navbar'>
+                <div className='link-home'>
+                <NavLink exact to="/" className='link home' onClick={() => setNav(false)}>Kickr</NavLink>
+                </div>
+                <div className='nav-right'>
+                <a className='nav-about' href="/about" onClick={() => setNav(false)}>About</a>
+                    {sessionUser && (
+                    <NavLink className='create-newImage' to='/image/new' onClick={() => setNav(true)}>
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </NavLink>
+                    )}
+                    {isLoaded && sessionLinks}
+            </div>
+        </div>
+    )
+
+    return (
+        <>
+            { nav ? whiteNav : blackNav }
+        </>
     );
 }
 

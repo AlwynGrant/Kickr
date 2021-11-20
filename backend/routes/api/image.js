@@ -4,7 +4,7 @@ const asyncHandler = require('express-async-handler');
 const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3')
 const { check, validationResult } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { Image, Comment } = require('../../db/models');
+const { Image, Comment, Like } = require('../../db/models');
 const router = express.Router();
 
 // const validateImage = [
@@ -21,10 +21,27 @@ const validateComment = [
     handleValidationErrors
 ];
 
-// ====================================== COMMENTS ====================================
+// ====================================== IMAGES ====================================
+
+// get one image
+router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+    const imageId = parseInt(req.params.id, 10);
+    const image = await Image.findByPk(imageId);
+    if (typeof image.views === "number") image.views += 1
+    else image.views = 1
+    return res.json({ image })
+}));
+
+// get all images
+router.get('', asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+
+    const images = await Image.findAll()
+    return res.json({ images })
+}));
 
 // new image
-router.post("/", singleMulterUpload("imageUrl"),/* validateImage, */ asyncHandler(async (req, res) => {
+router.post("/new", singleMulterUpload("imageUrl"),/* validateImage, */ asyncHandler(async (req, res) => {
 
     const { userId, description } = req.body;
     const imageUrl = await singlePublicFileUpload(req.file);
@@ -63,9 +80,7 @@ router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
     return res.json({ images })
 }));
 
-
 // ====================================== COMMENTS ====================================
-
 
 // new comment
 router.post("/:id(\\d+)/comment", validateComment, asyncHandler(async (req, res) => {
@@ -112,5 +127,33 @@ router.delete('/:imageId(\\d+)/comment/:commentId(\\d+)/delete', asyncHandler(as
     const comments = await Comment.findAll({ where: { imageId } });
     return res.json({ comments });
 }));
+
+
+// ====================================== IMAGE LIKES ====================================
+
+// get likes
+router.get('/:imageId/get-likes', asyncHandler(async (req, res) => {
+    const imageId = req.params.id;
+    const imageLikes = await Like.findAll({ where: { imageId }})
+    return res.json({ likes: imageLikes.length })
+}))
+
+// like or dislike image
+router.post('/:imageId/like', asyncHandler(async (req, res) => {
+    const imageId = req.params.id;
+    const { userId } = req.session.auth;
+
+    const like = await Like.findOne({ where: { imageId, userId }})
+
+    if (like) {
+        await like.destroy();
+        const imageLikes = await Like.findAll({ where: { imageId }})
+        return res.json({ likes: imageLikes.length })
+    } else {
+        await Like.create({ userId, imageId })
+        const imageLikes = await Like.findAll({ where: { imageId }})
+        return res.json({ likes: imageLikes.length })
+    }
+}))
 
 module.exports = router;

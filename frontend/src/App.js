@@ -38,7 +38,7 @@ function App() {
           <Route exact path='/user/:userId'>
             <UserPage />
           </Route>
-          <Route exact path='/image'>
+          <Route exact path='/image/new'>
             <NewImageForm />
           </Route>
           <Route exact path='/image/:imageId'>
