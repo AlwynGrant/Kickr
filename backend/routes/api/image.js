@@ -36,9 +36,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 router.get('', asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
 
-    const images = await Image.findAll({
-        where: { userId }
-    })
+    const images = await Image.findAll()
     return res.json({ images })
 }));
 
