@@ -5,12 +5,14 @@ import { csrfFetch } from './csrf';
 const GET_COMMENTS = 'users/GET_COMMENTS';
 const ADD_COMMENT = 'users/ADD_COMMENT';
 const EDIT_COMMENT = 'users/EDIT_COMMENT';
+const DELETE_COMMENT = 'users/DELETE_COMMENT';
 
 // --------------------------- Defined Action Creator(s) --------------------------
 
 const getComments = (comment) => ({ type: GET_COMMENTS, comment });
 const addComment = (comment) => ({ type: ADD_COMMENT, comment });
 const editComment = (comment) => ({ type: EDIT_COMMENT, comment });
+const deleteComment = (comment) => ({ type: DELETE_COMMENT, comment });
 
 // ---------------------------  Defined Thunk(s) --------------------------------
 
@@ -18,13 +20,10 @@ const editComment = (comment) => ({ type: EDIT_COMMENT, comment });
 // create comment
 export const createComment = (newComment) => async (dispatch) => {
     const { userId, imageId, comment } = newComment;
+
     const response = await csrfFetch(`/api/image/${imageId}/comment`, {
         method: 'POST',
-        body: JSON.stringify({
-            userId,
-            imageId,
-            comment
-        })
+        body: JSON.stringify({ userId, imageId, comment })
     });
 
     if (response.ok) {
@@ -78,25 +77,21 @@ export const deleteComment = (imageId, commentId) => async (dispatch) => {
 
 
 // Comment state
-const initialState = {};
+const initialState = [];
 
 
 // Comment reducer
 const commentReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
-        case ADD_COMMENT:
-            newState = Object.assign({}, state);
-            newState['comments'] = action.comment;
-            return newState;
         case GET_COMMENTS:
-            newState = Object.assign({}, state);
-            newState= action.comment;
-            return newState;
+            return [ newState ]
+        case ADD_COMMENT:
+            return [ ...newState, action.comment ]
         case EDIT_COMMENT:
-            newState = Object.assign({}, state); // TODO: REFACTOR EDIT AFTER MODAL
-            newState.comment = action.comment
-            return newState;
+            return [ newState ];
+        case DELETE_COMMENT:
+            return newState.filter((el) => action.comment.id !== el.id)
         default:
             return state;
     }
