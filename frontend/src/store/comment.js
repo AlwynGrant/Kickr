@@ -63,14 +63,14 @@ export const editCommentContent = (imageId, updatedState, commentId) => async (d
 
 
 // delete an comment
-export const deleteComment = (imageId, commentId) => async (dispatch) => {
+export const removeComment = (imageId, commentId) => async (dispatch) => {
     const response = await csrfFetch(`/api/image/${imageId}/comment/${commentId}/delete`, {
         method: 'DELETE',
     });
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(getComments(data));
+        dispatch(deleteComment(data));
         return response;
     };
 };

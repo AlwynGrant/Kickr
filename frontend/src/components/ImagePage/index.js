@@ -3,7 +3,7 @@ import { NavLink, useHistory} from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
-import { createComment, listComments, editCommentContent, deleteComment } from '../../store/comment';
+import { createComment, listComments, editCommentContent, removeComment } from '../../store/comment';
 import { Modal } from '../../context/Modal';
 import '../../reset.css'
 import './ImagePage.css'
@@ -101,7 +101,7 @@ function ImagePage() {
 
     const handleCommentDelete = async (e, commentId) => {
         e.preventDefault();
-        await dispatch(deleteComment(imageId, commentId));
+        await dispatch(removeComment(imageId, commentId));
     }
 
     // ============================================================= RENDER
