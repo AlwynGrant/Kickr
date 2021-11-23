@@ -14,6 +14,7 @@ const getImage = (image) => ({ type: GET_IMAGE, image });
 const getImages = (image) => ({ type: GET_IMAGES, image });
 const addImage = (image) => ({ type: ADD_IMAGE, image });
 const editImage = (image) => ({ type: EDIT_IMAGE, image });
+const removeImage = (image) => ({ type: DELETE_IMAGE, image });
 
 // ---------------------------  Defined Thunk(s) --------------------------------
 
@@ -87,35 +88,29 @@ export const deleteImage = (imageId) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(getImages(data));
+        dispatch(removeImage(data));
     };
 };
 
 
 // Image state
-const initialState = {};
+const initialState = [];
 
 
 // Image reducer
 const imageReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
-        case ADD_IMAGE:
-            newState = Object.assign({}, state);
-            newState['images'] = action.image;
-            return newState;
-        case GET_IMAGES:
-            newState = Object.assign({}, state);
-            newState = action.image;
-            return newState;
         case GET_IMAGE:
-            newState = Object.assign({}, state);
-            newState = action.image;
-            return newState;
+            return [ newState ]
+        case GET_IMAGES:
+            return [...newState ]
+        case ADD_IMAGE:
+            return [ ...newState, action.image ]
         case EDIT_IMAGE:
-            newState = Object.assign({}, state);
-            newState.image = action.image;
-            return newState;
+            return [ newState ]
+        case DELETE_IMAGE:
+            return newState.filter((el) => action.image.id !== el.id)
         default:
             return state;
     }
