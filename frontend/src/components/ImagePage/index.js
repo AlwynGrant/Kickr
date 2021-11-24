@@ -16,6 +16,7 @@ function ImagePage() {
     const sessionUser = useSelector(state => state.session.user);
     const image = useSelector(state => state.images[0]);
     const comments = useSelector(state => state.comments);
+    const likes = useSelector(state => state.likes);
 
     const { imageId } = useParams();
     const history = useHistory();
@@ -150,7 +151,7 @@ function ImagePage() {
                     <h2 className='description-create-date'>Posted: {new Date(image?.createdAt).toLocaleDateString("en-US", options)}</h2>
                     <h2 className='description-create-date'>Views: {image?.views}</h2>
                     <h2 className='description-create-date'>Comments: {comments?.length}</h2>
-                    <h2 className='description-create-date'>Likes: LIKE QUANTITY HERE</h2>
+                    <h2 className='description-create-date'>Likes: {likes?.imageLikes}</h2>
                     <h2 className='description-content'>{image?.description}</h2>
             </div>
         </div>
