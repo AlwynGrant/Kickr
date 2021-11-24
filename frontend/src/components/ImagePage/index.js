@@ -23,7 +23,6 @@ function ImagePage() {
     const [newComment, setNewComment] = useState('');
     const [showModal, setShowModal] = useState(false);
     let [edit, setEdit] = useState('');
-    const [editableDiv, setEditableDiv] = useState(false);
 
     useEffect(() => {
         if (!image) dispatch(listImage(imageId));
@@ -63,41 +62,6 @@ function ImagePage() {
                 .then(setNewComment(''));
         }
 
-    // ============================================================= EDIT COMMENT
-
-    // handleValue
-    // const handleValue = (commentId) => {
-    //     const comment = edit.find(comment => comment.id === commentId);
-    //     return comment
-    // }
-
-    //  Make the div editable
-    const handleCommentEditable = async (e, comment, commentId) => {
-        e.preventDefault();
-        const commentContentBox = document.querySelector(`.com${commentId}`);
-        commentContentBox.removeAttribute('disabled');
-        setEditableDiv(true);
-    }
-
-    // Cancel editable div
-    const handleCancelCommentEdit = async (e, comment, commentId) => {
-        e.preventDefault();
-        const commentContentBox = document.querySelector(`.com${commentId}`);
-        commentContentBox.setAttribute('disabled', true);
-        commentContentBox.innerText = comment;
-        setEditableDiv(false);
-    }
-
-    // Submit edit
-    const handleCommentEdit = async (e, comment, commentId) => {
-        e.preventDefault();
-        const commentContentBox = document.querySelector(`.com${commentId}`);
-        await dispatch(editCommentContent(imageId, edit, commentId));
-        commentContentBox.setAttribute('disabled', true);
-        setEditableDiv(false);
-        // setEdit(comment);
-    }
-
     // ============================================================= DELETE COMMENT
 
     const handleCommentDelete = async (e, commentId) => {
@@ -127,7 +91,7 @@ function ImagePage() {
                     <NavLink to={`/image/${image?.id}/edit`} className='edit-image-btn'>Edit Description</NavLink>
                 </>
             )}
-
+            <button className='like-image-btn' onClick={null}>Like</button>
         </div>
         <div className='underimage-container'>
             <div className='comment-container'>
@@ -161,16 +125,10 @@ function ImagePage() {
                             <div className='comment-data-container'>
                                 {/* TODO: INCLUDE COMMENTER USERNAME */}
                                 <div className='comment-timestamp-box'>Posted: {comment.createdAt}</div>
-                                {comment.userId === sessionUser?.id && sessionUser && !editableDiv &&  (
+                                {comment.userId === sessionUser?.id && sessionUser && (
                                     <div className='comment-tools-container'>
-                                        <button className='edit-comment-button' disabled={true} onClick={(e) => handleCommentEditable(e, comment.comment, comment.id)}>Edit</button>
+                                        <button className='edit-comment-button' disabled={true} onClick={null}>Edit</button>
                                         <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
-                                    </div>
-                                )}
-                                {comment.userId === sessionUser?.id && sessionUser && editableDiv && (
-                                    <div className='comment-tools-container'>
-                                        <button className='cancel-comment-button' onClick={(e) => handleCancelCommentEdit(e, comment.comment, comment.id)}>Cancel</button>
-                                        <button className='submit-comment-button' onClick={(e) => handleCommentEdit(e, comment.comment, comment.id)}>Submit</button>
                                     </div>
                                 )}
                             </div>

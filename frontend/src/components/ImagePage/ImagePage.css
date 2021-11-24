@@ -109,6 +109,30 @@
     opacity: 1;
 }
 
+.like-image-btn {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #eff4f5;
+    background-color: #3cd844;
+    min-width: 150px;
+    width: 150px;
+    text-decoration: none;
+    outline: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    margin: 0px 0px 5px 0px;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.like-image-btn:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
 
 /* UNDERIMAGE CONTAINER */
 
