@@ -1,5 +1,6 @@
 const express = require('express')
 const asyncHandler = require('express-async-handler');
+// const Op = Sequelize.Op
 
 const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3')
 const { check, validationResult } = require('express-validator');
@@ -35,7 +36,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         image.views+=1
         await image.save()
     }
-    
+
     return res.json(image)
 }));
 
@@ -89,7 +90,7 @@ router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
 // ====================================== COMMENTS ====================================
 
 // new comment
-router.post("/:id(\\d+)/comment", validateComment, asyncHandler(async (req, res) => {
+router.post("/:id(\\d+)/new-comment", validateComment, asyncHandler(async (req, res) => {
 
     const { userId, imageId, comment } = req.body;
     const newComment = await Comment.build({ userId, imageId, comment });
@@ -97,8 +98,13 @@ router.post("/:id(\\d+)/comment", validateComment, asyncHandler(async (req, res)
 
     if (validationErrors.isEmpty()) {
         await newComment.save();
-        const comments = await Comment.findAll({ where: { imageId } });
-        return res.json(comments);
+        const getComment = await Comment.findOne({
+            where: {
+                userId: userId,
+                comment: comment
+            }
+        });
+        return res.json(getComment);
     } else {
         const errors = validationErrors.array().map((error) => error.msg);
         return res.json(errors)
@@ -106,11 +112,11 @@ router.post("/:id(\\d+)/comment", validateComment, asyncHandler(async (req, res)
 }));
 
 // get all comments
-router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+router.get('/:id(\\d+)/comments', asyncHandler(async (req, res) => {
     const imageId = parseInt(req.params.id, 10);
 
     const comments = await Comment.findAll({ where: { imageId } });
-    return res.json({ comments })
+    return res.json(comments)
 }));
 
 // edit comment content
@@ -131,7 +137,7 @@ router.delete('/:imageId(\\d+)/comment/:commentId(\\d+)/delete', asyncHandler(as
     await comment.destroy();
 
     const comments = await Comment.findAll({ where: { imageId } });
-    return res.json({ comments });
+    return res.json(comments);
 }));
 
 

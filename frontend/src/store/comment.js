@@ -21,7 +21,7 @@ const deleteComment = (comment) => ({ type: DELETE_COMMENT, comment });
 export const createComment = (newComment) => async (dispatch) => {
     const { userId, imageId, comment } = newComment;
 
-    const response = await csrfFetch(`/api/images/${imageId}/comment`, {
+    const response = await csrfFetch(`/api/images/${imageId}/new-comment`, {
         method: 'POST',
         body: JSON.stringify({ userId, imageId, comment })
     });
@@ -36,7 +36,7 @@ export const createComment = (newComment) => async (dispatch) => {
 
 // get comment(s)
 export const listComments = (imageId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/images/${imageId}`, {
+    const response = await csrfFetch(`/api/images/${imageId}/comments`, {
         method: 'GET'
     });
 
@@ -82,10 +82,10 @@ const initialState = [];
 
 // Comment reducer
 const commentReducer = (state = initialState, action) => {
-    let newState;
+    let newState = [ ...state ]
     switch (action.type) {
         case GET_COMMENTS:
-            return [ newState ]
+            return [ ...action.comment ]
         case ADD_COMMENT:
             return [ ...newState, action.comment ]
         case EDIT_COMMENT:
