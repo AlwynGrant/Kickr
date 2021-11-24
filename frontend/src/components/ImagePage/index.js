@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
 import { createComment, listComments, editCommentContent, removeComment } from '../../store/comment';
+import { createLike, getLikesNum } from '../../store/like';
 import { Modal } from '../../context/Modal';
 import '../../reset.css'
 import './ImagePage.css'
@@ -30,6 +31,7 @@ function ImagePage() {
 
     useEffect(() => {
          dispatch(listComments(imageId));
+         dispatch(getLikesNum(imageId))
     }, [dispatch, imageId]);
 
 
@@ -69,8 +71,15 @@ function ImagePage() {
         await dispatch(removeComment(imageId, commentId));
     }
 
-    // ============================================================= RENDER
 
+    // ============================================================= LIKES
+
+    const handleLikes = (e) => {
+        e.preventDefault();
+        dispatch(createLike(imageId, sessionUser?.id))
+    }
+
+    // ============================================================= RENDER
     return (
     <>
         <div className='user-image-container'>
@@ -91,7 +100,7 @@ function ImagePage() {
                     <NavLink to={`/image/${image?.id}/edit`} className='edit-image-btn'>Edit Description</NavLink>
                 </>
             )}
-            <button className='like-image-btn' onClick={null}>Like</button>
+            <button className='like-image-btn' onClick={(e) => handleLikes(e)}>Like</button>
         </div>
         <div className='underimage-container'>
             <div className='comment-container'>
