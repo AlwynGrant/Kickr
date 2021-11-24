@@ -11,6 +11,7 @@ import '../../index.css'
 
 
 function ImagePage() {
+    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const sessionUser = useSelector(state => state.session.user);
     const image = useSelector(state => state.images[0]);
     const comments = useSelector(state => state.comments);
@@ -179,7 +180,7 @@ function ImagePage() {
             </div>
             <div className='description-section'>
                     <h1 className='description-username'>{sessionUser?.username}</h1>
-                    <h2 className='description-create-date'>Posted: {image?.createdAt}</h2>
+                    <h2 className='description-create-date'>Posted: {new Date(image?.createdAt).toLocaleDateString("en-US", options)}</h2>
                     <h2 className='description-content'>{image?.description}</h2>
             </div>
         </div>
