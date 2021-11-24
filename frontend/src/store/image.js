@@ -3,7 +3,7 @@ import { csrfFetch } from './csrf';
 // --------------------------- Defined Action Types as Constants ---------------------
 
 const GET_IMAGE = 'users/GET_IMAGE'
-const GET_IMAGES = 'users/GET_IMAGE'
+const GET_IMAGES = 'users/GET_IMAGES'
 const ADD_IMAGE = 'users/ADD_IMAGE';
 const EDIT_IMAGE = 'users/EDIT_IMAGE';
 const DELETE_IMAGE = 'users/DELETE_IMAGE';
@@ -25,8 +25,9 @@ export const listImages = (userId) => async (dispatch) => {
     });
 
     if (response.ok) {
-        const images = await response.json();
-        dispatch(getImages(images));
+        const data = await response.json();
+        console.log(data)
+        dispatch(getImages(data));
     }
 }
 
@@ -99,12 +100,12 @@ const initialState = [];
 
 // Image reducer
 const imageReducer = (state = initialState, action) => {
-    let newState;
+    let newState = [ ...state ]
     switch (action.type) {
         case GET_IMAGE:
-            return [ newState ]
+            return [ action.image ]
         case GET_IMAGES:
-            return [...newState ]
+            return [ ...action.image ]
         case ADD_IMAGE:
             return [ ...newState, action.image ]
         case EDIT_IMAGE:

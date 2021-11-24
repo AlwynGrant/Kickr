@@ -12,8 +12,8 @@ import '../../index.css'
 
 function ImagePage() {
     const sessionUser = useSelector(state => state.session.user);
-    const image = useSelector(state => state.image.image);
-    const comments = useSelector(state => state.comment.comments);
+    const image = useSelector(state => state.images);
+    const comments = useSelector(state => state.comments);
 
     const { imageId } = useParams();
     const history = useHistory();

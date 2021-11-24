@@ -27,17 +27,16 @@ const validateComment = [
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const imageId = parseInt(req.params.id, 10);
     const image = await Image.findByPk(imageId);
-    if (typeof image.views === "number") image.views += 1
+    if (typeof image.views !== "undefined" || image.views) image.views += 1
     else image.views = 1
-    return res.json({ image })
+    return res.json(image)
 }));
 
 // get all images
 router.get('', asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-
-    const images = await Image.findAll()
-    return res.json({ images })
+    // const userId = parseInt(req.params.id, 10);
+    const images = await Image.findAll();
+    return res.json(images)
 }));
 
 // new image
