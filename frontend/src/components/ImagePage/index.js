@@ -27,7 +27,7 @@ function ImagePage() {
 
     useEffect(() => {
         if (!image) dispatch(listImage(imageId));
-    }, [dispatch, image, imageId]);
+    }, [dispatch, image?.views, imageId]);
 
     useEffect(() => {
          dispatch(listComments(imageId));
@@ -181,6 +181,9 @@ function ImagePage() {
             <div className='description-section'>
                     <h1 className='description-username'>{sessionUser?.username}</h1>
                     <h2 className='description-create-date'>Posted: {new Date(image?.createdAt).toLocaleDateString("en-US", options)}</h2>
+                    <h2 className='description-create-date'>Views: {image?.views}</h2>
+                    <h2 className='description-create-date'>Comments: {comments?.length}</h2>
+                    <h2 className='description-create-date'>Likes: LIKE QUANTITY HERE</h2>
                     <h2 className='description-content'>{image?.description}</h2>
             </div>
         </div>

@@ -136,8 +136,7 @@ router.delete('/:imageId(\\d+)/comment/:commentId(\\d+)/delete', asyncHandler(as
 
     await comment.destroy();
 
-    const comments = await Comment.findAll({ where: { imageId } });
-    return res.json(comments);
+    return res.json(comment);
 }));
 
 
