@@ -21,7 +21,7 @@ const deleteComment = (comment) => ({ type: DELETE_COMMENT, comment });
 export const createComment = (newComment) => async (dispatch) => {
     const { userId, imageId, comment } = newComment;
 
-    const response = await csrfFetch(`/api/image/${imageId}/comment`, {
+    const response = await csrfFetch(`/api/images/${imageId}/comment`, {
         method: 'POST',
         body: JSON.stringify({ userId, imageId, comment })
     });
@@ -36,7 +36,7 @@ export const createComment = (newComment) => async (dispatch) => {
 
 // get comment(s)
 export const listComments = (imageId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/image/${imageId}`, {
+    const response = await csrfFetch(`/api/images/${imageId}`, {
         method: 'GET'
     });
 
@@ -49,7 +49,7 @@ export const listComments = (imageId) => async (dispatch) => {
 
 // edit comment data
 export const editCommentContent = (imageId, updatedState, commentId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/image/${imageId}/comment/${commentId}/edit`, {
+    const response = await csrfFetch(`/api/images/${imageId}/comment/${commentId}/edit`, {
         method: 'PUT',
         body: JSON.stringify({ comment: updatedState })
     });
@@ -64,7 +64,7 @@ export const editCommentContent = (imageId, updatedState, commentId) => async (d
 
 // delete an comment
 export const removeComment = (imageId, commentId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/image/${imageId}/comment/${commentId}/delete`, {
+    const response = await csrfFetch(`/api/images/${imageId}/comment/${commentId}/delete`, {
         method: 'DELETE',
     });
 

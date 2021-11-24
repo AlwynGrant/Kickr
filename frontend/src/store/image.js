@@ -68,7 +68,7 @@ export const createImage = (newImage) => async (dispatch) => {
 
 // edit image data
 export const editDescription = (imageId, updatedState) => async (dispatch) => {
-    const response = await csrfFetch(`/api/image/${imageId}/edit`, {
+    const response = await csrfFetch(`/api/images/${imageId}/edit`, {
         method: 'PATCH',
         body: JSON.stringify({ description: updatedState })
     });
@@ -83,7 +83,7 @@ export const editDescription = (imageId, updatedState) => async (dispatch) => {
 
 // delete an image
 export const deleteImage = (imageId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/image/${imageId}/delete`, {
+    const response = await csrfFetch(`/api/images/${imageId}/delete`, {
         method: 'DELETE',
     });
 
