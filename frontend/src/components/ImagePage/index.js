@@ -84,6 +84,7 @@ function ImagePage() {
     return (
     <>
         <div className='user-image-container'>
+                <button className='back-to-images' type='submit' onClick={handleBack}>Back to Images</button>
                 <div className='user-image-box'>
                 <img className='user-image' src={image?.imageUrl} alt='kick' onClick={() => setShowModal(true)}></img>
                     {showModal && (
@@ -93,8 +94,8 @@ function ImagePage() {
                     )}
             </div>
         </div>
-        <div className='btn-container'>
-            <button className='back-to-images' type='submit' onClick={handleBack}>Back to Images</button>
+
+        {/* <div className='btn-container'>
             {sessionUser && sessionUser?.id === image?.userId && (
                 <>
                     <button className='delete-image-btn' onClick={handleDelete}>Delete Image</button>
@@ -102,7 +103,8 @@ function ImagePage() {
                 </>
             )}
             <button className='like-image-btn' onClick={(e) => handleLikes(e)}>Like</button>
-        </div>
+        </div> */}
+
         <div className='underimage-container'>
             <div className='comment-container'>
                     {sessionUser && (
@@ -134,7 +136,7 @@ function ImagePage() {
 
                             <div className='comment-data-container'>
                                 {/* TODO: INCLUDE COMMENTER USERNAME */}
-                                <div className='comment-timestamp-box'>Posted: {comment.createdAt}</div>
+                                {/* <div className='comment-timestamp-box'>Posted: {comment.createdAt}</div> */}
                                 {comment.userId === sessionUser?.id && sessionUser && (
                                     <div className='comment-tools-container'>
                                         <button className='edit-comment-button' disabled={true} onClick={null}>Edit</button>
@@ -147,12 +149,24 @@ function ImagePage() {
                 }
             </div>
             <div className='description-section'>
-                    <h1 className='description-username'>{sessionUser?.username}</h1>
-                    <h2 className='description-create-date'>Posted: {new Date(image?.createdAt).toLocaleDateString("en-US", options)}</h2>
-                    <h2 className='description-create-date'>Views: {image?.views}</h2>
-                    <h2 className='description-create-date'>Comments: {comments?.length}</h2>
-                    <h2 className='description-create-date'>Likes: {likes?.imageLikes}</h2>
-                    <h2 className='description-content'>{image?.description}</h2>
+                    <div className='description-username'>{null}</div>
+                    <div className='description-username'>{sessionUser?.username}</div>
+                    <div className='image-info-container'>
+                        <div className='sub-image-info-container'>
+                            <div className='description-nums'>{image?.views}</div>
+                            <div className='description-cd'>Views</div>
+                        </div>
+                        <div className='sub-image-info-container'>
+                            <div className='description-nums'>{comments?.length}</div>
+                            <div className='description-cd'>Comments</div>
+                        </div>
+                        <div className='sub-image-info-container'>
+                            <div className='description-nums'>{likes?.imageLikes}</div>
+                            <div className='description-cd'>Likes</div>
+                        </div>
+                    </div>
+                    <div className='description-create-date'>Posted: {new Date(image?.createdAt).toLocaleDateString("en-US", options)}</div>
+                    <div className='description-content'>{image?.description}</div>
             </div>
         </div>
     </>
