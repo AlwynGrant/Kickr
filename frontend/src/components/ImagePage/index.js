@@ -3,7 +3,7 @@ import { NavLink, useHistory} from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
-import { createComment, listComments, editCommentContent, deleteComment } from '../../store/comment';
+import { createComment, listComments, editCommentContent, removeComment } from '../../store/comment';
 import { Modal } from '../../context/Modal';
 import '../../reset.css'
 import './ImagePage.css'
@@ -11,9 +11,10 @@ import '../../index.css'
 
 
 function ImagePage() {
+    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const sessionUser = useSelector(state => state.session.user);
-    const image = useSelector(state => state.image.image);
-    const comments = useSelector(state => state.comment.comments);
+    const image = useSelector(state => state.images[0]);
+    const comments = useSelector(state => state.comments);
 
     const { imageId } = useParams();
     const history = useHistory();
@@ -26,7 +27,7 @@ function ImagePage() {
 
     useEffect(() => {
         if (!image) dispatch(listImage(imageId));
-    }, [dispatch, image, imageId]);
+    }, [dispatch, image?.views, imageId]);
 
     useEffect(() => {
          dispatch(listComments(imageId));
@@ -101,7 +102,7 @@ function ImagePage() {
 
     const handleCommentDelete = async (e, commentId) => {
         e.preventDefault();
-        await dispatch(deleteComment(imageId, commentId));
+        await dispatch(removeComment(imageId, commentId));
     }
 
     // ============================================================= RENDER
@@ -179,7 +180,10 @@ function ImagePage() {
             </div>
             <div className='description-section'>
                     <h1 className='description-username'>{sessionUser?.username}</h1>
-                    <h2 className='description-create-date'>Posted: {image?.createdAt}</h2>
+                    <h2 className='description-create-date'>Posted: {new Date(image?.createdAt).toLocaleDateString("en-US", options)}</h2>
+                    <h2 className='description-create-date'>Views: {image?.views}</h2>
+                    <h2 className='description-create-date'>Comments: {comments?.length}</h2>
+                    <h2 className='description-create-date'>Likes: LIKE QUANTITY HERE</h2>
                     <h2 className='description-content'>{image?.description}</h2>
             </div>
         </div>

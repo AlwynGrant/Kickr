@@ -41,7 +41,7 @@ function App() {
           <Route exact path='/image/new'>
             <NewImageForm />
           </Route>
-          <Route exact path='/image/:imageId'>
+          <Route exact path='/images/:imageId'>
             <ImagePage />
           </Route>
           <Route path='/image/:imageId/edit'>

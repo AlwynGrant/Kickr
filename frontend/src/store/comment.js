@@ -5,12 +5,14 @@ import { csrfFetch } from './csrf';
 const GET_COMMENTS = 'users/GET_COMMENTS';
 const ADD_COMMENT = 'users/ADD_COMMENT';
 const EDIT_COMMENT = 'users/EDIT_COMMENT';
+const DELETE_COMMENT = 'users/DELETE_COMMENT';
 
 // --------------------------- Defined Action Creator(s) --------------------------
 
 const getComments = (comment) => ({ type: GET_COMMENTS, comment });
 const addComment = (comment) => ({ type: ADD_COMMENT, comment });
 const editComment = (comment) => ({ type: EDIT_COMMENT, comment });
+const deleteComment = (comment) => ({ type: DELETE_COMMENT, comment });
 
 // ---------------------------  Defined Thunk(s) --------------------------------
 
@@ -18,13 +20,10 @@ const editComment = (comment) => ({ type: EDIT_COMMENT, comment });
 // create comment
 export const createComment = (newComment) => async (dispatch) => {
     const { userId, imageId, comment } = newComment;
-    const response = await csrfFetch(`/api/image/${imageId}/comment`, {
+
+    const response = await csrfFetch(`/api/images/${imageId}/new-comment`, {
         method: 'POST',
-        body: JSON.stringify({
-            userId,
-            imageId,
-            comment
-        })
+        body: JSON.stringify({ userId, imageId, comment })
     });
 
     if (response.ok) {
@@ -37,7 +36,7 @@ export const createComment = (newComment) => async (dispatch) => {
 
 // get comment(s)
 export const listComments = (imageId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/image/${imageId}`, {
+    const response = await csrfFetch(`/api/images/${imageId}/comments`, {
         method: 'GET'
     });
 
@@ -50,7 +49,7 @@ export const listComments = (imageId) => async (dispatch) => {
 
 // edit comment data
 export const editCommentContent = (imageId, updatedState, commentId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/image/${imageId}/comment/${commentId}/edit`, {
+    const response = await csrfFetch(`/api/images/${imageId}/comment/${commentId}/edit`, {
         method: 'PUT',
         body: JSON.stringify({ comment: updatedState })
     });
@@ -64,39 +63,35 @@ export const editCommentContent = (imageId, updatedState, commentId) => async (d
 
 
 // delete an comment
-export const deleteComment = (imageId, commentId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/image/${imageId}/comment/${commentId}/delete`, {
+export const removeComment = (imageId, commentId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/images/${imageId}/comment/${commentId}/delete`, {
         method: 'DELETE',
     });
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(getComments(data));
+        dispatch(deleteComment(data));
         return response;
     };
 };
 
 
 // Comment state
-const initialState = {};
+const initialState = [];
 
 
 // Comment reducer
 const commentReducer = (state = initialState, action) => {
-    let newState;
+    let newState = [ ...state ]
     switch (action.type) {
-        case ADD_COMMENT:
-            newState = Object.assign({}, state);
-            newState['comments'] = action.comment;
-            return newState;
         case GET_COMMENTS:
-            newState = Object.assign({}, state);
-            newState= action.comment;
-            return newState;
+            return [ ...action.comment ]
+        case ADD_COMMENT:
+            return [ ...newState, action.comment ]
         case EDIT_COMMENT:
-            newState = Object.assign({}, state); // TODO: REFACTOR EDIT AFTER MODAL
-            newState.comment = action.comment
-            return newState;
+            return [ newState ];
+        case DELETE_COMMENT:
+            return newState.filter((el) => action.comment.id !== el.id)
         default:
             return state;
     }

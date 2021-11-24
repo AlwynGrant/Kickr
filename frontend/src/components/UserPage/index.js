@@ -10,7 +10,7 @@ import '../../index.css'
 
 function UserPage() {
     const sessionUser = useSelector(state => state.session.user);
-    const images = useSelector(state => state.image.images);
+    const images = useSelector(state => state.images);
 
     const [largeGallery, setLargeGallery] = useState(true)
     const [smallGallery, setSmallGallery] = useState(false)
@@ -56,7 +56,7 @@ function UserPage() {
                             )}
                             {
                                 images?.map((image) => {
-                                    return <NavLink className='l-image-box' to={`/image/${image.id}`} key={image.id}>
+                                    return <NavLink className='l-image-box' to={`/images/${image.id}`} key={image.id}>
                                     <img className='l-actual-image' src={image.imageUrl} key={image.id} alt='user-img' ></img>
                                         </NavLink>
                                 })
@@ -74,7 +74,7 @@ function UserPage() {
                             )}
                             {
                                 images?.map((image) => {
-                                    return <NavLink className='s-image-box' to={`/image/${image.id}`} key={image.id}>
+                                    return <NavLink className='s-image-box' to={`/images/${image.id}`} key={image.id}>
                                     <img className='s-actual-image' src={image.imageUrl} key={image.id} alt='user-img' ></img>
                                         </NavLink>
                                 })

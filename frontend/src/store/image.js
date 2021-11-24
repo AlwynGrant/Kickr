@@ -3,7 +3,7 @@ import { csrfFetch } from './csrf';
 // --------------------------- Defined Action Types as Constants ---------------------
 
 const GET_IMAGE = 'users/GET_IMAGE'
-const GET_IMAGES = 'users/GET_IMAGE'
+const GET_IMAGES = 'users/GET_IMAGES'
 const ADD_IMAGE = 'users/ADD_IMAGE';
 const EDIT_IMAGE = 'users/EDIT_IMAGE';
 const DELETE_IMAGE = 'users/DELETE_IMAGE';
@@ -14,6 +14,7 @@ const getImage = (image) => ({ type: GET_IMAGE, image });
 const getImages = (image) => ({ type: GET_IMAGES, image });
 const addImage = (image) => ({ type: ADD_IMAGE, image });
 const editImage = (image) => ({ type: EDIT_IMAGE, image });
+const removeImage = (image) => ({ type: DELETE_IMAGE, image });
 
 // ---------------------------  Defined Thunk(s) --------------------------------
 
@@ -24,8 +25,8 @@ export const listImages = (userId) => async (dispatch) => {
     });
 
     if (response.ok) {
-        const images = await response.json();
-        dispatch(getImages(images));
+        const data = await response.json();
+        dispatch(getImages(data));
     }
 }
 
@@ -37,8 +38,9 @@ export const listImage = (imageId) => async (dispatch) => {
     });
 
     if (response.ok) {
-        const image = await response.json();
-        dispatch(getImage(image));
+        const data = await response.json();
+
+        dispatch(getImage(data));
     }
 }
 
@@ -66,7 +68,7 @@ export const createImage = (newImage) => async (dispatch) => {
 
 // edit image data
 export const editDescription = (imageId, updatedState) => async (dispatch) => {
-    const response = await csrfFetch(`/api/image/${imageId}/edit`, {
+    const response = await csrfFetch(`/api/images/${imageId}/edit`, {
         method: 'PATCH',
         body: JSON.stringify({ description: updatedState })
     });
@@ -81,41 +83,35 @@ export const editDescription = (imageId, updatedState) => async (dispatch) => {
 
 // delete an image
 export const deleteImage = (imageId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/image/${imageId}/delete`, {
+    const response = await csrfFetch(`/api/images/${imageId}/delete`, {
         method: 'DELETE',
     });
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(getImages(data));
+        dispatch(removeImage(data));
     };
 };
 
 
 // Image state
-const initialState = {};
+const initialState = [];
 
 
 // Image reducer
 const imageReducer = (state = initialState, action) => {
-    let newState;
+    let newState = [ ...state ]
     switch (action.type) {
-        case ADD_IMAGE:
-            newState = Object.assign({}, state);
-            newState['images'] = action.image;
-            return newState;
-        case GET_IMAGES:
-            newState = Object.assign({}, state);
-            newState = action.image;
-            return newState;
         case GET_IMAGE:
-            newState = Object.assign({}, state);
-            newState = action.image;
-            return newState;
+            return [ action.image ]
+        case GET_IMAGES:
+            return [ ...action.image ]
+        case ADD_IMAGE:
+            return [ ...newState, action.image ]
         case EDIT_IMAGE:
-            newState = Object.assign({}, state);
-            newState.image = action.image;
-            return newState;
+            return [ newState ]
+        case DELETE_IMAGE:
+            return newState.filter((el) => action.image.id !== el.id)
         default:
             return state;
     }
