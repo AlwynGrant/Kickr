@@ -84,8 +84,8 @@ function UserPage() {
                 }
             </div>
             <div className='sidebar'>
-                <div className='sidebar-div1'>div1</div>
-                <div className='sidebar-div2'>div2</div>
+                <div className='sidebar-div1'>FEATURED KICKS</div>
+                <div className='sidebar-div2'>HOT KICKS</div>
                 <div className='sidebar-div3'>div3</div>
             </div>
         </div>
