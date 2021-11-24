@@ -48,12 +48,6 @@ function UserPage() {
                 {
                     largeGallery &&
                         <div className='l-container'>
-                            {!images?.length && sessionUser && (
-                                <div className='l-no-image-div'>
-                                    <div>There is no activity to show right now</div> <br></br>
-                                    <div>Start by uploading an image</div>
-                                </div>
-                            )}
                             {
                                 images?.map((image) => {
                                     return <NavLink className='l-image-box' to={`/images/${image.id}`} key={image.id}>
@@ -66,12 +60,6 @@ function UserPage() {
                 {
                     smallGallery &&
                         <div className='s-container'>
-                            {!images?.length && sessionUser && (
-                                <div className='s-no-image-div'>
-                                    <div>There is no activity to show right now</div> <br></br>
-                                    <div>Start by uploading an image</div>
-                                </div>
-                            )}
                             {
                                 images?.map((image) => {
                                     return <NavLink className='s-image-box' to={`/images/${image.id}`} key={image.id}>
