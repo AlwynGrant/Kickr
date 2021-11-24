@@ -12,7 +12,7 @@ import '../../index.css'
 
 function ImagePage() {
     const sessionUser = useSelector(state => state.session.user);
-    const image = useSelector(state => state.images);
+    const image = useSelector(state => state.images[0]);
     const comments = useSelector(state => state.comments);
 
     const { imageId } = useParams();

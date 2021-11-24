@@ -26,7 +26,6 @@ export const listImages = (userId) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        console.log(data)
         dispatch(getImages(data));
     }
 }
@@ -39,8 +38,9 @@ export const listImage = (imageId) => async (dispatch) => {
     });
 
     if (response.ok) {
-        const image = await response.json();
-        dispatch(getImage(image));
+        const data = await response.json();
+
+        dispatch(getImage(data));
     }
 }
 

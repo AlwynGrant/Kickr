@@ -27,8 +27,15 @@ const validateComment = [
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const imageId = parseInt(req.params.id, 10);
     const image = await Image.findByPk(imageId);
-    if (typeof image.views !== "undefined" || image.views) image.views += 1
-    else image.views = 1
+    console.log(image.views)
+    if (!image.views) {
+        image.views+=1
+        await image.save()
+    } else {
+        image.views+=1
+        await image.save()
+    }
+    
     return res.json(image)
 }));
 
