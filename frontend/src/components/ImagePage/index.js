@@ -149,8 +149,10 @@ function ImagePage() {
                 }
             </div>
             <div className='description-section'>
-                    <div className='description-username'>{null}</div>
+                <div className='description-profile-info'>
+                    <div className='description-profile-pic'>{null}</div>
                     <div className='description-username'>{sessionUser?.username}</div>
+                </div>
                     <div className='image-info-container'>
                         <div className='sub-image-info-container'>
                             <div className='description-nums'>{image?.views}</div>
