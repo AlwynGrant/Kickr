@@ -13,6 +13,7 @@ import '../../index.css'
 
 
 function ImagePage() {
+// MINOR BUG- PROFILE DROPDOWN HIDDEN BEHIND IMAGE SECTION~!
     let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const sessionUser = useSelector(state => state.session.user);
     const image = useSelector(state => state.images[0]);
@@ -146,7 +147,7 @@ function ImagePage() {
             <div className='description-section'>
                 <div className='description-profile-info'>
                     <div className='description-profile-pic'>{null}</div>
-                    <div className='description-username'>{imageUser.username}</div>
+                    <div className='description-username'>{imageUser?.username}</div>
                 </div>
                     <div className='image-info-container'>
                         <div className='sub-image-info-container'>
