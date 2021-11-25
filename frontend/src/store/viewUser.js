@@ -2,17 +2,13 @@ import { csrfFetch } from './csrf';
 
 // --------------------------- Defined Action Types as Constants ---------------------
 
-const GET_COMMENTS = 'users/GET_COMMENTS';
-const ADD_COMMENT = 'users/ADD_COMMENT';
-const EDIT_COMMENT = 'users/EDIT_COMMENT';
-const DELETE_COMMENT = 'users/DELETE_COMMENT';
+const GET_USER = 'users/GET_USER';
+const GET_USERS = 'users/GET_USERS';
 
 // --------------------------- Defined Action Creator(s) --------------------------
 
-const getComments = (comment) => ({ type: GET_COMMENTS, comment });
-const addComment = (comment) => ({ type: ADD_COMMENT, comment });
-const editComment = (comment) => ({ type: EDIT_COMMENT, comment });
-const deleteComment = (comment) => ({ type: DELETE_COMMENT, comment });
+const getUser = (user) => ({ type: GET_USER, user });
+const getUsers = (users) => ({ type: GET_USERS, users });
 
 // ---------------------------  Defined Thunk(s) --------------------------------
 
