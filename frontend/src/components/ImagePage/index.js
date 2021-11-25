@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
 import { createComment, listComments, editCommentContent, removeComment } from '../../store/comment';
 import { createLike, getLikesNum } from '../../store/like';
+import { getOneUser, getAllUsers } from '../../store/viewUser';
 import { Modal } from '../../context/Modal';
 import '../../reset.css'
 import './ImagePage.css'
@@ -12,11 +13,14 @@ import '../../index.css'
 
 
 function ImagePage() {
+// MINOR BUG- PROFILE DROPDOWN HIDDEN BEHIND IMAGE SECTION~!
     let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const sessionUser = useSelector(state => state.session.user);
     const image = useSelector(state => state.images[0]);
     const comments = useSelector(state => state.comments);
     const likes = useSelector(state => state.likes);
+    const users = useSelector(state => state.view_user);
+    const imageUser = users.find((u) => u.id === image?.userId)
 
     const { imageId } = useParams();
     const history = useHistory();
@@ -24,7 +28,6 @@ function ImagePage() {
 
     const [newComment, setNewComment] = useState('');
     const [showModal, setShowModal] = useState(false);
-    let [edit, setEdit] = useState('');
 
     useEffect(() => {
         if (!image) dispatch(listImage(imageId));
@@ -32,7 +35,8 @@ function ImagePage() {
 
     useEffect(() => {
          dispatch(listComments(imageId));
-         dispatch(getLikesNum(imageId))
+         dispatch(getLikesNum(imageId));
+         dispatch(getAllUsers())
     }, [dispatch, imageId]);
 
 
@@ -143,7 +147,7 @@ function ImagePage() {
             <div className='description-section'>
                 <div className='description-profile-info'>
                     <div className='description-profile-pic'>{null}</div>
-                    <div className='description-username'>{sessionUser?.username}</div>
+                    <div className='description-username'>{imageUser?.username}</div>
                 </div>
                     <div className='image-info-container'>
                         <div className='sub-image-info-container'>

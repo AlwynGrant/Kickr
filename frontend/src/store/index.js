@@ -4,12 +4,14 @@ import sessionReducer from './session';
 import images from './image';
 import comments from './comment';
 import likes from './like';
+import view_user from './viewUser';
 
 const rootReducer = combineReducers({
    session: sessionReducer,
    images,
    comments,
-   likes
+   likes,
+   view_user
 });
 
 let enhancer;
