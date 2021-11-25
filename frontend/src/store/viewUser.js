@@ -44,15 +44,14 @@ export const getAllUsers = () => async (dispatch) => {
 // view user state
 const initialState = [];
 
-
 // view user reducer
 const viewUserReducer = (state = initialState, action) => {
     let newState = [ ...state ]
     switch (action.type) {
         case GET_USER:
-            return [ action.comment ]
+            return [ action.user ]
         case GET_USERS:
-            return [ ...action.comment ]
+            return [ ...action.users ]
         default:
             return state;
     }

@@ -44,15 +44,15 @@ router.post('/sign-up', asyncHandler(async (req, res) => {
 
 // get all users
 router.get("/", asyncHandler(async (req, res) => {
-    const users = User.findAll();
+    const users = await User.findAll();
     return res.json(users)
-}))
+}));
 
 // get one user
 router.get("/:userId(\\d+)", asyncHandler(async (req, res) => {
     const userId = req.params.userId;
-    const user = User.findOne({where: { userId: userId }});
+    const user = await User.findOne({where: { userId: userId }});
     return res.json(user);
-}))
+}));
 
 module.exports = router;
