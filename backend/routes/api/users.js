@@ -30,7 +30,7 @@ const validateSignup = [
 
 
 // Sign up
-router.post('/', asyncHandler(async (req, res) => {
+router.post('/sign-up', asyncHandler(async (req, res) => {
         const { email, password, username } = req.body;
         const user = await User.signup({ email, username, password });
 
@@ -41,5 +41,7 @@ router.post('/', asyncHandler(async (req, res) => {
         });
     }),
 );
+
+router.get("/")
 
 module.exports = router;

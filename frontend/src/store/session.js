@@ -10,7 +10,7 @@ const removeUser = () => { return { type: REMOVE_USER } };
 
 export const signup = (user) => async (dispatch) => {
     const { username, email, password } = user;
-    const response = await csrfFetch("/api/user", {
+    const response = await csrfFetch("/api/user/sign-up", {
         method: "POST",
         body: JSON.stringify({
             username,
