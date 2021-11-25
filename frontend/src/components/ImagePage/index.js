@@ -18,7 +18,8 @@ function ImagePage() {
     const image = useSelector(state => state.images[0]);
     const comments = useSelector(state => state.comments);
     const likes = useSelector(state => state.likes);
-    const users = useSelector(state => state.viewUser);
+    const users = useSelector(state => state.view_user);
+    const imageUser = users.find((u) => u.id === image?.userId)
 
     const { imageId } = useParams();
     const history = useHistory();
@@ -145,7 +146,7 @@ function ImagePage() {
             <div className='description-section'>
                 <div className='description-profile-info'>
                     <div className='description-profile-pic'>{null}</div>
-                    <div className='description-username'>{sessionUser?.username}</div>
+                    <div className='description-username'>{imageUser.username}</div>
                 </div>
                     <div className='image-info-container'>
                         <div className='sub-image-info-container'>

@@ -43,6 +43,7 @@ export const getAllUsers = () => async (dispatch) => {
 
 // view user state
 const initialState = [];
+// GOAL TURN THIS INTO OBJECT/HASHMAP FOR FASTER LOOK UP TIME
 
 // view user reducer
 const viewUserReducer = (state = initialState, action) => {
