@@ -160,8 +160,6 @@
     height: 100%;
     width: 30%;
     min-width:300px;
-    border-left: 1px solid black;
-    background-color: #eff4f5;
     overflow-x: hidden;
 }
 
@@ -186,7 +184,6 @@
 }
 
 .description-username {
-    /* padding: 10px 20px; */
     text-transform: capitalize;
     overflow-wrap: break-word;
     display: flex;
@@ -219,7 +216,7 @@
 /* NEW COMMENT SECTION */
 
 .comment-container {
-    background-color: #eff4f5;
+    border-right: 1px solid black;
     display: flex;
     flex-direction: column;
     align-items: center;
