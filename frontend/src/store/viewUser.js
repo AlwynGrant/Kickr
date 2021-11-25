@@ -43,55 +43,22 @@ export const listComments = (imageId) => async (dispatch) => {
     }
 }
 
-// edit comment data
-export const editCommentContent = (imageId, updatedState, commentId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/images/${imageId}/comment/${commentId}/edit`, {
-        method: 'PUT',
-        body: JSON.stringify({ comment: updatedState })
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        dispatch(editComment(data));
-        return response;
-    };
-};
-
-
-// delete an comment
-export const removeComment = (imageId, commentId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/images/${imageId}/comment/${commentId}/delete`, {
-        method: 'DELETE',
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        dispatch(deleteComment(data));
-        return response;
-    };
-};
-
-
-// Comment state
+// view user state
 const initialState = [];
 
 
-// Comment reducer
-const commentReducer = (state = initialState, action) => {
+// view user reducer
+const viewUserReducer = (state = initialState, action) => {
     let newState = [ ...state ]
     switch (action.type) {
-        case GET_COMMENTS:
+        case GET_USER:
+            return [ action.comment ]
+        case GET_USERS:
             return [ ...action.comment ]
-        case ADD_COMMENT:
-            return [ ...newState, action.comment ]
-        case EDIT_COMMENT:
-            return [ newState ];
-        case DELETE_COMMENT:
-            return newState.filter((el) => action.comment.id !== el.id)
         default:
             return state;
     }
 }
 
 // Export the reducer
-export default commentReducer;
+export default viewUserReducer;
