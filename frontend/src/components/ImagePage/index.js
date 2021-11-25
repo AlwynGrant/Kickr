@@ -84,7 +84,7 @@ function ImagePage() {
     return (
     <>
         <div className='user-image-container'>
-                <button className='back-to-images' type='submit' onClick={handleBack}>Back to Images</button>
+                <button className='back-to-images' type='submit' onClick={handleBack}>Back</button>
                 <div className='user-image-box'>
                 <img className='user-image' src={image?.imageUrl} alt='kick' onClick={() => setShowModal(true)}></img>
                     {showModal && (
@@ -125,25 +125,17 @@ function ImagePage() {
                     comments?.map((comment) => {
                         return <div className={`comment-box ${comment.id}`} id={comment.id} key={comment.id}>
                             <div className='comment-content-container'>
-                                <textarea
-                                    disabled={true}
-                                    className={`comment-content-box com${comment.id}`}
-                                    value={comment.comment} // FIX & REFACTOR
-                                    onChange={(e) => setEdit(e.target.value)}
-                                >
-                                </textarea>
+                                <div className={`comment-content-box com${comment.id}`}> {comment.comment} </div>
                             </div>
 
-                            <div className='comment-data-container'>
-                                {/* TODO: INCLUDE COMMENTER USERNAME */}
-                                {/* <div className='comment-timestamp-box'>Posted: {comment.createdAt}</div> */}
+                            {/* <div className='comment-data-container'>
                                 {comment.userId === sessionUser?.id && sessionUser && (
                                     <div className='comment-tools-container'>
                                         <button className='edit-comment-button' disabled={true} onClick={null}>Edit</button>
                                         <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
                                     </div>
                                 )}
-                            </div>
+                            </div> */}
                         </div>
                     })
                 }
@@ -167,7 +159,7 @@ function ImagePage() {
                             <div className='description-cd'>Likes</div>
                         </div>
                     </div>
-                    <div className='description-create-date'>Posted: {new Date(image?.createdAt).toLocaleDateString("en-US", options)}</div>
+                    <div className='description-create-date'>Uploaded on {new Date(image?.createdAt).toLocaleDateString("en-US", options)}</div>
                     <div className='description-content'>{image?.description}</div>
             </div>
         </div>
