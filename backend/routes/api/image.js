@@ -28,7 +28,7 @@ const validateComment = [
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const imageId = parseInt(req.params.id, 10);
     const image = await Image.findByPk(imageId);
-    console.log(image.views)
+
     if (!image.views) {
         image.views+=1
         await image.save()
@@ -144,26 +144,26 @@ router.delete('/:imageId(\\d+)/comment/:commentId(\\d+)/delete', asyncHandler(as
 
 // get likes
 router.get('/:imageId/get-likes', asyncHandler(async (req, res) => {
-    const imageId = req.params.id;
+    const imageId = req.params.imageId;
     const imageLikes = await Like.findAll({ where: { imageId }})
-    return res.json({ likes: imageLikes.length })
+    return res.json(imageLikes.length)
 }))
 
 // like or dislike image
 router.post('/:imageId/like', asyncHandler(async (req, res) => {
-    const imageId = req.params.id;
-    const { userId } = req.session.auth;
+    const imageId = req.params.imageId;
+    const { userId } = req.body;
 
-    const like = await Like.findOne({ where: { imageId, userId }})
+    const like = await Like.findOne({ where: { imageId: imageId, userId: userId }})
 
     if (like) {
         await like.destroy();
-        const imageLikes = await Like.findAll({ where: { imageId }})
-        return res.json({ likes: imageLikes.length })
+        const imageLikes = await Like.findAll({ where: { imageId: imageId }})
+        return res.json(imageLikes.length)
     } else {
         await Like.create({ userId, imageId })
-        const imageLikes = await Like.findAll({ where: { imageId }})
-        return res.json({ likes: imageLikes.length })
+        const imageLikes = await Like.findAll({ where: { imageId: imageId }})
+        return res.json(imageLikes.length)
     }
 }))
 

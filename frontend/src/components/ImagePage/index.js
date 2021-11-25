@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
 import { createComment, listComments, editCommentContent, removeComment } from '../../store/comment';
+import { createLike, getLikesNum } from '../../store/like';
 import { Modal } from '../../context/Modal';
 import '../../reset.css'
 import './ImagePage.css'
@@ -15,6 +16,7 @@ function ImagePage() {
     const sessionUser = useSelector(state => state.session.user);
     const image = useSelector(state => state.images[0]);
     const comments = useSelector(state => state.comments);
+    const likes = useSelector(state => state.likes);
 
     const { imageId } = useParams();
     const history = useHistory();
@@ -23,7 +25,6 @@ function ImagePage() {
     const [newComment, setNewComment] = useState('');
     const [showModal, setShowModal] = useState(false);
     let [edit, setEdit] = useState('');
-    const [editableDiv, setEditableDiv] = useState(false);
 
     useEffect(() => {
         if (!image) dispatch(listImage(imageId));
@@ -31,6 +32,7 @@ function ImagePage() {
 
     useEffect(() => {
          dispatch(listComments(imageId));
+         dispatch(getLikesNum(imageId))
     }, [dispatch, imageId]);
 
 
@@ -63,41 +65,6 @@ function ImagePage() {
                 .then(setNewComment(''));
         }
 
-    // ============================================================= EDIT COMMENT
-
-    // handleValue
-    // const handleValue = (commentId) => {
-    //     const comment = edit.find(comment => comment.id === commentId);
-    //     return comment
-    // }
-
-    //  Make the div editable
-    const handleCommentEditable = async (e, comment, commentId) => {
-        e.preventDefault();
-        const commentContentBox = document.querySelector(`.com${commentId}`);
-        commentContentBox.removeAttribute('disabled');
-        setEditableDiv(true);
-    }
-
-    // Cancel editable div
-    const handleCancelCommentEdit = async (e, comment, commentId) => {
-        e.preventDefault();
-        const commentContentBox = document.querySelector(`.com${commentId}`);
-        commentContentBox.setAttribute('disabled', true);
-        commentContentBox.innerText = comment;
-        setEditableDiv(false);
-    }
-
-    // Submit edit
-    const handleCommentEdit = async (e, comment, commentId) => {
-        e.preventDefault();
-        const commentContentBox = document.querySelector(`.com${commentId}`);
-        await dispatch(editCommentContent(imageId, edit, commentId));
-        commentContentBox.setAttribute('disabled', true);
-        setEditableDiv(false);
-        // setEdit(comment);
-    }
-
     // ============================================================= DELETE COMMENT
 
     const handleCommentDelete = async (e, commentId) => {
@@ -105,11 +72,19 @@ function ImagePage() {
         await dispatch(removeComment(imageId, commentId));
     }
 
-    // ============================================================= RENDER
 
+    // ============================================================= LIKES
+
+    const handleLikes = (e) => {
+        e.preventDefault();
+        dispatch(createLike(imageId, sessionUser?.id))
+    }
+
+    // ============================================================= RENDER
     return (
     <>
         <div className='user-image-container'>
+                <button className='back-to-images' type='submit' onClick={handleBack}>Back</button>
                 <div className='user-image-box'>
                 <img className='user-image' src={image?.imageUrl} alt='kick' onClick={() => setShowModal(true)}></img>
                     {showModal && (
@@ -119,16 +94,17 @@ function ImagePage() {
                     )}
             </div>
         </div>
-        <div className='btn-container'>
-            <button className='back-to-images' type='submit' onClick={handleBack}>Back to Images</button>
+
+        {/* <div className='btn-container'>
             {sessionUser && sessionUser?.id === image?.userId && (
                 <>
                     <button className='delete-image-btn' onClick={handleDelete}>Delete Image</button>
                     <NavLink to={`/image/${image?.id}/edit`} className='edit-image-btn'>Edit Description</NavLink>
                 </>
             )}
+            <button className='like-image-btn' onClick={(e) => handleLikes(e)}>Like</button>
+        </div> */}
 
-        </div>
         <div className='underimage-container'>
             <div className='comment-container'>
                     {sessionUser && (
@@ -149,42 +125,42 @@ function ImagePage() {
                     comments?.map((comment) => {
                         return <div className={`comment-box ${comment.id}`} id={comment.id} key={comment.id}>
                             <div className='comment-content-container'>
-                                <textarea
-                                    disabled={true}
-                                    className={`comment-content-box com${comment.id}`}
-                                    value={comment.comment} // FIX & REFACTOR
-                                    onChange={(e) => setEdit(e.target.value)}
-                                >
-                                </textarea>
+                                <div className={`comment-content-box com${comment.id}`}> {comment.comment} </div>
                             </div>
 
-                            <div className='comment-data-container'>
-                                {/* TODO: INCLUDE COMMENTER USERNAME */}
-                                <div className='comment-timestamp-box'>Posted: {comment.createdAt}</div>
-                                {comment.userId === sessionUser?.id && sessionUser && !editableDiv &&  (
+                            {/* <div className='comment-data-container'>
+                                {comment.userId === sessionUser?.id && sessionUser && (
                                     <div className='comment-tools-container'>
-                                        <button className='edit-comment-button' disabled={true} onClick={(e) => handleCommentEditable(e, comment.comment, comment.id)}>Edit</button>
+                                        <button className='edit-comment-button' disabled={true} onClick={null}>Edit</button>
                                         <button className='delete-comment-button' onClick={(e) => handleCommentDelete(e, comment.id)}>Delete</button>
                                     </div>
                                 )}
-                                {comment.userId === sessionUser?.id && sessionUser && editableDiv && (
-                                    <div className='comment-tools-container'>
-                                        <button className='cancel-comment-button' onClick={(e) => handleCancelCommentEdit(e, comment.comment, comment.id)}>Cancel</button>
-                                        <button className='submit-comment-button' onClick={(e) => handleCommentEdit(e, comment.comment, comment.id)}>Submit</button>
-                                    </div>
-                                )}
-                            </div>
+                            </div> */}
                         </div>
                     })
                 }
             </div>
             <div className='description-section'>
-                    <h1 className='description-username'>{sessionUser?.username}</h1>
-                    <h2 className='description-create-date'>Posted: {new Date(image?.createdAt).toLocaleDateString("en-US", options)}</h2>
-                    <h2 className='description-create-date'>Views: {image?.views}</h2>
-                    <h2 className='description-create-date'>Comments: {comments?.length}</h2>
-                    <h2 className='description-create-date'>Likes: LIKE QUANTITY HERE</h2>
-                    <h2 className='description-content'>{image?.description}</h2>
+                <div className='description-profile-info'>
+                    <div className='description-profile-pic'>{null}</div>
+                    <div className='description-username'>{sessionUser?.username}</div>
+                </div>
+                    <div className='image-info-container'>
+                        <div className='sub-image-info-container'>
+                            <div className='description-nums'>{image?.views}</div>
+                            <div className='description-cd'>Views</div>
+                        </div>
+                        <div className='sub-image-info-container'>
+                            <div className='description-nums'>{comments?.length}</div>
+                            <div className='description-cd'>Comments</div>
+                        </div>
+                        <div className='sub-image-info-container'>
+                            <div className='description-nums'>{likes?.imageLikes}</div>
+                            <div className='description-cd'>Likes</div>
+                        </div>
+                    </div>
+                    <div className='description-create-date'>Uploaded on {new Date(image?.createdAt).toLocaleDateString("en-US", options)}</div>
+                    <div className='description-content'>{image?.description}</div>
             </div>
         </div>
     </>
