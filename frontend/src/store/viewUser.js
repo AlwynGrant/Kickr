@@ -13,32 +13,30 @@ const getUsers = (users) => ({ type: GET_USERS, users });
 // ---------------------------  Defined Thunk(s) --------------------------------
 
 
-// create comment
-export const createComment = (newComment) => async (dispatch) => {
-    const { userId, imageId, comment } = newComment;
+// get one user
+export const getOneUser = (userId) => async (dispatch) => {
 
-    const response = await csrfFetch(`/api/images/${imageId}/new-comment`, {
-        method: 'POST',
-        body: JSON.stringify({ userId, imageId, comment })
+    const response = await csrfFetch(`/api/user/${userId}`, {
+        method: 'GET',
     });
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(addComment(data));
+        dispatch(getUser(data));
         return response;
     };
 };
 
 
-// get comment(s)
-export const listComments = (imageId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/images/${imageId}/comments`, {
+// get all users
+export const getAllUsers = () => async (dispatch) => {
+    const response = await csrfFetch(`/api/user`, {
         method: 'GET'
     });
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(getComments(data));
+        dispatch(getUsers(data));
         return response;
     }
 }
