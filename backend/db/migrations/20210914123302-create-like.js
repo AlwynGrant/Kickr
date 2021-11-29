@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Comments', {
+    return queryInterface.createTable('Likes', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,18 +9,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: 'Users' }
+        references: { model: 'Users' },
+        onDelete: 'CASCADE',
+        hooks: true
       },
       imageId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: 'Images' }
-      },
-      comment: {
-        allowNull: false,
-        type: Sequelize.STRING(500)
+        references: { model: 'Images' },
+        onDelete: 'CASCADE',
+        hooks: true
       },
       createdAt: {
         allowNull: false,

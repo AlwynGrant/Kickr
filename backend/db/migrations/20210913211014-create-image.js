@@ -6,16 +6,27 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: 'Users' }
+        references: { model: 'Users', key: 'id' },
+        onDelete: 'CASCADE',
+        hooks: true
+      },
+      imgUser: {
+        allowNull: false,
+        type: Sequelize.STRING(30),
+        references: { model: 'Users', key: 'username' },
+        onDelete: 'CASCADE',
+        hooks: true
       },
       albumId: {
         type: Sequelize.INTEGER,
-        references: { model: 'Albums' }
+        references: { model: 'Albums' },
+        onDelete: 'CASCADE',
+        hooks: true
       },
       imageUrl: {
         allowNull: false,
