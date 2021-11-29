@@ -20,7 +20,6 @@ function ImagePage() {
     const comments = useSelector(state => state.comments);
     const likes = useSelector(state => state.likes);
     const users = useSelector(state => state.view_user);
-    // const viewUser = 
 
     const { imageId } = useParams();
     const history = useHistory();
@@ -30,8 +29,8 @@ function ImagePage() {
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
-        if (!image) dispatch(listImage(imageId));
-    }, [dispatch, image?.views, imageId]);
+         dispatch(listImage(imageId));
+    }, [dispatch]);
 
     useEffect(() => {
          dispatch(listComments(imageId));
@@ -145,8 +144,8 @@ function ImagePage() {
             </div>
             <div className='description-section'>
                 <div className='description-profile-info'>
-                    <div className='description-profile-pic'>{null}</div>
-                    <div className='description-username'>USERNAME_PLACEHOLDER</div>
+                    <img className='description-profile-pic' src={users[image?.imgUser]?.profileImg}/>
+                    <div className='description-username'>{image?.imgUser}</div>
                 </div>
                     <div className='image-info-container'>
                         <div className='sub-image-info-container'>
