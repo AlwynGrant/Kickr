@@ -42,17 +42,18 @@ export const getAllUsers = () => async (dispatch) => {
 }
 
 // view user state
-const initialState = [];
-// GOAL TURN THIS INTO OBJECT/HASHMAP FOR FASTER LOOK UP TIME
+const initialState = {};
+
 
 // view user reducer
 const viewUserReducer = (state = initialState, action) => {
     let newState = [ ...state ]
     switch (action.type) {
-        case GET_USER:
-            return [ action.user ]
         case GET_USERS:
-            return [ ...action.users ]
+            action.users.forEach((user) => {
+                newState[user.username] = user
+            })
+            return newState
         default:
             return state;
     }
