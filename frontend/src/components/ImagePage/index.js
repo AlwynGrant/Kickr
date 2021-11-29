@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
 import { createComment, listComments, editCommentContent, removeComment } from '../../store/comment';
 import { createLike, getLikesNum } from '../../store/like';
-import { getAllUsers } from '../../store/viewUser';
+
 import { Modal } from '../../context/Modal';
 import '../../reset.css'
 import './ImagePage.css'
@@ -20,6 +20,8 @@ function ImagePage() {
     const comments = useSelector(state => state.comments);
     const likes = useSelector(state => state.likes);
     const users = useSelector(state => state.view_user);
+    // const viewUser = 
+    console.log(users.demodude.id)
 
     const { imageId } = useParams();
     const history = useHistory();
@@ -35,7 +37,6 @@ function ImagePage() {
     useEffect(() => {
          dispatch(listComments(imageId));
          dispatch(getLikesNum(imageId));
-         dispatch(getAllUsers())
     }, [dispatch, imageId]);
 
 
