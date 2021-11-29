@@ -47,9 +47,10 @@ const initialState = {};
 
 // view user reducer
 const viewUserReducer = (state = initialState, action) => {
-    let newState = [ ...state ]
+    let newState;
     switch (action.type) {
         case GET_USERS:
+            newState = Object.assign({}, state)
             action.users.forEach((user) => {
                 newState[user.username] = user
             })
