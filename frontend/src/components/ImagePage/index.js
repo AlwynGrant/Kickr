@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { listImage, deleteImage } from '../../store/image';
 import { createComment, listComments, editCommentContent, removeComment } from '../../store/comment';
 import { createLike, getLikesNum } from '../../store/like';
-import { getOneUser, getAllUsers } from '../../store/viewUser';
+
 import { Modal } from '../../context/Modal';
 import '../../reset.css'
 import './ImagePage.css'
@@ -20,7 +20,6 @@ function ImagePage() {
     const comments = useSelector(state => state.comments);
     const likes = useSelector(state => state.likes);
     const users = useSelector(state => state.view_user);
-    const imageUser = users.find((u) => u.id === image?.userId)
 
     const { imageId } = useParams();
     const history = useHistory();
@@ -30,13 +29,12 @@ function ImagePage() {
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
-        if (!image) dispatch(listImage(imageId));
-    }, [dispatch, image?.views, imageId]);
+         dispatch(listImage(imageId));
+    }, [dispatch]);
 
     useEffect(() => {
          dispatch(listComments(imageId));
          dispatch(getLikesNum(imageId));
-         dispatch(getAllUsers())
     }, [dispatch, imageId]);
 
 
@@ -146,16 +144,16 @@ function ImagePage() {
             </div>
             <div className='description-section'>
                 <div className='description-profile-info'>
-                    <div className='description-profile-pic'>{null}</div>
-                    <div className='description-username'>{imageUser?.username}</div>
+                    <img className='description-profile-pic' src={users[image?.imgUser]?.profileImg}/>
+                    <div className='description-username'>{image?.imgUser}</div>
                 </div>
                     <div className='image-info-container'>
                         <div className='sub-image-info-container'>
-                            <div className='description-nums'>{image?.views}</div>
+                            <div className='description-nums'>{image?.views.toLocaleString("en-US")}</div>
                             <div className='description-cd'>Views</div>
                         </div>
                         <div className='sub-image-info-container'>
-                            <div className='description-nums'>{comments?.length}</div>
+                            <div className='description-nums'>{comments?.length.toLocaleString("en-US")}</div>
                             <div className='description-cd'>Comments</div>
                         </div>
                         <div className='sub-image-info-container'>
