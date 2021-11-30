@@ -149,11 +149,11 @@ function ImagePage() {
                 </div>
                     <div className='image-info-container'>
                         <div className='sub-image-info-container'>
-                            <div className='description-nums'>{image?.views}</div>
+                            <div className='description-nums'>{image?.views.toLocaleString("en-US")}</div>
                             <div className='description-cd'>Views</div>
                         </div>
                         <div className='sub-image-info-container'>
-                            <div className='description-nums'>{comments?.length}</div>
+                            <div className='description-nums'>{comments?.length.toLocaleString("en-US")}</div>
                             <div className='description-cd'>Comments</div>
                         </div>
                         <div className='sub-image-info-container'>
