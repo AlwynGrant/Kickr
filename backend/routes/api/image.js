@@ -155,14 +155,19 @@ router.post('/:imageId/like', asyncHandler(async (req, res) => {
     const { userId } = req.body;
 
     const like = await Like.findOne({ where: { imageId: imageId, userId: userId }})
+    const image = await Image.findOne({ where: { id: imageId }})
 
     if (like) {
         await like.destroy();
         const imageLikes = await Like.findAll({ where: { imageId: imageId }})
+        image.likes = Number(imagelikes.length);
+        image.save();
         return res.json(imageLikes.length)
     } else {
         await Like.create({ userId, imageId })
         const imageLikes = await Like.findAll({ where: { imageId: imageId }})
+        image.likes = Number(imagelikes.length);
+        image.save();
         return res.json(imageLikes.length)
     }
 }))

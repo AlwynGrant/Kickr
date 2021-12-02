@@ -35,6 +35,9 @@ module.exports = {
       views: {
         type: Sequelize.INTEGER
       },
+      likes: {
+        type: Sequelize.INTEGER
+      },
       title: {
         allowNull: false,
         type: Sequelize.STRING(100)
