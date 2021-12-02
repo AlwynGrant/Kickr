@@ -52,6 +52,9 @@ function App() {
           <Route path='/image/:imageId/edit'>
             <EditFormPage />
           </Route>
+          <Route path='/about'>
+            
+          </Route>
           <Route>
             Page Not Found - Here's a link to the home page
           </Route>
