@@ -21,6 +21,8 @@ function ImagePage() {
     const likes = useSelector(state => state.likes);
     const users = useSelector(state => state.view_user);
 
+    console.log(image?.likes)
+
     const { imageId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();

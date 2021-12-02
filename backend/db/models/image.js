@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     albumId: DataTypes.INTEGER,
     imageUrl: DataTypes.STRING,
     views: DataTypes.INTEGER,
+    views: DataTypes.INTEGER,
     title: DataTypes.STRING(100),
     description: DataTypes.STRING(1000)
   }, {});

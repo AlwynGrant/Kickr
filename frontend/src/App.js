@@ -12,6 +12,7 @@ import UserPage from "./components/UserPage";
 import NewImageForm from "./components/NewImageForm";
 import ImagePage from "./components/ImagePage";
 import EditFormPage from "./components/EditFormPage";
+import AboutPage from "./components/AboutPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,6 +52,9 @@ function App() {
           </Route>
           <Route path='/image/:imageId/edit'>
             <EditFormPage />
+          </Route>
+          <Route path='/about'>
+            <AboutPage />
           </Route>
           <Route>
             Page Not Found - Here's a link to the home page
