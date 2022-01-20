@@ -16,7 +16,7 @@ module.exports = {
       },
       {
         userId: 2,
-        imageUrl: "https://kickrbucket.s3.us-west-1.amazonaws.com/1631916484820.PNG" ,
+        imageUrl: "https://kickrbucket.s3.us-west-1.amazonaws.com/1632153957304.jpg" ,
         imgUser: "FakeUser1",
         views: 405,
         likes: 0,
