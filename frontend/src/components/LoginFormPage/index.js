@@ -27,7 +27,7 @@ function LoginFormPage() {
 
     const handleSubmitDEMO = async (e) => {
         e.preventDefault();
-        await dispatch(sessionActions.login({ credential: 'demodude', password: 'password' }));
+        dispatch(sessionActions.login({ credential: 'demodude', password: 'password' }));
     }
 
     return (

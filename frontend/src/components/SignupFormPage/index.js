@@ -29,6 +29,11 @@ function SignupFormPage() {
         return setErrors(['Confirm Password field must be the same as the Password field']);
     };
 
+    const handleSubmitDEMO = async (e) => {
+        e.preventDefault();
+        dispatch(sessionActions.login({ credential: 'demodude', password: 'password' }));
+    }
+
     return (
     <>
         <div className='signup-bg'></div>
@@ -84,6 +89,7 @@ function SignupFormPage() {
                         />
                     </label>
                     <button className='submit-signup' type="submit">Sign Up</button>
+                    <NavLink className='submit-demo' to='/' onClick={handleSubmitDEMO}>Demo User</NavLink>
                     <label className='singup-footer'>
                         Already a Kicker? <NavLink className='login-redirect' to='/login'>Log in here.</NavLink>
                     </label>
