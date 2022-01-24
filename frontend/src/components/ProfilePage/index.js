@@ -11,7 +11,7 @@ import '../../reset.css'
 import './ImagePage.css'
 import '../../index.css'
 
-
+// NEEDS TO BE REVISED
 function ImagePage() {
     // MINOR BUG- PROFILE DROPDOWN HIDDEN BEHIND IMAGE SECTION~!
     let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };

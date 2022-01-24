@@ -6,7 +6,7 @@ import { listImage, deleteImage } from '../../store/image';
 import { createComment, listComments, editCommentContent, removeComment } from '../../store/comment';
 import { createLike, getLikesNum } from '../../store/like';
 
-import { Modal } from '../../context/Modal';
+
 import '../../reset.css'
 import './ImagePage.css'
 import '../../index.css'
@@ -28,7 +28,6 @@ function ImagePage() {
     const dispatch = useDispatch();
 
     const [newComment, setNewComment] = useState('');
-    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
          dispatch(listImage(imageId));
@@ -65,7 +64,7 @@ function ImagePage() {
                 imageId: imageId,
                 comment: newComment
             };
-            await dispatch(createComment(addComment))
+             dispatch(createComment(addComment))
                 .then(setNewComment(''));
         }
 
@@ -90,12 +89,7 @@ function ImagePage() {
         <div className='user-image-container'>
                 <button className='back-to-images' type='submit' onClick={handleBack}>Back</button>
                 <div className='user-image-box'>
-                <img className='user-image' src={image?.imageUrl} alt='kick' onClick={() => setShowModal(true)}></img>
-                    {showModal && (
-                        <Modal onClose={() => setShowModal(false)}>
-                            <img className='user-modal-image' src={image?.imageUrl} alt='kick' onClick={() => setShowModal(true)}></img>
-                        </Modal>
-                    )}
+                <img className='user-image' src={image?.imageUrl} alt='kick'></img>
             </div>
         </div>
 
