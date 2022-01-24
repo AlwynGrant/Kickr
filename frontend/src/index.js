@@ -10,7 +10,7 @@ import App from './App';
 import * as sessionActions from './store/session';
 import * as newImageActions from './store/image';
 import * as commentActions from './store/comment';
-import { ModalProvider } from "./context/Modal";
+
 
 import configureStore from './store';
 
@@ -29,11 +29,9 @@ if (process.env.NODE_ENV !== 'production') {
 function Root() {
   return (
     <Provider store={store}>
-      <ModalProvider>
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </ModalProvider>
     </Provider>
   );
 }

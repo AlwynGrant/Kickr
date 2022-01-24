@@ -8,8 +8,6 @@ import './NewImage.css'
 
 function NewImageForm() {
     const fileInputRef = useRef();
-    const modalImageRef = useRef();
-    const modalRef = useRef();
     const history = useHistory();
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
@@ -77,8 +75,6 @@ function NewImageForm() {
         return fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length) || fileName;
     }
 
-    // TODO: Limit upload of files over a specific file size.
-
     // ========================================== FILE VALIDATORS
 
     const dragOver = (e) => {
@@ -99,23 +95,6 @@ function NewImageForm() {
         if (files.length) handleFiles(files)
 
     }
-
-    // ========================================== MODAL
-
-    const openImageModal = (file) => {
-        const reader = new FileReader(); // async file/data buffer reader
-        modalRef.current.style.display = "block";
-        reader.readAsDataURL(file);
-        reader.onload = function (e) {
-            modalImageRef.current.style.backgroundImage = `url(${e.target.result})`;
-        }
-    }
-
-    const closeModal = () => {
-        modalRef.current.style.display = "none";
-        modalImageRef.current.style.backgroundImage = 'none';
-    }
-
 
     // ========================================== HIDDEN INPUT
 
@@ -167,13 +146,6 @@ function NewImageForm() {
                     </label> */}
                     {/* <button className='file-upload-btn' onClick={handleSubmit} disabled={!selectedFiles.length || errorMessage !== ''}>UPLOAD IMAGE</button> */}
                 </div>
-            </div>
-            <div className="modal" ref={modalRef}>
-                <div className="overlay"></div>
-                <span className="close" onClick={(() => closeModal())}>
-                    <p className='x-button'>x</p>
-                </span>
-                <div className="modal-image" ref={modalImageRef}></div>
             </div>
         </div>
 
